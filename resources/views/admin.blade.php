@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="#" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>POS</title>
+    <title>Admin-DG Gruppe</title>
 
 </head>
 <body>
