@@ -5831,7 +5831,7 @@ __webpack_require__.r(__webpack_exports__);
 var Navbar = function Navbar() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
-      children: "Nav Bar"
+      children: "Navigation Bar"
     })
   });
 };
