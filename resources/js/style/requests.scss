@@ -1,0 +1,115 @@
+@import "variables";
+@import "mixin";
+
+.requests {
+    @include container;
+    text-align: left;
+
+    .statCards {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        width: 70vw;
+        @media screen and (max-width: $bp-mobile) {
+            width: 100vw;
+            grid-template-columns: auto;
+        }
+    }
+
+    .filters {
+        margin: 2rem 0 2rem 0;
+        display: grid;
+        grid-template-columns: auto auto;
+        width: 30vw;
+        @media screen and (max-width: $bp-mobile) {
+            width: 100vw;
+            margin: 2vh;
+        }
+        grid-gap: 1rem;
+
+        h5 {
+            margin-bottom: 10px;
+            color: #777777;
+            @media screen and (max-width: $bp-mobile) {
+                font-size: 2vh;
+            }
+        }
+
+        .yearInput, .periodInput {
+            width: 12.5vw;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid $borderColor;
+            padding: .7rem;
+            border-radius: 8px;
+            color: #777777;
+
+            p, option {
+                font-size: 2vh;
+            }
+
+            @media screen and (max-width: $bp-mobile) {
+                width: 30vw;
+                font-size: 2vh;
+            }
+        }
+
+        .periodFilter{
+            margin-left: 15vw;
+            @media screen and (max-width: $bp-mobile) {
+                margin-left: 50vw;
+            }
+        }
+    }
+
+    .requestsList {
+        border: 1px solid $borderColor;
+        margin-bottom: 2rem;
+
+        .tableContainer {
+            margin: 1rem 1rem 2rem 1.5rem;
+
+            h1 {
+                margin: 0 0 1rem 0;
+                font-size: 3vh;
+                font-weight: 700;
+                color: #170303;
+            }
+
+            table {
+                width: 70vw;
+                @media screen and (max-width: $bp-mobile) {
+                    width: 95vw;
+                }
+
+                td, th {
+                    padding: 1rem 2rem 1rem 2rem;
+                    font-size: 2vh;
+                }
+
+                th {
+                    color: grey;
+                }
+
+                .name {
+                    color: $blue;
+                    text-decoration: underline;
+                }
+            }
+
+            .listBottom {
+                margin: 2rem 0 2rem 0;
+
+                a {
+                    padding: .4rem 1rem .4rem 1rem;
+                    border: 1px solid $blue;
+                    font-size: 2vh;
+                    @include centerItems;
+                    color: $blue;
+                    border-radius: 8px;
+                    font-weight: 700;
+                }
+            }
+
+        }
+    }
+}

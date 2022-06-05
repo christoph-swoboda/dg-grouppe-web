@@ -1,5 +1,14 @@
 @import "variables";
 
+@mixin container(){
+    height: 100vh;
+    background-color: white;
+    padding: 2rem 7rem 2rem 7rem;
+    @media screen and (max-width: $bp-mobile) {
+        padding: 2rem 0 2rem 3rem;
+    }
+}
+
 @mixin flexEvenlyCentered(){
     display: flex;
     justify-content: space-evenly;
@@ -18,7 +27,7 @@
 }
 
 @mixin centerItems(){
-    position: fixed;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

@@ -16,13 +16,13 @@ const Navbar = () => {
                 {
                     NavItems?.map(item => (
                         <div
-                            className={pathName === item.title ? 'activeHr' : 'inActiveHr'}
+                            className={pathName === item.path ? 'activeHr' : 'inActiveHr'}
                             key={item.id}
                         >
                             <li
-                                className={pathName === item.title ? 'active' : 'inActive'}
+                                className={pathName === item.path ? 'active' : 'inActive'}
                             >
-                                <Link to={'/'+item.title} className='logo'>
+                                <Link to={item.path} className='logo'>
                                     {item.title}
                                 </Link>
                             </li>

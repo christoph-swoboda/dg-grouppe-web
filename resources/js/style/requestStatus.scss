@@ -1,0 +1,41 @@
+@import "mixin";
+@import "variables";
+
+.requestStatus {
+    border: 1px solid $borderColor;
+    width: 21vw;
+    padding: 1vh;
+    @media screen and (max-width: $bp-mobile) {
+        width: 90vw;
+        margin: 1vh;
+    }
+
+    .flexStatus {
+        @include flexCenter;
+
+        .wrapIcon {
+            background-color: #eacc69;
+            border-radius: 50%;
+            padding: 1vh;
+        }
+
+        .statusInfo {
+            padding-left: 1rem;
+            h1{
+                font-size: 2.2rem;
+                font-weight: 500;
+                @media screen and (max-width: $bp-mobile) {
+                    font-size: 3.2vh;
+                }
+            }
+            h2{
+                font-weight: 500;
+                color: #565656;
+                font-size: 1rem;
+                @media screen and (max-width: $bp-mobile) {
+                    font-size: 2.2vh;
+                }
+            }
+        }
+    }
+}
