@@ -1,15 +1,18 @@
 import React from "react"
-import '../style/navBar.scss'
-import NavItems from "../helpers/navItems";
+import '../../style/navBar.scss'
+import NavItems from "../../helpers/navItems";
+import {Link, useLocation} from "react-router-dom";
 
 const Navbar = () => {
 
-    const pathName=window.location.pathname.split('/').pop()
+    const router =  useLocation();
+    const pathName=router.pathname.split('/').pop()
+    console.log('path', pathName)
 
     return (
         <div>
             <ul className='navUL'>
-                    <p className='logo'>DG GRUPPE |||</p>
+                <Link to="/" className='logo'>DG GRUPPE |||</Link>
                 {
                     NavItems?.map(item => (
                         <div
@@ -19,7 +22,9 @@ const Navbar = () => {
                             <li
                                 className={pathName === item.title ? 'active' : 'inActive'}
                             >
-                                {item.title}
+                                <Link to={'/'+item.title} className='logo'>
+                                    {item.title}
+                                </Link>
                             </li>
                             <hr/>
                         </div>

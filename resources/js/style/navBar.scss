@@ -2,10 +2,9 @@
 @import "mixin";
 
 .navUL {
-    border-bottom: 1px solid #5b5b5b;
+    border-bottom: 1px solid #efefef;
     @include flexCenter();
     flex-wrap: wrap;
-    border-radius: 8px;
     @media screen and (max-width: $bp-tablet) {
         flex-direction: column;
         padding-left: 0;
@@ -20,12 +19,12 @@
     .user{
         position: absolute;
         right: 0;
-        padding: 1.5rem 3rem 1.5rem 3rem;
+        padding: 0 3rem 0 3rem;
     }
     hr {
         opacity: 0;
         @media screen and (max-width: $bp-tablet) {
-            width: 68vw;
+            //width: 68vw;
             color: #ececec;
         }
     }
@@ -37,21 +36,18 @@
 
     .activeHr hr {
         opacity: 1;
-        border: 1px solid #131313
+        border: 1px solid #111111
     }
 
     .inActive {
-        cursor: pointer;
         padding: 1.1rem;
-
         &:hover {
-            background-color: #f1f1f1;
+            //background-color: #f1f1f1;
         }
     }
 
     .active {
-        cursor: pointer;
-        padding: 1.1rem;
-        background-color: #efefef;
+        padding: 1.1rem 0 1.1rem 0;
+        //background-color: #efefef;
     }
 }

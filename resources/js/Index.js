@@ -6,8 +6,8 @@ import Register from "./components/forms/register";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import NotFound from "./views/notFound";
-import Navbar from "./components/navBar";
-import Home from "./views/home";
+import Navbar from "./components/navigation/navBar";
+import Requests from "./views/requests";
 
 function App() {
 
@@ -15,10 +15,10 @@ function App() {
 
     return (
         <div className="App">
-        <Navbar/>
             <Router>
+                <Navbar/>
                 <Routes>
-                    <Route path="/" element={user? <Home/> : <Navigate to="/login"/>}/>
+                    <Route path="/" element={user? <Requests/> : <Navigate to="/login"/>}/>
                     <Route path='*' exact={true} element={<NotFound/>}/>
                     {/*Protected Routes*/}
                     {/*Protected Routes*/}

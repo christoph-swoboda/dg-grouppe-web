@@ -5,7 +5,7 @@ const NavItems = [
     },
     {
         id: 1,
-        title: 'Employee '
+        title: 'Employee'
     },
 ]
 
