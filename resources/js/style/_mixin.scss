@@ -32,6 +32,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+@mixin centerItemsAbsolute(){
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 @mixin button($background,$color){
     border-color: $darkTheme;
