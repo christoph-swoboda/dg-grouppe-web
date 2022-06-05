@@ -6,6 +6,12 @@
     align-items: center;
 }
 
+@mixin flexCenter() {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
 @mixin flexEvenly(){
     display: flex;
     justify-content: space-evenly;
