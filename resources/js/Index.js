@@ -8,6 +8,7 @@ import {ToastContainer} from "react-toastify";
 import NotFound from "./views/notFound";
 import Navbar from "./components/navigation/navBar";
 import Requests from "./views/requests";
+import Employees from "./views/employees";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                 <Navbar/>
                 <Routes>
                     <Route path="/" element={user? <Requests/> : <Navigate to="/login"/>}/>
+                    <Route path="/Employee" element={user? <Employees/> : <Navigate to="/login"/>}/>
                     <Route path='*' exact={true} element={<NotFound/>}/>
                     {/*Protected Routes*/}
                     {/*Protected Routes*/}
