@@ -22,9 +22,10 @@ const Requests = () => {
     return (
         <div className='requests'>
             <div className='statCards'>
-                <RequestStatus count='500' iconBg='#698eea' requestStatus='Open'/>
-                <RequestStatus count='480' iconBg='#eacc69' requestStatus='Pending'/>
-                <RequestStatus count='350' iconBg='#ea6969' requestStatus='Rejected'/>
+                <RequestStatus count='500' iconBg={'rgba(33, 146, 228,1)'} requestStatus='Open'/>
+                <RequestStatus count='480' iconBg={'rgba(228, 186, 33, 1)'} requestStatus='Pending'/>
+                <RequestStatus count='350' iconBg={'rgba(228, 33, 104, 1)'} requestStatus='Rejected'/>
+                <RequestStatus count='450' iconBg={'rgba(114, 200, 47, 1)'} requestStatus='Confirmed'/>
             </div>
             <div className='filters'>
                 <div style={{position:'absolute'}}>

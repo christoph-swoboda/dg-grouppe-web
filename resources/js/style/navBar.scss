@@ -10,17 +10,24 @@
         padding-left: 0;
     }
 
+    a {
+        color: black;
+    }
+
     li {
         list-style: none;
     }
-    .logo{
+
+    .logo {
         padding: 0 3rem 0 3rem;
     }
-    .user{
+
+    .user {
         position: absolute;
         right: 0;
         padding: 0 3rem 0 3rem;
     }
+
     hr {
         opacity: 0;
         @media screen and (max-width: $bp-tablet) {
@@ -41,6 +48,7 @@
 
     .inActive {
         padding: 1.1rem;
+
         &:hover {
             //background-color: #f1f1f1;
         }

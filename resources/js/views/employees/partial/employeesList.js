@@ -1,6 +1,7 @@
 import React from "react";
 import {GrFormNext} from "react-icons/gr";
 import EmployeesInfo from "../../../helpers/employeesInfo";
+import {Link} from "react-router-dom";
 
 const EmployeesList = () => {
     return (
@@ -19,7 +20,11 @@ const EmployeesList = () => {
                 {
                     EmployeesInfo.map(item => (
                         <tr key={item.id}>
-                            <td className='name'>{item.name}</td>
+                            <td className='name'>
+                                <Link to={`${item.id}`}>
+                                    {item.name}
+                                </Link>
+                            </td>
                             <td>{item.company}</td>
                             <td>{item.car}</td>
                             <td>{item.train}</td>

@@ -3,7 +3,7 @@
 @mixin container(){
     height: 100vh;
     background-color: white;
-    padding: 2rem 7rem 2rem 7rem;
+    padding: 3rem 7rem 2rem 7rem;
     @media screen and (max-width: $bp-mobile) {
         padding: 2rem 0 2rem 3rem;
     }
@@ -69,13 +69,17 @@
             td, th {
                 padding: 1rem 2rem 1rem 2rem;
                 font-size: 2vh;
+                font-weight: 500;
             }
 
             th {
-                color: grey;
+                color: $grey;
+            }
+            td{
+               font-family: "Segoe UI";
             }
 
-            .name {
+            a {
                 color: $blue;
                 text-decoration: underline;
             }
@@ -86,10 +90,10 @@
 
             a {
                 padding: .4rem 1rem .4rem 1rem;
-                border: 1px solid $blue;
+                border: 1px solid $link;
                 font-size: 2vh;
                 @include centerItems;
-                color: $blue;
+                color: $link;
                 border-radius: 8px;
                 font-weight: 700;
             }

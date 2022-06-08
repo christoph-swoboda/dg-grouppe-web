@@ -2,12 +2,12 @@ const NavItems = [
     {
         id: 0,
         title: 'Requests',
-        path: ''
+        path: 'dashboard'
     },
     {
         id: 1,
         title: 'Employee',
-        path: 'Employee',
+        path: 'employee',
     },
 ]
 

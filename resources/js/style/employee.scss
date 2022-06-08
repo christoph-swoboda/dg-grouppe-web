@@ -1,0 +1,102 @@
+@import "variables";
+@import "mixin";
+
+.employeeContainer {
+    @include container;
+    text-align: left;
+
+    h1 {
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    //introSection
+    .intro {
+        @include flexCenter;
+        justify-content: flex-start;
+
+        .userName {
+            margin: 0 1rem;
+        }
+
+        h2 {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 15px;
+            color: rgba(107, 117, 135, 1);
+            font-weight: 600;
+            margin-right: 2rem;
+        }
+
+        .lightFont {
+            font-weight: 100;
+        }
+
+        span {
+            font-weight: 700;
+        }
+
+        img {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 100px;
+        }
+
+        button {
+            padding: .9rem;
+            cursor: pointer;
+            background-color: black;
+            color: white;
+            border-radius: 7px;
+            margin-left: auto;
+        }
+    }
+
+    //introSection
+
+    //filterSection
+    .filtersContainer {
+        margin: 2rem 0;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+
+        select, input {
+            padding: .7rem;
+            margin: 0 0 0 2rem;
+            color: $grey;
+            background-color: white;
+            border: 1px solid $borderColor;
+            border-radius: 8px;
+        }
+
+        .search {
+            width: 44vw;
+            &:focus{
+                outline: none;
+            }
+        }
+
+        .searchIcon {
+            background-color: inherit;
+            margin-left: -35px;
+        }
+    }
+
+    //filterSection
+    .generatePDF{
+        @include flexCenter;
+        p{
+            margin-left: 1rem;
+            color: $blue;
+            font-weight: 600;
+        }
+    }
+}
+
+.tableContainer {
+    margin: 1rem 1rem 2rem -1.5rem;
+    @include tableStyle(85vw, 95vw);
+}

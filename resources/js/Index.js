@@ -9,6 +9,7 @@ import NotFound from "./views/notFound";
 import Navbar from "./components/navigation/navBar";
 import Requests from "./views/requests";
 import Employees from "./views/employees";
+import Employee from "./views/employee";
 
 function App() {
 
@@ -19,8 +20,10 @@ function App() {
             <Router>
                 <Navbar/>
                 <Routes>
-                    <Route path="/" element={user? <Requests/> : <Navigate to="/login"/>}/>
-                    <Route path="/Employee" element={user? <Employees/> : <Navigate to="/login"/>}/>
+                    <Route path="/" element={user? <Navigate to="/dashboard"/>:<Navigate to="/login"/>}/>
+                    <Route path="/dashboard" element={user? <Requests/> : <Navigate to="/login"/>}/>
+                    <Route path="/employee" element={user? <Employees/> : <Navigate to="/login"/>}/>
+                    <Route path="/employee/:id" element={user? <Employee/> : <Navigate to="/login"/>}/>
                     <Route path='*' exact={true} element={<NotFound/>}/>
                     {/*Protected Routes*/}
                     {/*Protected Routes*/}

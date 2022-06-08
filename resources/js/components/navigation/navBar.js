@@ -6,7 +6,7 @@ import {Link, useLocation} from "react-router-dom";
 const Navbar = () => {
 
     const router =  useLocation();
-    const pathName=router.pathname.split('/').pop()
+    const pathName=router.pathname.split('/')
     console.log('path', pathName)
 
     return (
@@ -16,11 +16,11 @@ const Navbar = () => {
                 {
                     NavItems?.map(item => (
                         <div
-                            className={pathName === item.path ? 'activeHr' : 'inActiveHr'}
+                            className={pathName.includes(item.path) ? 'activeHr' : 'inActiveHr'}
                             key={item.id}
                         >
                             <li
-                                className={pathName === item.path ? 'active' : 'inActive'}
+                                className={pathName.includes(item.path)? 'active' : 'inActive'}
                             >
                                 <Link to={item.path} className='logo'>
                                     {item.title}

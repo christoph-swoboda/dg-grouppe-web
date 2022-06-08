@@ -5,16 +5,6 @@
     @include container;
     text-align: left;
 
-    .statCards {
-        display: grid;
-        grid-template-columns: auto auto auto;
-        width: 70vw;
-        @media screen and (max-width: $bp-mobile) {
-            width: 100vw;
-            grid-template-columns: auto;
-        }
-    }
-
     .filters {
         margin: 2rem 0 2rem 0;
         display: grid;
@@ -28,27 +18,8 @@
 
         h5 {
             margin-bottom: 10px;
-            color: #777777;
+            color: $grey;
             @media screen and (max-width: $bp-mobile) {
-                font-size: 2vh;
-            }
-        }
-
-        .yearInput, .periodInput {
-            width: 12.5vw;
-            display: flex;
-            justify-content: space-between;
-            border: 1px solid $borderColor;
-            padding: .7rem;
-            border-radius: 8px;
-            color: #777777;
-
-            p, option {
-                font-size: 2vh;
-            }
-
-            @media screen and (max-width: $bp-mobile) {
-                width: 30vw;
                 font-size: 2vh;
             }
         }
@@ -68,5 +39,34 @@
             margin: 1rem 1rem 2rem 1.5rem;
             @include tableStyle(70vw, 95vw);
         }
+    }
+}
+
+.statCards {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    width: auto;
+    @media screen and (max-width: $bp-mobile) {
+        width: 100vw;
+        grid-template-columns: auto;
+    }
+}
+
+.yearInput, .periodInput {
+    min-width: 12.5vw;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid $borderColor;
+    padding: .7rem;
+    border-radius: 8px;
+    color: $grey;
+
+    p, option {
+        font-size: 2vh;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        width: 30vw;
+        font-size: 2vh;
     }
 }

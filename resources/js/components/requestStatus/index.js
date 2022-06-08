@@ -8,12 +8,12 @@ const RequestStatus = ({count, requestStatus, iconBg}) => {
         <div className='requestStatus'>
             <div className='flexStatus'>
                 <div className='wrapIcon' style={{backgroundColor:iconBg}}>
-                    <FaHourglassHalf size='25px' color='white'/>
+                    <FaHourglassHalf size='22px' color='white'/>
                 </div>
-                <div className='statusInfo'>
+                {/*<div className='statusInfo'>*/}
                     <h1>{count}</h1>
                     <h2>{requestStatus} Requests</h2>
-                </div>
+                {/*</div>*/}
             </div>
         </div>
     )
