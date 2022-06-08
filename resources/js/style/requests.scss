@@ -46,6 +46,7 @@
     display: grid;
     grid-template-columns: auto auto auto auto;
     width: auto;
+    margin-bottom: 2rem;
     @media screen and (max-width: $bp-mobile) {
         width: 100vw;
         grid-template-columns: auto;

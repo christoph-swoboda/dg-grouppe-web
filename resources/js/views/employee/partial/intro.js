@@ -1,7 +1,10 @@
 import React from "react"
 import image from '../../../assets/1.jpg'
+import useModal from "../../../hooks/useModal";
 
 const Intro = () => {
+    const {toggleEmployeeForm} = useModal();
+
     return (
         <div className='intro'>
             <img src={image} alt='avatar'/>
@@ -11,7 +14,7 @@ const Intro = () => {
             </div>
             <h3><span>Types: </span>Car, Train, Phone</h3>
             <h3><span>Status: </span> Online <span className='lightFont'>(since 21.6.21)</span></h3>
-            <button onClick={() => alert('James Dean')}>Edit User</button>
+            <button onClick={toggleEmployeeForm}>Edit User</button>
         </div>
     )
 }

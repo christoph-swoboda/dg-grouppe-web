@@ -6,11 +6,17 @@ import {BsCalendar3, BsSearch} from "react-icons/bs";
 import DatePicker from "react-datepicker";
 import {SiMicrosoftexcel} from "react-icons/si";
 import List from "./partial/list";
+import Modal from "../../hooks/modal";
+import AddEmployee from "../../components/forms/addEmployee";
+import useModal from "../../hooks/useModal";
+import {useStateValue} from "../../states/StateProvider";
 
 const Employee = () => {
 
     const [filterDate, setFilterDate] = useState(new Date());
     const [isOpen, setIsOpen] = useState(false)
+    const {toggleEmployeeForm} = useModal();
+    const [{addEmployeeModal}] = useStateValue();
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -24,20 +30,19 @@ const Employee = () => {
     return (
         <div className='employeeContainer'>
             <Intro/>
-            <br/>
-            <br/>
+            {/*statistics*/}
             <div className='statCards'>
                 <RequestStatus count='500' iconBg={'rgba(33, 146, 228,1)'} requestStatus='Open'/>
                 <RequestStatus count='480' iconBg={'rgba(228, 186, 33, 1)'} requestStatus='Pending'/>
                 <RequestStatus count='350' iconBg={'rgba(228, 33, 104, 1)'} requestStatus='Rejected'/>
                 <RequestStatus count='450' iconBg={'rgba(114, 200, 47, 1)'} requestStatus='Confirmed'/>
             </div>
-            <br/>
-            <br/>
+            {/*statistics*/}
+
             <h1>Requests</h1>
 
+            {/* Filter */}
             <div className='filtersContainer'>
-                {/*<h5>Select Year</h5>*/}
                 <div>
                     <div className="yearInput" onClick={handleClick}>
                         <p> {filterDate.getFullYear()} </p>
@@ -75,13 +80,30 @@ const Employee = () => {
                     <button className='searchIcon'><BsSearch size='20px' color='grey'/></button>
                 </form>
             </div>
+            {/* Filter */}
+
+            {/*print pdf*/}
             <div className='generatePDF'>
                 <SiMicrosoftexcel color={'rgba(46, 125, 50, 1)'} size='25px'/>
                 <p>Generate Report PDF</p>
             </div>
+            {/*print pdf*/}
+
+            {/*list of employees data*/}
             <div className='tableContainer'>
                 <List/>
             </div>
+            {/*list of employees data*/}
+
+
+            {/*add employee modal*/}
+            <Modal
+                toggle={toggleEmployeeForm}
+                visible={addEmployeeModal}
+                component={<AddEmployee edit/>}
+                className='addEmployeeContainer'
+            />
+            {/*add employee modal*/}
         </div>
     )
 }

@@ -1,16 +1,17 @@
-import React, {useState} from "react"
-import {useStateValue} from "../../../states/StateProvider";
-import {useForm, Controller} from "react-hook-form";
-import {toast} from "react-toastify";
-import PhoneInput, {isValidPhoneNumber} from "react-phone-number-input";
+import React, {useEffect, useState} from "react"
+import {useStateValue} from "../../states/StateProvider";
+import {Controller, useForm} from "react-hook-form";
+import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import PropTypes from "prop-types";
 
-const AddEmployee = () => {
+const AddEmployee = ({edit}) => {
 
     const [{}, dispatch] = useStateValue();
     const [loading, setLoading] = useState(false)
+    let keys = ''
     const {
-        register, handleSubmit, formState, reset, formState: {errors, touchedFields,},
+        register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
@@ -18,6 +19,16 @@ const AddEmployee = () => {
     const onSubmit = async (data) => {
         console.log('form', data)
     };
+
+    useEffect(() => {
+        if (edit) {
+            keys = getValues()
+            keys.email = 'alex@gmail.com'
+            setValue("email", keys.email)
+            console.log('keys', keys)
+        }
+    }, [keys]);
+
 
     return (
         <div>
@@ -57,21 +68,21 @@ const AddEmployee = () => {
                     <option value='o'>Others</option>
                 </select>
                 <label htmlFor="phone-input">Phone Number *</label>
-                <div style={{marginLeft:'1rem'}}>
-                <Controller
-                    name="phone-input"
-                    control={control}
-                    rules={{required: true}}
-                    render={({field: {onChange, value}}) => (
-                        <PhoneInput
-                            value={value}
-                            onChange={onChange}
-                            defaultCountry="DE"
-                            id="phone-input"
-                        />
-                    )}
-                />
-                {errors.phone && <p>Invalid Phone Number</p>}
+                <div style={{marginLeft: '1rem'}}>
+                    <Controller
+                        name="phone-input"
+                        control={control}
+                        rules={{required: true}}
+                        render={({field: {onChange, value}}) => (
+                            <PhoneInput
+                                value={value}
+                                onChange={onChange}
+                                defaultCountry="DE"
+                                id="phone-input"
+                            />
+                        )}
+                    />
+                    {errors.phone && <p>Invalid Phone Number</p>}
                 </div>
                 <label>Address *</label>
                 <input placeholder='St, Town, Country'
@@ -103,7 +114,7 @@ const AddEmployee = () => {
                     <input
                         className={(isValid) ? 'enabled' : 'disabled'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? 'Add New User' : 'saving...'}
+                        value={(!loading) ? !edit ? 'Add New User' : 'Update User' : 'saving...'}
                     />
                 </div>
             </form>
@@ -112,3 +123,7 @@ const AddEmployee = () => {
 }
 
 export default AddEmployee
+
+AddEmployee.propTypes = {
+    edit: PropTypes.bool
+}

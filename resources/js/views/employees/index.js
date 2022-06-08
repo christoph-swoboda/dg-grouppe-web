@@ -5,7 +5,7 @@ import EmployeesList from "./partial/employeesList";
 import useModal from "../../hooks/useModal";
 import Modal from "../../hooks/modal";
 import ManageRequests from "../requests/partial/manageRequests";
-import AddEmployee from "./partial/addEmployee";
+import AddEmployee from "../../components/forms/addEmployee";
 import {useStateValue} from "../../states/StateProvider";
 
 const Employees = () => {
