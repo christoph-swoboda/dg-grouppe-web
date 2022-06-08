@@ -3,7 +3,7 @@ import image from '../../../assets/1.jpg'
 
 const ManageRequests = ({requestInfo}) => {
     return (
-        <div className='manageRequests'>
+        <div>
             <h2>{requestInfo.request}</h2>
             <br/>
             <br/>
