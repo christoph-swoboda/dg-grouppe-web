@@ -5,22 +5,24 @@ import {Link} from "react-router-dom";
 import useModal from "../../../hooks/useModal";
 import Modal from "../../../hooks/modal";
 import ManageRequests from "./manageRequests";
+import {useStateValue} from "../../../states/StateProvider";
 
 const RequestsList = () => {
 
-    const {toggle, visible} = useModal();
+    const {toggleApprovalModal} = useModal();
+    const [{approvalModal}] = useStateValue();
     const [request, setRequest] = useState({name: '', image: '', period: '', request: '', id: ''});
 
     function openModal(period, name, req, id, image) {
-        toggle()
+        toggleApprovalModal()
         setRequest({name: name, request: req, period: period, id: id, image: image})
     }
 
     return (
         <div className='tableContainer'>
             <Modal
-                toggle={toggle}
-                visible={visible}
+                toggle={toggleApprovalModal}
+                visible={approvalModal}
                 component={<ManageRequests requestInfo={request}/>}
                 className='manageRequests'
             />

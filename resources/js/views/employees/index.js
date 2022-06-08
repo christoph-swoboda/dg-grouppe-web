@@ -6,10 +6,12 @@ import useModal from "../../hooks/useModal";
 import Modal from "../../hooks/modal";
 import ManageRequests from "../requests/partial/manageRequests";
 import AddEmployee from "./partial/addEmployee";
+import {useStateValue} from "../../states/StateProvider";
 
 const Employees = () => {
 
-    const {toggle, visible} = useModal();
+    const {toggleEmployeeForm} = useModal();
+    const [{addEmployeeModal}] = useStateValue();
 
     return (
         <div className='employees'>
@@ -20,7 +22,7 @@ const Employees = () => {
                     <input type='search' placeholder='Search Employees'/>
                     <button className='searchIcon'><BsSearch size='20px' color='grey'/></button>
                 </form>
-                <button className='addEmployee' onClick={toggle}>
+                <button className='addEmployee' onClick={toggleEmployeeForm}>
                     + Add New Employee
                 </button>
             </div>
@@ -30,8 +32,8 @@ const Employees = () => {
 
             {/*add employee modal*/}
             <Modal
-                toggle={toggle}
-                visible={visible}
+                toggle={toggleEmployeeForm}
+                visible={addEmployeeModal}
                 component={<AddEmployee/>}
                 className='addEmployeeContainer'
             />

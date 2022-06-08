@@ -1,28 +1,112 @@
-import React from "react"
-// import '../../../style/addEmployeeForm.scss'
+import React, {useState} from "react"
+import {useStateValue} from "../../../states/StateProvider";
+import {useForm, Controller} from "react-hook-form";
+import {toast} from "react-toastify";
+import PhoneInput, {isValidPhoneNumber} from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 const AddEmployee = () => {
+
+    const [{}, dispatch] = useStateValue();
+    const [loading, setLoading] = useState(false)
+    const {
+        register, handleSubmit, formState, reset, formState: {errors, touchedFields,},
+        control
+    } = useForm({mode: "onChange"});
+    const {isValid} = formState;
+
+    const onSubmit = async (data) => {
+        console.log('form', data)
+    };
+
     return (
         <div>
-            <label>First Name</label>
-           <input type='text' placeholder='First Name'/>
-            <label>Last Name</label>
-            <input type='text' placeholder='Last Name'/>
-            <label>Email </label>
-            <input type='email' placeholder='Yourmail@domain'/>
-            <label>Gender </label>
-            <select>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Others</option>
-            </select>
-            <label>Phone Number </label>
-            <input type='number' maxLength='11' placeholder='xxxxxxxxxxx'/>
-            <label>Address  </label>
-            <input type='text'  placeholder='St, Town, Country'/>
-            <label>Car </label>
-            <input type='checkbox'/>
-
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <label>First Name *</label>
+                <input placeholder='First Name...'
+                       {...register('firstName', {required: true})}
+                       style={{border: errors.firstName && '1px solid red'}}
+                />
+                {errors.firstName && touchedFields && <p>First Name is required</p>}
+                <label>Last Name *</label>
+                <input placeholder='Last Name...'
+                       {...register('lastName', {required: 'Last Name is required'})}
+                       style={{border: errors.lastName && '1px solid red'}}
+                />
+                {errors.lastName && touchedFields && <p>{errors.lastName.message}</p>}
+                <label>Email *</label>
+                <input placeholder='Yourmail@domain'
+                       {...register('email', {
+                           required: 'Email is required',
+                           pattern: {
+                               value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                               message: 'Please enter a valid email',
+                           },
+                       })}
+                       type="email"
+                       required
+                       style={{border: errors.email && '1px solid red'}}
+                />
+                {errors.email && touchedFields && <p>{errors.email.message}</p>}
+                <label>Gender *</label>
+                <select
+                    {...register("gender", {required: true})}>
+                    <option value="">Choose Gender...</option>
+                    <option value='m'>Male</option>
+                    <option value='f'>Female</option>
+                    <option value='o'>Others</option>
+                </select>
+                <label htmlFor="phone-input">Phone Number *</label>
+                <div style={{marginLeft:'1rem'}}>
+                <Controller
+                    name="phone-input"
+                    control={control}
+                    rules={{required: true}}
+                    render={({field: {onChange, value}}) => (
+                        <PhoneInput
+                            value={value}
+                            onChange={onChange}
+                            defaultCountry="DE"
+                            id="phone-input"
+                        />
+                    )}
+                />
+                {errors.phone && <p>Invalid Phone Number</p>}
+                </div>
+                <label>Address *</label>
+                <input placeholder='St, Town, Country'
+                       {...register('address', {required: true})}
+                       style={{border: errors.address && '1px solid red'}}
+                />
+                {errors.address && touchedFields && <p>Address is required</p>}
+                <div className='flex'>
+                    <input type='checkbox'{...register('car', {required: false})}/>
+                    <label>Car </label>
+                    <input type='checkbox'{...register('phone', {required: false})}/>
+                    <label>Phone </label>
+                    <input type='checkbox'{...register('internet', {required: false})}/>
+                    <label>Internet </label>
+                    <input type='checkbox'{...register('train', {required: false})}/>
+                    <label>Train </label>
+                </div>
+                <h5>* marked fields are mandatory to fill</h5>
+                <div className='flexButtons'>
+                    <button onClick={() => {
+                        dispatch(
+                            {
+                                type: "Set_EmployeeModal",
+                                item: false,
+                            })
+                    }}
+                    >Cancel
+                    </button>
+                    <input
+                        className={(isValid) ? 'enabled' : 'disabled'}
+                        disabled={!isValid} type="submit"
+                        value={(!loading) ? 'Add New User' : 'saving...'}
+                    />
+                </div>
+            </form>
         </div>
     )
 }

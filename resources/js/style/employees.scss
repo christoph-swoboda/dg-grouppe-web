@@ -12,8 +12,13 @@
     .topSection {
         display: grid;
         grid-template-columns: auto auto;
+        width: 100%;
+        margin: auto;
         @media screen and (max-width: $bp-mobile) {
+            width: 80%;
             grid-template-columns: auto;
+            margin-top: 15%;
+            margin-bottom: 5%;
         }
         form {
             @include flexCenter;
@@ -41,6 +46,7 @@
         }
 
         .addEmployee {
+            cursor: pointer;
             padding: 1vh;
             color: white;
             background-color: black;
