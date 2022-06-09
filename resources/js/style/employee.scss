@@ -3,7 +3,18 @@
 
 .employeeContainer {
     @include container;
+    overflow-x: hidden;
     text-align: left;
+
+    hr {
+        display: none;
+        border: 1px solid $borderColor;
+        width: 80%;
+        margin: auto;
+        @media screen and (max-width: $bp-mobile) {
+            display: block;
+        }
+    }
 
     h1 {
         font-size: 25px;
@@ -15,6 +26,12 @@
         @include flexCenter;
         justify-content: flex-start;
         margin-bottom: 2rem;
+        @media screen and (max-width: $bp-mobile) {
+            flex-wrap: wrap;
+            justify-content: space-around;
+            //padding: 3rem 1rem 3rem 5rem;
+            padding-bottom: 3rem;
+        }
 
         .userName {
             margin: 0 1rem;
@@ -23,6 +40,10 @@
         h2 {
             font-size: 25px;
             font-weight: 700;
+            @media screen and (max-width: $bp-mobile) {
+                font-size: 2.3vh;
+                //width: 120px;
+            }
         }
 
         h3 {
@@ -30,6 +51,11 @@
             color: rgba(107, 117, 135, 1);
             font-weight: 600;
             margin-right: 2rem;
+            @media screen and (max-width: $bp-mobile) {
+                font-size: 1.7vh;
+                min-width: 140px;
+                margin-top: 2rem;
+            }
         }
 
         .lightFont {
@@ -37,6 +63,7 @@
         }
 
         span {
+            font-size: 2vh;
             font-weight: 700;
         }
 
@@ -44,15 +71,37 @@
             width: 6rem;
             height: 6rem;
             border-radius: 100px;
+            @media screen and (max-width: $bp-mobile) {
+                width: 16rem;
+                height: 16rem;
+            }
         }
 
-        button {
+        button, h4 {
             padding: .9rem;
             cursor: pointer;
             background-color: black;
             color: white;
+            font-size: 2vh;
             border-radius: 7px;
             margin-left: auto;
+        }
+
+        h4 {
+            display: none;
+            @media screen and (max-width: $bp-mobile) {
+                display: block;
+                text-align: center;
+                background-color: #ffffff;
+                color: black;
+                margin-right: auto;
+            }
+        }
+
+        button {
+            @media screen and (max-width: $bp-mobile) {
+                display: none;
+            }
         }
     }
 
@@ -62,20 +111,36 @@
     .filtersContainer {
         margin: 2rem 0;
         display: grid;
-        grid-template-columns: auto auto auto auto;
+        //grid-template-columns: auto auto auto auto;
+        grid-template-columns: repeat(4, 1fr);
+        @media screen and (max-width: $bp-mobile) {
+            grid-template-columns: auto auto auto;
+        }
 
-        select, input {
+        select, input, option {
             padding: .7rem;
             margin: 0 0 0 2rem;
+            font-size: 2vh;
             color: $grey;
             background-color: white;
             border: 1px solid $borderColor;
             border-radius: 8px;
+            @media screen and (max-width: $bp-mobile) {
+                padding: 2rem;
+                //margin: 1rem 0;
+            }
         }
-
         .search {
-            width: 44vw;
-            &:focus{
+            width: 35vw;
+            font-size: 2vh;
+            @media screen and (max-width: $bp-mobile) {
+                padding: 2rem;
+                margin: 2rem 0;
+                position: relative;
+                width: 100%;
+            }
+
+            &:focus {
                 outline: none;
             }
         }
@@ -83,21 +148,35 @@
         .searchIcon {
             background-color: inherit;
             margin-left: -35px;
+            @media screen and (max-width: $bp-mobile) {
+                position: absolute;
+                right: 0;
+                margin-top: 3rem;
+            }
         }
+
     }
 
     //filterSection
-    .generatePDF{
+    .generatePDF {
         @include flexCenter;
-        p{
+
+        p {
             margin-left: 1rem;
             color: $blue;
             font-weight: 600;
+            font-size: 2.3vh;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            margin-top: 60px;
         }
     }
 }
 
 .tableContainer {
+    overflow-x: auto;
     margin: 1rem 1rem 2rem -1.5rem;
     @include tableStyle(85vw, 95vw);
 }
+

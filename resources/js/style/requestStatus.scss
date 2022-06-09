@@ -3,11 +3,12 @@
 
 .requestStatus {
     border: 1px solid $borderColor;
-    width: 19vw;
+    width: 18vw;
     padding: 1vh;
     @media screen and (max-width: $bp-mobile) {
-        width: 90vw;
-        margin: 1vh;
+        width: 80vw;
+        margin: 1vh auto;
+        border-style: none;
     }
 
     .flexStatus {
@@ -17,6 +18,10 @@
             background-color: #eacc69;
             border-radius: 50%;
             padding: .7vh;
+            @media screen and (max-width: $bp-mobile) {
+                font-size: 2.5vh;
+                margin-left: 15%;
+            }
         }
 
         //.statusInfo {
@@ -26,7 +31,8 @@
                 font-weight: 500;
                 padding:0 1rem;
                 @media screen and (max-width: $bp-mobile) {
-                    font-size: 3.2vh;
+                    font-size: 2.5vh;
+                    padding-left: 5%;
                 }
             }
             h2{
@@ -34,7 +40,7 @@
                 color: $grey;
                 font-size: 1rem;
                 @media screen and (max-width: $bp-mobile) {
-                    font-size: 2.2vh;
+                    font-size: 1.8vh;
                 }
             }
         //}

@@ -61,7 +61,10 @@
         }
 
         table {
-            width: $width;
+            //width: $width;
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
             @media screen and (max-width: $bp-mobile) {
                 width: $mobileWidth;
             }

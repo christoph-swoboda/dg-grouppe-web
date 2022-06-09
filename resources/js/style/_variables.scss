@@ -9,7 +9,7 @@ $blue: rgba(11, 78, 249,1);
 $link: rgba(0, 135, 214, 1);
 $pasteColor: #4f8c41;
 $grey:rgba(107, 117, 135, 1);
-$borderColor: #e1e1e1;
+$borderColor: rgba(225, 228, 233, 1);
 $darkTheme: #5b3836;
 
 $bp-tablet: 768px;
@@ -17,3 +17,12 @@ $bp-mobile: 425px;
 $bp-laptop: 1281px;
 $bp-mediumDesktop: 1921px;
 $bp-largeDesktop: 3841px;
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    font-size: 2vh;
+    padding: .7rem;
+    border-radius: 8px;
+    height: 2.6vh;
+}

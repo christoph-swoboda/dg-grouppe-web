@@ -10,6 +10,7 @@ import Modal from "../../hooks/modal";
 import AddEmployee from "../../components/forms/addEmployee";
 import useModal from "../../hooks/useModal";
 import {useStateValue} from "../../states/StateProvider";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Employee = () => {
 
@@ -30,6 +31,7 @@ const Employee = () => {
     return (
         <div className='employeeContainer'>
             <Intro/>
+            <hr/>
             {/*statistics*/}
             <div className='statCards'>
                 <RequestStatus count='500' iconBg={'rgba(33, 146, 228,1)'} requestStatus='Open'/>
@@ -38,30 +40,34 @@ const Employee = () => {
                 <RequestStatus count='450' iconBg={'rgba(114, 200, 47, 1)'} requestStatus='Confirmed'/>
             </div>
             {/*statistics*/}
-
+            <hr/>
             <h1>Requests</h1>
 
             {/* Filter */}
             <div className='filtersContainer'>
-                <div>
-                    <div className="yearInput" onClick={handleClick}>
-                        <p> {filterDate.getFullYear()} </p>
-                        <BsCalendar3 size='3vh'/>
-                    </div>
-
-                    <div style={{position: 'absolute'}}>
-                        {isOpen && (
-                            <DatePicker
-                                selected={filterDate}
-                                showYearPicker
-                                dateFormat="yyyy"
-                                placeholderText='Select A Year'
-                                onChange={handleChange}
-                                inline
-                            />
-                        )}
-                    </div>
+                <div className="yearInputEmployee" style={{position: 'relative', zIndex: '1'}} onClick={handleClick}>
+                    <DatePicker
+                        selected={filterDate}
+                        showYearPicker
+                        dateFormat="yyyy"
+                        placeholderText='Select A Year'
+                        onChange={handleChange}
+                        id='date'
+                    />
+                    <label htmlFor="date"> <BsCalendar3 size='3vh' color='grey'/></label>
                 </div>
+
+                {/*<div style={{position: 'relative', zIndex:'1'}}>*/}
+                {/*    {isOpen && (*/}
+                {/*        <DatePicker*/}
+                {/*            selected={filterDate}*/}
+                {/*            showYearPicker*/}
+                {/*            dateFormat="yyyy"*/}
+                {/*            placeholderText='Select A Year'*/}
+                {/*            onChange={handleChange}*/}
+                {/*        />*/}
+                {/*    )}*/}
+                {/*</div>*/}
                 <select>
                     <option value="">Type: All</option>
                     <option value="phone">Phone</option>

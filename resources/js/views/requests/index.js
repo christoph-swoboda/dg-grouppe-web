@@ -28,22 +28,19 @@ const Requests = () => {
                 <RequestStatus count='450' iconBg={'rgba(114, 200, 47, 1)'} requestStatus='Confirmed'/>
             </div>
             <div className='filters'>
-                <div style={{position:'absolute'}}>
+                <div>
                     <h5>Select Year</h5>
-                    <div className="yearInput" onClick={handleClick}>
-                        <p> {filterDate.getFullYear()} </p>
-                        <BsCalendar3 size='3vh'/>
-                    </div>
-                    {isOpen && (
+                    <div className="yearInput" style={{position: 'relative', zIndex: '1'}} onClick={handleClick}>
                         <DatePicker
                             selected={filterDate}
                             showYearPicker
                             dateFormat="yyyy"
                             placeholderText='Select A Year'
                             onChange={handleChange}
-                            inline
+                            id='date'
                         />
-                    )}
+                        <label htmlFor="date"> <BsCalendar3 size='3vh' color='grey'/></label>
+                </div>
                 </div>
 
                 <div className='periodFilter'>
