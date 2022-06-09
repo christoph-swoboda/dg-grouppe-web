@@ -6,10 +6,10 @@
     text-align: left;
 
     .filters {
-        margin: 2rem 0 2rem 0;
         display: grid;
         grid-template-columns: auto auto;
         width: 30vw;
+        margin: 2rem 0 2rem -1.5vw;
         @media screen and (max-width: $bp-mobile) {
             width: 100vw;
             margin: 2vh;
@@ -22,6 +22,7 @@
         }
 
         h5 {
+            font-size: 1.7vh;
             margin-bottom: 10px;
             color: $grey;
             @media screen and (max-width: $bp-mobile) {
@@ -45,7 +46,7 @@
 .statCards {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    margin: 2rem;
+    margin: 2rem 0;
     @media screen and (max-width: $bp-mobile) {
         width: 100vw;
         grid-template-columns: auto;

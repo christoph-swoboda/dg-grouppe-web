@@ -56,18 +56,6 @@ const Employee = () => {
                     />
                     <label htmlFor="date"> <BsCalendar3 size='3vh' color='grey'/></label>
                 </div>
-
-                {/*<div style={{position: 'relative', zIndex:'1'}}>*/}
-                {/*    {isOpen && (*/}
-                {/*        <DatePicker*/}
-                {/*            selected={filterDate}*/}
-                {/*            showYearPicker*/}
-                {/*            dateFormat="yyyy"*/}
-                {/*            placeholderText='Select A Year'*/}
-                {/*            onChange={handleChange}*/}
-                {/*        />*/}
-                {/*    )}*/}
-                {/*</div>*/}
                 <select>
                     <option value="">Type: All</option>
                     <option value="phone">Phone</option>
