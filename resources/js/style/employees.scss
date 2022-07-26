@@ -1,0 +1,68 @@
+@import "variables";
+@import "mixin";
+
+.employees {
+    @include container;
+    text-align: left;
+
+    h1 {
+        font-size: 3.5vh;
+    }
+
+    .topSection {
+        display: grid;
+        grid-template-columns: auto auto;
+        width: 100%;
+        margin: auto;
+        @media screen and (max-width: $bp-mobile) {
+            width: 80%;
+            grid-template-columns: auto;
+            margin-top: 15%;
+            margin-bottom: 5%;
+        }
+        form {
+            @include flexCenter;
+
+            input {
+                padding: .9rem;
+                width: 65vw;
+                border: 1px solid $borderColor;
+                border-radius: 8px;
+                font-size: 2vh;
+                @media screen and (max-width: $bp-mobile) {
+                    width: 95vw;
+                    margin-bottom: 2vh;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .searchIcon {
+                cursor: pointer;
+                margin-left: -35px;
+                background-color: inherit;
+            }
+        }
+
+        .addEmployee {
+            cursor: pointer;
+            padding: .9rem;
+            color: white;
+            background-color: black;
+            border-radius: 8px;
+            font-size: 2vh;
+        }
+    }
+
+    .employeesList {
+        margin: 2rem 0 2rem 0;
+        .tableContainer {
+            overflow-x: auto;
+            margin: 1rem 1rem 2rem -1.5rem;
+            @include tableStyle(85vw, 95vw);
+        }
+    }
+
+}

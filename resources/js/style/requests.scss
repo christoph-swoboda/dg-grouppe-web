@@ -1,0 +1,95 @@
+@import "variables";
+@import "mixin";
+
+.requests {
+    @include container;
+    text-align: left;
+
+    .filters {
+        display: grid;
+        grid-template-columns: auto auto;
+        width: 30vw;
+        margin: 2rem 0 2rem -1.5vw;
+        @media screen and (max-width: $bp-mobile) {
+            width: 100vw;
+            margin: 2vh;
+        }
+        grid-gap: 1rem;
+
+        input {
+            border: 1px solid $borderColor;
+            //padding: .9rem;
+        }
+
+        h5 {
+            font-size: 1.8vh;
+            margin-bottom: 10px;
+            color: $grey;
+            @media screen and (max-width: $bp-tablet) {
+                font-size: 1.6vh;
+            }
+        }
+    }
+
+    .requestsList {
+        border: 1px solid $borderColor;
+        margin-bottom: 2rem;
+
+        .tableContainer {
+            overflow-x: auto;
+            margin: 1rem 1rem 2rem 1.5rem;
+            @include tableStyle(70vw, 95vw);
+        }
+    }
+}
+
+.statCards {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    margin: 2rem 0;
+    @media screen and (max-width: $bp-mobile) {
+        width: 100vw;
+        grid-template-columns: auto;
+    }
+}
+
+.yearInput {
+    @include flexCenter;
+    //margin-right: 1vw;
+    margin-top: -1.3rem;
+
+    label {
+        display: none;
+    }
+}
+
+.yearInputEmployee {
+    @include flexCenter;
+    //margin-right: 1vw;
+    margin-top: -2.8rem;
+
+    label {
+        display: none;
+    }
+}
+
+.selectInput {
+    min-width: 12.5vw;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid $borderColor;
+    padding: .7rem;
+    border-radius: 8px;
+    color: $grey;
+
+    p, option {
+        font-size: 2vh;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        width: 30vw;
+        font-size: 2vh;
+        padding: 2rem;
+    }
+}

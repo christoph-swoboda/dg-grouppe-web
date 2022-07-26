@@ -1,0 +1,6 @@
+@import "mixin";
+@import "variables";
+
+.addEmployeeContainer{
+    @include container;
+}

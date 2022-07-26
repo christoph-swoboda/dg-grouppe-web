@@ -1,0 +1,48 @@
+.App {
+    text-align: center;
+}
+a{
+    text-decoration: none;
+}
+button {
+    border-style: none;
+}
+
+.centerItem{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
+.flexBetween{
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+}
+
+.pagination{
+    margin: 2rem 1rem;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pagination > li{
+    list-style: none;
+    font-size: 3vh;
+    padding: .5rem;
+}
+.paginationItem{
+    color: black;
+    font-weight: 700;
+    padding: .6rem;
+    border-radius: 2px;
+    background-color: #c9c9c9;
+}
+/*.activePage{*/
+/*    color: black;*/
+/*}*/
+.activeLink{
+    color: white;
+    background-color: black;
+}

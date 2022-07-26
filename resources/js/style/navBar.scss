@@ -1,0 +1,95 @@
+@import "variables";
+@import "mixin";
+
+.navUL {
+    border-bottom: 1px solid #efefef;
+    @include flexCenter();
+    flex-wrap: wrap;
+    font-family: sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    @media screen and (max-width: $bp-tablet) {
+        padding-left: 0;
+    }
+
+    a {
+        color: black;
+        font-size: 2vh;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .logo {
+        padding: 0 3rem 0 3rem;
+    }
+
+    .user {
+        position: absolute;
+        right: 0;
+        display: flex;
+        justify-items: center;
+        padding: 0 3rem 0 3rem;
+
+        p {
+            cursor: pointer;
+            font-size: 2vh;
+            margin: auto 10px;
+        }
+
+        img {
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+        }
+    }
+
+    hr {
+        opacity: 0;
+        @media screen and (max-width: $bp-tablet) {
+            //width: 68vw;
+            color: #ececec;
+        }
+    }
+
+    .inActiveHr:hover hr {
+        //opacity: 1;
+        //border: 1px solid #111111
+    }
+
+    .activeHr hr {
+        opacity: 1;
+        border: 1px solid #111111
+    }
+
+    .inActive {
+        padding: 1.1rem;
+
+        &:hover {
+            //background-color: #f1f1f1;
+        }
+    }
+
+    .active {
+        padding: 1.1rem 0 1.1rem 0;
+        //background-color: #efefef;
+    }
+}
+
+.modal-logout {
+    button {
+        border-style: none;
+        background-color: black;
+        font-size: 1.6vh;
+        width: 12%;
+        margin: 1rem;
+        position: absolute;
+        top: 5vh;
+        right: 20px;
+        padding: 8px;
+        border-radius: 5px;
+        color: rgb(228, 224, 224);
+        cursor: pointer;
+    }
+}

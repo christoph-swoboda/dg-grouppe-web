@@ -1,0 +1,65 @@
+@import "variables";
+@import "mixin";
+
+.login {
+    min-height: 100vh;
+    max-height: 200vh;
+    background-color: $body-bg1;
+}
+
+.login-box {
+    @include centerItemsAbsolute();
+    p {
+        font-size: 1.7vh;
+        line-height: 1;
+        color: $theme;
+        margin-left: 7%;
+        margin-bottom: 1vh;
+        width: 23vw;
+    }
+    form{
+        label{
+            color: grey;
+            margin: 0 98% 0 0;
+            font-size: 1.6vh;
+        }
+        input {
+            display: grid;
+            grid-template-columns: auto;
+            padding: 1.2vw 1vw 1vw 1vw;
+            margin: 0 0 1.1rem 0;
+            width: 25vw;
+            font-size: 2vh;
+            border-radius: .6vw;
+            border-style: hidden;
+            color: black;
+            background-color: rgba(#9288E0FF,.1);
+            @media screen and (max-width: $bp-tablet) {
+                width: 85vw;
+            }
+        }
+
+        .enabled {
+            background-color: #000000;
+            cursor: pointer;
+            color: white;
+            width: 27vw;
+            @media screen and (max-width: $bp-tablet) {
+                width: 87vw;
+            }
+        }
+
+        .disabled {
+            opacity: .4;
+            width: 27vw;
+            background-color: #000000;
+            color: white;
+            cursor: none;
+            border: 2px solid black;
+            @media screen and (max-width: $bp-tablet) {
+                width: 87vw;
+            }
+        }
+    }
+}
+
