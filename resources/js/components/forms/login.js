@@ -40,17 +40,9 @@ const Login = () => {
                 }
             })
             .catch(e => {
-                if (!e) {
-                    setNotFound(e)
-                }
-                setErrors(e)
-                toast.error(e)
+                toast.error(e.data?.message)
+                setLoading(false)
             })
-
-        // await Api().get(`/test`)
-        //     .then((res) => {
-        //         console.log('res test', res.data)
-        //     })
 
         let user = JSON.parse(window.localStorage.getItem('user'))
         if (user) {
