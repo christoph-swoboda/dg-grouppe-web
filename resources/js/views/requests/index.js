@@ -37,9 +37,9 @@ const Requests = ({slug}) => {
 
     }, [query, approve, pageNumber]);
 
-    useEffect(async () => {
-        await Api().post('send-notification').then(res => console.log('res', res.data.results))
-    }, []);
+    // useEffect(async () => {
+    //     await Api().post('send-notification').then(res => console.log('res', res.data.results))
+    // }, []);
 
 
     const handleClick = (e) => {
