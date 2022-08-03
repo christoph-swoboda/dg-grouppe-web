@@ -37,6 +37,11 @@ const Requests = ({slug}) => {
 
     }, [query, approve, pageNumber]);
 
+    useEffect(async () => {
+        await Api().post('send-notification').then(res => console.log('res', res.data.results))
+    }, []);
+
+
     const handleClick = (e) => {
         e.preventDefault();
         setIsOpen(!isOpen);
@@ -71,7 +76,7 @@ const Requests = ({slug}) => {
                     <h5>Select Period</h5>
                     <select className='selectInput' onChange={(e) => setFilter({
                         ...filter,
-                        period: e.target.value !== '' ? e.target.value : null                   
+                        period: e.target.value !== '' ? e.target.value : null
                     })}>
                         <option value={''}>Period: All</option>
                         {

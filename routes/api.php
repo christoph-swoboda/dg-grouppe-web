@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\RequestController; 
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RequestResponseController;
 use Illuminate\Http\Request;
@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/test', [AuthController::class, 'test']);
+Route::post('send-notification', [NotificationController::class, 'send']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
