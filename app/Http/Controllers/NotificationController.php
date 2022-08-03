@@ -54,6 +54,14 @@ class NotificationController extends Controller
         //
     }
 
+    public function seen($id)
+    {
+        $notification=Notification::find($id);
+        $notification->update(['seen'=>1]);
+
+        return response('seen', 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

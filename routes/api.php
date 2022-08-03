@@ -39,6 +39,7 @@ Route::group([
     Route::post('/user/update', [UserController::class, 'update']);
 
     Route::apiResource("/notifications", NotificationController::class);
+    Route::post('/notifications/seen/{id}', [NotificationController::class, 'seen']);
 
     Route::apiResource("/response", RequestResponseController::class);
 });
