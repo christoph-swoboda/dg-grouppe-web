@@ -36,8 +36,7 @@ Route::group([
     Route::post('/request/reject/{id}', [RequestController::class, 'reject']);
     Route::apiResource("/requests", RequestController::class);
 
-    Route::post('/user/update/password', [UserController::class, 'updatePassword']);
-    Route::post('/user/update/phone', [UserController::class, 'updatePhone']);
+    Route::post('/user/update', [UserController::class, 'update']);
 
     Route::apiResource("/notifications", NotificationController::class);
 
