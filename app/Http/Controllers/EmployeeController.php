@@ -46,7 +46,7 @@ class EmployeeController extends ApiController
     public function saveDeviceId($token)
     {
         $data=[
-            'device_id'=>$token,
+            'token'=>$token,
             'user_id'=>auth()->user()->id
         ];
         Device::create($data);
