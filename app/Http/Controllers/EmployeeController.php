@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Bill;
+use App\Models\Device;
 use App\Models\Employee;
 use App\Models\User;
 use Carbon\Carbon;
@@ -41,14 +42,14 @@ class EmployeeController extends ApiController
         return response($users, 201);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+
+    public function saveDeviceId($token)
     {
-        //
+        $data=[
+            'device_id'=>$token,
+            'user_id'=>auth()->user()->id
+        ];
+        Device::create($data);
     }
 
     /**
@@ -239,7 +240,7 @@ class EmployeeController extends ApiController
         //
     }
 
-    
+
     public function admin( )
     {
        return User::with('admins')
@@ -258,7 +259,7 @@ class EmployeeController extends ApiController
 
        $employee= Employee::find($id);
        $image_url = $this->storeImage($request, $id);
-       
+
        $employee->update(['image' => $image_url]);
 
        return response('done', 201);

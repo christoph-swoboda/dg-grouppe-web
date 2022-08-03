@@ -26,6 +26,7 @@ Route::group([
     Route::apiResource("/employees", EmployeeController::class);
     Route::get('/admin', [EmployeeController::class, 'admin']);
     Route::get('/employee', [EmployeeController::class, 'employee']);
+    Route::post('/save-device-id/{token}', [EmployeeController::class, 'saveDeviceId']);
     Route::post('/employee/profileImage/{id}', [EmployeeController::class, 'profileImage']);
 
     Route::apiResource("/categories", CategoryController::class);
