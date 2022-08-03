@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
@@ -34,6 +35,9 @@ Route::group([
     Route::get('/request/approve/{id}', [RequestController::class, 'approve']);
     Route::post('/request/reject/{id}', [RequestController::class, 'reject']);
     Route::apiResource("/requests", RequestController::class);
+
+    Route::post('/user/update/password', [UserController::class, 'updatePassword']);
+    Route::post('/user/update/phone', [UserController::class, 'updatePhone']);
 
     Route::apiResource("/notifications", NotificationController::class);
 
