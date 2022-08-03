@@ -59,7 +59,7 @@ class NotificationController extends Controller
         $notification=Notification::find($id);
         $notification->update(['seen'=>1]);
 
-        return response('seen', 200);
+        return response($notification, 200);
     }
 
     /**
