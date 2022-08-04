@@ -40,16 +40,15 @@ class RequestRepository
      */
     public function publishedBills(): array
     {
-        $pendingBills = $this->getPublishedBills(auth()->user()->id);
+        $pendingBills = $this->getPublishedBills();
 
         return ['open' => $pendingBills];
     }
 
-    private function getPublishedBills($userId){
+    private function getPublishedBills(){
 
-        return BillRequest::where('user_id', $userId)
-        ->where('status', '1')
-        ->orWhere('status', '3')
+        return BillRequest::where('status','!=', '2')
+        ->where('user_id', auth()->user()->id)
         ->with(['bill' => function ($q) {
             $q->with('type:id,title');
             // ->with(['user'=>function($sq){
@@ -122,8 +121,7 @@ class RequestRepository
        $requests= BillRequest::where('user_id',auth()->user()->id)
             ->when(\request()->has('status'), function ($q) {
                 if(\request('status')==1){
-                    $q->where('status', 1)
-                    ->orWhere('status', 3);
+                    $q->where('status','!=', '2');
                 }
                 else{
                     $q->where('status', 2);
