@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const api = process.env.MIX_API;
+// const api = 'http://localhost:8000/api';
 let BaseApi = axios.create({
     baseURL: api
 });

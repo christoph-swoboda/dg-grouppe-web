@@ -43,6 +43,13 @@ const Employees = () => {
         setFilter({...filter, search: e.target.value})
     }
 
+    useEffect(() => {
+       Api().get('/send-notification').then(res=>{
+           console.log('res', res)
+       })
+    }, []);
+
+
     return (
         <div className='employees'>
             <h1>Employees</h1>

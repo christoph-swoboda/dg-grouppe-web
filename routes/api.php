@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/test', [AuthController::class, 'test']);
-Route::post('send-notification', [NotificationController::class, 'send']);
+Route::get('/send-notification', [NotificationController::class, 'sendNotification']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

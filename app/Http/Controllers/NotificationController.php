@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Device;
 use App\Models\Notification;
+use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
+use Kutia\Larafirebase\Facades\Larafirebase;
 
 class NotificationController extends Controller
 {
@@ -95,60 +98,28 @@ class NotificationController extends Controller
         //
     }
 
-    public function send()
+    public function sendNotification(Request $request)
     {
-        return Artisan::call("send:notification", [
-            'notificationData' => [
-                "title" => "Sample Message",
-                "body" => "This is Test message body"
-            ]
-        ]);
-//        return $this->sendNotification('dweLTctVRqu6clnZZjkJbr:APA91bFU1LMx3Z7OZwsU74_-Zf0aHnACqM9zfEcrW_PTK3TuW3tuDhEP9IPbSv9enQcw4lWTL2zSFPvDtd0Pc6DPwKr1NcnIX3_adn3sUSZMjrPfskksrJ4SdScEpE0VqEUD824Kq-yf', array(
-//            "title" => "Sample Message",
-//            "body" => "This is Test message body"
-//        ));
-    }
+//        $request->validate([
+//            'title'=>'required',
+//            'message'=>'required'
+//        ]);
 
-    public function sendNotification($device_token, $message)
-    {
-        $SERVER_API_KEY = 'AAAAqOpu2V4:APA91bGJhNQUrcrqE97HWOZIdWE_I5pGmZ6R5K3Z9UOcfz-Z_JeQ8SygBHJ2T2x0LoPgdCxvKAutXB_ZAbKJhZvYcWlbvwir5qUfpH3fYEBfRQ-WC-2oCV0UpcsdFpgrzpK4VGrmbwcJ';
+        $title='hey there';
+        $message='Your Notification';
 
-        // payload data, it will vary according to requirement
-        $data = [
-            "to" => $device_token, // for single device id
-            "data" => $message
-        ];
-        $dataString = json_encode($data);
+        try{
+            $fcmTokens = Device::whereNotNull('token')->pluck('token')->toArray();
 
-        $headers = [
-            'Authorization: key=' . $SERVER_API_KEY,
-            'Content-Type: application/json',
-        ];
+            Larafirebase::withTitle($title)
+                ->withBody($message)
+                ->sendNotification($fcmTokens);
+            return response($fcmTokens, 201);
 
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-
-        $response = curl_exec($ch);
-
-        curl_close($ch);
-
-        return $response;
-    }
-
-    public function sendNotifications(): bool
-    {
-        return Artisan::call("send:notification", [
-            'notificationData' => [
-                "title" => "Sample Message",
-                "body" => "This is Test message body"
-            ]
-        ]);
+        }catch(\Exception $e){
+            report($e);
+            return response('failed', 560);
+        }
     }
 
     /**
