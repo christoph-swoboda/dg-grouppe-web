@@ -9,7 +9,7 @@ button {
 }
 
 .centerItem{
-    display: flex;
+    display: none;
     justify-content: center;
     justify-items: center;
 }
@@ -39,10 +39,9 @@ button {
     border-radius: 2px;
     background-color: #c9c9c9;
 }
-/*.activePage{*/
-/*    color: black;*/
-/*}*/
+
 .activeLink{
     color: white;
     background-color: black;
 }
+

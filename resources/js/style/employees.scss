@@ -19,6 +19,7 @@
             grid-template-columns: auto;
             margin-top: 15%;
             margin-bottom: 5%;
+            margin-left: -2%;
         }
         form {
             @include flexCenter;
@@ -52,7 +53,10 @@
             color: white;
             background-color: black;
             border-radius: 8px;
-            font-size: 2vh;
+            font-size: 1.6vh;
+            @media screen and (max-width: $bp-tablet) {
+                font-size: 12px;
+            }
         }
     }
 

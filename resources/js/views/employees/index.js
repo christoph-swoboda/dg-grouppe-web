@@ -52,7 +52,7 @@ const Employees = () => {
                     <input type='search' value={filter.search} placeholder='Search Employees' onChange={filterSelect}/>
                     <button className='searchIcon'><BsSearch size='20px' color='grey'/></button>
                 </form>
-                <button className='addEmployee' onClick={toggleEmployeeForm}>
+                <button className='addEmployee ' onClick={toggleEmployeeForm}>
                     + Add New Employee
                 </button>
             </div>

@@ -80,7 +80,7 @@ const Employee = () => {
 
             {/* Filter */}
             <div className='filtersContainer'>
-                <div className="yearInputEmployee" style={{position: 'relative', zIndex: '1'}} onClick={handleClick}>
+                <div className="yearInputEmployee"  onClick={handleClick}>
                     <DatePicker selected={filterDate}
                                 showYearPicker
                                 dateFormat="yyyy"

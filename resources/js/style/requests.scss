@@ -10,8 +10,8 @@
         grid-template-columns: auto auto;
         width: 30vw;
         margin: 2rem 0 2rem -1.5vw;
-        @media screen and (max-width: $bp-mobile) {
-            width: 100vw;
+        @media screen and (max-width: $bp-tablet) {
+            width: 80vw;
             margin: 2vh;
         }
         grid-gap: 1rem;
@@ -48,7 +48,7 @@
     grid-template-columns: auto auto auto;
     grid-gap: 10px;
     margin: 2rem 0;
-    @media screen and (max-width: $bp-mobile) {
+    @media screen and (max-width: $bp-tablet) {
         width: 100vw;
         grid-template-columns: auto;
     }
@@ -68,7 +68,9 @@
     @include flexCenter;
     //margin-right: 1vw;
     margin-top: -2.8rem;
-
+    @media screen and (max-width: $bp-tablet) {
+        margin-bottom: 4vh;
+    }
     label {
         display: none;
     }
@@ -87,7 +89,7 @@
         font-size: 2vh;
     }
 
-    @media screen and (max-width: $bp-mobile) {
+    @media screen and (max-width: $bp-tablet) {
         width: 30vw;
         font-size: 2vh;
         padding: 2rem;
