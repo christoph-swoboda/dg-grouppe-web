@@ -41,7 +41,7 @@ const EmployeesList = ({loading, users, search}) => {
                                         key={u.id}
                                         id={u.id}
                                         loading={loading}
-                                        updated={u.updated_at}
+                                        enabled={u.enabled}
                                         name={`${u?.employees?.first_name} ${u?.employees?.last_name}`}
                                         bills={u.bills}
                                         types={u?.employees?.types}

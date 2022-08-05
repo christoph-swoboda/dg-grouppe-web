@@ -7,19 +7,19 @@ import SendRequest from "../components/sendRequest";
 import {useStateValue} from "../states/StateProvider";
 import useModal from "../hooks/useModal";
 
-const EmployeesTable = ({name, id, bills, updated, types}) => {
+const EmployeesTable = ({name, id, bills, enabled, types}) => {
 
-    const [lastActive, setLastActive] = useState(0)
+    // const [lastActive, setLastActive] = useState(0)
     const [{reqData, sendReqModal}, dispatch] = useStateValue();
     const {toggleSendReqModal} = useModal();
 
-    useEffect(() => {
-        let date = new Date(updated)
-        let now = new Date()
-        const diffTime = Math.abs(now - date);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        setLastActive(diffDays)
-    }, []);
+    // useEffect(() => {
+    //     let date = new Date(updated_at)
+    //     let now = new Date()
+    //     const diffTime = Math.abs(now - date);
+    //     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    //     setLastActive(diffDays)
+    // }, []);
 
     function openModal() {
         dispatch({
@@ -57,7 +57,7 @@ const EmployeesTable = ({name, id, bills, updated, types}) => {
             <td>{types?.filter(t => t.title === 'internet').length > 0 ? 'Yes' : ' No'}</td>
             <td>{types?.filter(t => t.title === 'phone').length > 0 ? 'Yes' : ' No'}</td>
             <td>{bills?.reduce((amount, item) => item.requests?.length + amount, 0)}</td>
-            <td style={{color: lastActive > 30 ? 'red' : 'green'}}>{lastActive > 30 ? 'InActive' : 'Active'}</td>
+            <td style={{color: enabled === 0 ? 'red' : 'green'}}>{enabled === 0 ? 'InActive' : 'Active'}</td>
             <td onClick={() => openModal()}
                 style={{cursor: 'pointer'}}
             >

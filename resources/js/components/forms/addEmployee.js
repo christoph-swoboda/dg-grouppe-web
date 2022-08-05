@@ -143,7 +143,7 @@ const AddEmployee = ({edit, categories, user, credentials}) => {
                                 <input type='checkbox' value={cat.id}
                                        {...register(`categories`, {required: true})}
                                 />
-                                <label>{cat.title} </label>
+                                <label style={{textTransform:'capitalize'}}>{cat.title} </label>
                             </div>
                         ))
                     }

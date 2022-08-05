@@ -1,14 +1,17 @@
-import React, {useEffect, useRef, useState} from "react"
-import '../../style/navBar.scss'
-import NavItems from "../../helpers/navItems";
+import React, {useEffect, useRef, useState} from "react";
+import '../../style/navbar.css'
+import {AiOutlineDown, AiOutlineMenu} from "react-icons/ai";
 import {Link, useLocation} from "react-router-dom";
+import '../../style/navBar.scss'
 import Api from "../../api/api";
-import {AiOutlineDown} from "react-icons/ai";
 
 const Navbar = () => {
-
-    const router = useLocation();
-    const pathName = router.pathname.split('/')
+    const [toggleMenu, setToggleMenu] = useState(false)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+    const path = useLocation()
+    const toggleNav = () => {
+        setToggleMenu(!toggleMenu)
+    }
     const [modal, setModal] = useState(false);
     const [user, setUser] = useState()
     const modalRef = useRef();
@@ -19,6 +22,16 @@ const Navbar = () => {
                 setUser(res.data)
             })
     }, []);
+
+    useEffect(() => {
+        const changeWidth = () => {
+            setScreenWidth(window.innerWidth);
+        }
+        window.addEventListener('resize', changeWidth)
+        return () => {
+            window.removeEventListener('resize', changeWidth)
+        }
+    }, [])
 
     useEffect(() => {
         document.addEventListener('mousedown', (e) => {
@@ -37,36 +50,34 @@ const Navbar = () => {
     }
 
     return (
-        <div ref={modalRef}>
-            <ul className='navUL'>
+        <nav ref={modalRef}>
+            <ul className="list">
                 <Link to="/dashboard" className='logo'>DG GRUPPE |||</Link>
                 {
-                    NavItems?.map(item => (
-                        <div
-                            className={pathName.includes(item.path) ? 'activeHr' : 'inActiveHr'}
-                            key={item.id}
-                        >
-                            <li
-                                className={pathName.includes(item.path) ? 'active' : 'inActive'}
-                            >
-                                <Link to={item.path} className='logo'>
-                                    {item.title}
-                                </Link>
+                    (toggleMenu || screenWidth > 500) && (
+                        <>
+                            <Link to={'/'} onClick={toggleNav}>
+                                <li className={`items ${path.pathname === '/' && 'text-mainBlue'}`}>Dashboard</li>
+                            </Link>
+
+                            <Link to={'/employees'} onClick={toggleNav}>
+                                <li className={`items ${path.pathname.includes('/employees') && 'text-mainBlue'}`}>Employees</li>
+                            </Link>
+
+                            <li className='userInfo'>
+                                <img onClick={() => setModal(!modal)} hidden={!user} src={`/${user?.admins.image}`}/>
+                                <p hidden={!user} onClick={() => setModal(!modal)}>{user?.admins.first_name}</p>
+                                <p><AiOutlineDown size={'20px'} onClick={() => setModal(!modal)}/></p>
                             </li>
-                            <hr/>
-                        </div>
-                    ))
+                        </>
+                    )
                 }
-                <div className='user'>
-                    <img hidden={!user} src={`/${user?.admins.image}`}/>
-                    <p hidden={!user} onClick={() => setModal(!modal)}>{user?.admins.first_name}</p>
-                    <p style={{cursor:'pointer'}}><AiOutlineDown onClick={() => setModal(!modal)}/></p>
-                </div>
             </ul>
             <p className={modal ? 'modal-logout' : 'hide'}>
                 <button onClick={logout}>Log Out</button>
             </p>
-        </div>
+            <button onClick={toggleNav} className="btn"><AiOutlineMenu size={'30px'}/></button>
+        </nav>
     )
 }
 

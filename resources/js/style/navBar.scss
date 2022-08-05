@@ -18,32 +18,10 @@
     }
 
     li {
+        font-size: 3vh;
         list-style: none;
     }
 
-    .logo {
-        padding: 0 3rem 0 3rem;
-    }
-
-    .user {
-        position: absolute;
-        right: 0;
-        display: flex;
-        justify-items: center;
-        padding: 0 3rem 0 3rem;
-
-        p {
-            cursor: pointer;
-            font-size: 2vh;
-            margin: auto 10px;
-        }
-
-        img {
-            width: 45px;
-            height: 45px;
-            border-radius: 100%;
-        }
-    }
 
     hr {
         opacity: 0;
@@ -52,12 +30,6 @@
             color: #ececec;
         }
     }
-
-    .inActiveHr:hover hr {
-        //opacity: 1;
-        //border: 1px solid #111111
-    }
-
     .activeHr hr {
         opacity: 1;
         border: 1px solid #111111
@@ -82,14 +54,23 @@
         border-style: none;
         background-color: black;
         font-size: 1.6vh;
-        width: 12%;
+        width: 8%;
         margin: 1rem;
         position: absolute;
-        top: 5vh;
+        top: 6vh;
         right: 20px;
-        padding: 8px;
+        padding: 9px;
         border-radius: 5px;
         color: rgb(228, 224, 224);
         cursor: pointer;
+
+        @media screen and (max-width: $bp-tablet) {
+            position: unset;
+            width: 80%;
+        }
     }
 }
+.text-mainBlue{
+    color: #0a53be;
+}
+
