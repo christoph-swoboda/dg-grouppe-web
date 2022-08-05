@@ -26,6 +26,7 @@ class User extends Authenticatable
         'role',
         'password',
         'enabled',
+        'last_response_at'
     ];
 
     /**

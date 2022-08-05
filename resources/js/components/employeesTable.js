@@ -56,7 +56,7 @@ const EmployeesTable = ({name, id, bills, updated, types}) => {
             <td>{types?.filter(t => t.title === 'train').length > 0 ? 'Yes' : ' No'}</td>
             <td>{types?.filter(t => t.title === 'internet').length > 0 ? 'Yes' : ' No'}</td>
             <td>{types?.filter(t => t.title === 'phone').length > 0 ? 'Yes' : ' No'}</td>
-            <td>{bills?.reduce((amount, item) => item.requests.length + amount, 0)}</td>
+            <td>{bills?.reduce((amount, item) => item.requests?.length + amount, 0)}</td>
             <td style={{color: lastActive > 30 ? 'red' : 'green'}}>{lastActive > 30 ? 'InActive' : 'Active'}</td>
             <td onClick={() => openModal()}
                 style={{cursor: 'pointer'}}

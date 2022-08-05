@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\RequestResponse;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -38,8 +40,10 @@ class RequestResponseController extends Controller
     {
         $response = RequestResponse::find($request->input('id'));
         $image_url = $this->storeImage($request);
-
         $response->update(['image' => $image_url]);
+
+        $user=User::find(auth()->user()->id);
+        $user->update(['last_response_at'=>Carbon::now()]);
 
         return response('Photo Uploaded Successfully', 200);
     }

@@ -28,7 +28,7 @@ class EmployeeController extends ApiController
         $users = User::where('role', 2)
         ->with(['bills' => function ($q) {
             $q->with(['requests' => function ($sq) {
-                $sq->where('status', '1');
+                $sq->where('status', '!=', '2');
             }]);
         }])->with(['employees'=>function ($q){
             $q->with('types');
@@ -94,7 +94,6 @@ class EmployeeController extends ApiController
         return [
             'email' => $request->input('email'),
             'password' => bcrypt('123456'),
-            'enabled' => true,
         ];
     }
 

@@ -57,6 +57,10 @@ class AuthController extends Controller
         $tokenResult = $request->user()->createToken('auth:token');
         $user = auth()->user();
 
+        if($user->role==='2' && $user->enabled===0){
+            $user->update(['enabled'=>1]);
+        }
+
         return response()->json([
             'user' => $user,
             'access_token' => $tokenResult->plainTextToken,
