@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\RequestResponse;
 use App\Models\User;
 use Carbon\Carbon;
@@ -38,12 +39,20 @@ class RequestResponseController extends Controller
      */
     public function store(Request $request): Response
     {
-        $response = RequestResponse::find($request->input('id'));
+        $response = RequestResponse::where('id', $request->input('id'))->with('request')->first();
         $image_url = $this->storeImage($request);
         $response->update(['image' => $image_url]);
+        $response->update(['message' => '1 Image Was Uploaded']);
 
-        $user=User::find(auth()->user()->id);
-        $user->update(['last_response_at'=>Carbon::now()]);
+        $user = User::find(auth()->user()->id);
+        $user->update(['last_response_at' => Carbon::now()]);
+
+        $billRequest = $response->request;
+        $notificationData = [
+            'bill_request_id' => $billRequest->id,
+            'user_id' => $billRequest->user->id
+        ];
+        Notification::create($notificationData);
 
         return response('Photo Uploaded Successfully', 200);
     }
@@ -57,13 +66,13 @@ class RequestResponseController extends Controller
             $image = str_replace('data:image/png;base64,', '', $image);
             $image = str_replace(' ', '+', $image);
 
-            $imageName ='response_'. $request->input('id') . '.' . 'png';
+            $imageName = 'response_' . $request->input('id') . '.' . 'png';
             $upload_path = 'assets/responses/';
             if (!\File::isDirectory($upload_path)) {
                 \File::makeDirectory($upload_path, 777);
             }
             \File::put(public_path($upload_path) . $imageName, base64_decode($image));
-            $image_url= $upload_path . $imageName;
+            $image_url = $upload_path . $imageName;
         }
         return $image_url;
     }
