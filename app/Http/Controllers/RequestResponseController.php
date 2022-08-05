@@ -39,7 +39,7 @@ class RequestResponseController extends Controller
      */
     public function store(Request $request): Response
     {
-        $response = RequestResponse::where('id', $request->input('id'))->with('request')->first();
+        $response = RequestResponse::with('request')->where('id', $request->input('id'))->first();
         $image_url = $this->storeImage($request);
         $response->update(['image' => $image_url]);
         $response->update(['message' => '1 Image Was Uploaded']);
@@ -50,7 +50,7 @@ class RequestResponseController extends Controller
         $billRequest = $response->request;
         $notificationData = [
             'bill_request_id' => $billRequest->id,
-            'user_id' => $billRequest->user->id
+            'user_id' => $billRequest->user_id
         ];
         Notification::create($notificationData);
 

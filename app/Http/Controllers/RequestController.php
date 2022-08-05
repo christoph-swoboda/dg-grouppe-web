@@ -32,7 +32,7 @@ class RequestController extends Controller
      */
     public function index(): Response
     {
-        $result= $this->requestRepository->Bills();
+        $result = $this->requestRepository->Bills();
 
         return response($result, 201);
     }
@@ -44,7 +44,7 @@ class RequestController extends Controller
      */
     public function publishedBills(): Response
     {
-        $result= $this->requestRepository->publishedBills();
+        $result = $this->requestRepository->publishedBills();
 
         return response($result, 201);
     }
@@ -57,7 +57,7 @@ class RequestController extends Controller
      */
     public function categorizedBills(): Response
     {
-        $result= $this->requestRepository->categorizedBills();
+        $result = $this->requestRepository->categorizedBills();
 
         return response($result, 201);
     }
@@ -252,11 +252,11 @@ class RequestController extends Controller
     public function approve($id): Response
     {
 
-        $billRequest = BillRequest::with(['bill'=> function($q){
+        $billRequest = BillRequest::with(['bill' => function ($q) {
             $q->with('user');
         }])->find($id);
 
-        $billRequest->update(['status' => '2','published'=>false]);
+        $billRequest->update(['status' => '2', 'published' => false]);
 
         $response = $billRequest->response;
         $response->update(['message' => '1 Image Was Approved']);
@@ -265,7 +265,7 @@ class RequestController extends Controller
             'bill_request_id' => $billRequest->id,
             'user_id' => $billRequest->bill->user->id
         ];
-        $notification= Notification::create($notificationData);
+        $notification = Notification::create($notificationData);
 
         return \response($response, '201');
     }
@@ -277,20 +277,20 @@ class RequestController extends Controller
      */
     public function reject(Request $request, $id): Response
     {
-        $billRequest = BillRequest::with(['bill'=> function($q){
+        $billRequest = BillRequest::with(['bill' => function ($q) {
             $q->with('user');
         }])->find($id);
 
-        $billRequest->update(['status' => '3','published'=>false]);
+        $billRequest->update(['status' => '3', 'published' => false]);
 
         $response = $billRequest->response;
-        $response->update(['message' => $request->input('message')]);
+        $response->update(['message' => '1 Image Rejected With Reason: ' . $request->input('message')]);
 
         $notificationData = [
             'bill_request_id' => $billRequest->id,
             'user_id' => $billRequest->bill->user->id
         ];
-        $notification= Notification::create($notificationData);
+        $notification = Notification::create($notificationData);
 
         return \response($response, '201');
     }
