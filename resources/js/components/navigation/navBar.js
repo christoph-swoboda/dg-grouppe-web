@@ -50,7 +50,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav ref={modalRef}>
+        <nav ref={modalRef} hidden={path.pathname==='/login'}>
             <ul className="list">
                 <Link to="/dashboard" className='logo'>DG GRUPPE |||</Link>
                 {
