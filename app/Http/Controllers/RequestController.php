@@ -284,7 +284,7 @@ class RequestController extends Controller
         $billRequest->update(['status' => '3', 'published' => false]);
 
         $response = $billRequest->response;
-        $response->update(['message' => '1 Image Rejected With Reason: ' . $request->input('message')]);
+        $response->update(['message' => '1 Image rejected with reason: ' . $request->input('message')]);
 
         $notificationData = [
             'bill_request_id' => $billRequest->id,
