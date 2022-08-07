@@ -81,15 +81,4 @@ class AuthController extends Controller
         ];
     }
 
-    public function test()
-    {
-//        return Bill::with('type')->with(['requests' => function ($q) {
-//                $q->with('response')->get();
-//        }])->get();
-
-//        return Notification::where('employee_id',auth()->user()->id)->with('response')->get();
-        return Notification::with('response')->get();
-
-    }
-
 }

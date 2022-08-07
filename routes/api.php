@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/test', [AuthController::class, 'test']);
 Route::get('/send-notification', [NotificationController::class, 'sendNotification']);
+Route::apiResource("/settings", SettingController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -31,8 +32,6 @@ Route::group([
     Route::post('/employee/profileImage/{id}', [EmployeeController::class, 'profileImage']);
 
     Route::apiResource("/categories", CategoryController::class);
-
-    Route::apiResource("/settings", SettingController::class);
 
     Route::get('/requests/published', [RequestController::class, 'publishedBills']);
     Route::get('/requests/categorized', [RequestController::class, 'categorizedBills']);
