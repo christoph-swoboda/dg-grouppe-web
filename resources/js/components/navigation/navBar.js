@@ -20,6 +20,12 @@ const Navbar = () => {
         await Api().get('admin')
             .then(res => {
                 setUser(res.data)
+            }).catch(e => {
+                if (e.response.status === 401) {
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('user')
+                    window.location.replace('/login')
+                }
             })
     }, []);
 
@@ -46,11 +52,17 @@ const Navbar = () => {
             .then(res => {
                 window.localStorage.clear();
                 window.location.replace('/login')
+            }).catch(err => {
+                if (err.response.status === 401) {
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('user')
+                    window.location.replace('/login')
+                }
             })
     }
 
     return (
-        <nav ref={modalRef} hidden={path.pathname==='/login'}>
+        <nav ref={modalRef} hidden={path.pathname === '/login'}>
             <ul className="list">
                 <Link to="/dashboard" className='logo'>DG GRUPPE |||</Link>
                 {
