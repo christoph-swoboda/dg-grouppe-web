@@ -31,6 +31,12 @@ const Requests = ({slug}) => {
                 console.log('req', res.data)
                 setBills(res.data)
                 setLoading(false)
+            }).catch(e => {
+                if (e.response.status === 401) {
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('user')
+                    window.location.replace('/login')
+                }
             })
         }, (query) ? 500 : 0)
         return () => clearTimeout(delayQuery)

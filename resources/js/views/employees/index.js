@@ -33,6 +33,12 @@ const Employees = () => {
             await Api().get(`/employees?${query}`).then(res => {
                 setUsers(res.data)
                 setLoading(false)
+            }).catch(e => {
+                if (e.response.status === 401) {
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('user')
+                    window.location.replace('/login')
+                }
             })
         }, (query) ? 500 : 0)
         return () => clearTimeout(delayQuery)
