@@ -6,6 +6,7 @@ import '../../style/navBar.scss'
 import Api from "../../api/api";
 
 const Navbar = () => {
+
     const [toggleMenu, setToggleMenu] = useState(false)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path = useLocation()
@@ -20,12 +21,6 @@ const Navbar = () => {
         await Api().get('admin')
             .then(res => {
                 setUser(res.data)
-            }).catch(e => {
-                if (e.response.status === 401) {
-                    localStorage.removeItem('token')
-                    localStorage.removeItem('user')
-                    window.location.replace('/login')
-                }
             })
     }, []);
 
@@ -52,12 +47,6 @@ const Navbar = () => {
             .then(res => {
                 window.localStorage.clear();
                 window.location.replace('/login')
-            }).catch(err => {
-                if (err.response.status === 401) {
-                    localStorage.removeItem('token')
-                    localStorage.removeItem('user')
-                    window.location.replace('/login')
-                }
             })
     }
 
