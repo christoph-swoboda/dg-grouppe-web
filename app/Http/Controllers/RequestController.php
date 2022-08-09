@@ -143,8 +143,6 @@ class RequestController extends Controller
 
         $billData = [
             'user_id' => $request->input('user'),
-            'published' => 1,
-            'title' => 'Request To Upload',
             'created_at' => $created_at,
         ];
 

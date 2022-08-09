@@ -49,11 +49,11 @@ const Employees = () => {
         setFilter({...filter, search: e.target.value})
     }
 
-    useEffect(() => {
-       Api().get('/send-notification').then(res=>{
-           console.log('res', res)
-       })
-    }, []);
+    function SendTest(){
+        Api().get('/send-notification').then(res=>{
+            console.log('res', res)
+        })
+    }
 
 
     return (
@@ -67,6 +67,9 @@ const Employees = () => {
                 </form>
                 <button className='addEmployee ' onClick={toggleEmployeeForm}>
                     + Add New Employee
+                </button>
+                <button className='addEmployee ' onClick={SendTest}>
+                    TEST
                 </button>
             </div>
             {/*{Employee List}*/}

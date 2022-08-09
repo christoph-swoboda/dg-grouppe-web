@@ -10,11 +10,11 @@ export const getPeriod = (value, year) => {
 
 export const getDeadline = (value, year) => {
     if (value <= 4) {
-        return (`30/4/${year}`)
+        return (`4/30/${year}`)
     } else if (value > 4 && value < 9) {
 
-        return (`31/8/${year}`)
+        return (`8/31/${year}`)
     } else {
-        return (`31/12/${year}`)
+        return (`12/31/${year}`)
     }
 }
