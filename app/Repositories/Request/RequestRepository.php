@@ -45,16 +45,17 @@ class RequestRepository
         return ['open' => $pendingBills];
     }
 
-    private function getPublishedBills(){
-
-        return BillRequest::where('status','!=', '2')
-        ->where('user_id', auth()->user()->id)
-        ->with(['bill' => function ($q) {
-            $q->with('type:id,title');
-            // ->with(['user'=>function($sq){
-            //     $sq->with('employees');
-            // }]);
-        }])
+    private function getPublishedBills()
+    {
+        return BillRequest::where('status', '!=', '2')
+            ->where('published', 1)
+            ->where('user_id', auth()->user()->id)
+            ->with(['bill' => function ($q) {
+                $q->with('type:id,title');
+                // ->with(['user'=>function($sq){
+                //     $sq->with('employees');
+                // }]);
+            }])
             ->with('type')
             ->with('response')
             ->orderBy('id', 'desc')
@@ -72,42 +73,42 @@ class RequestRepository
             $requestedStatus = '3';
         }
 
-        $perPage=3;
-        if(\request()->has('slug')){
-            $perPage=10;
+        $perPage = 3;
+        if (\request()->has('slug')) {
+            $perPage = 10;
         }
 
         return BillRequest::where('status', $status)
-                ->when(\request()->has('slug'), function ($q) use ($requestedStatus) {
-                    $q->where('status', $requestedStatus);
-                })
-            ->with(['bill'=>function($q){
-                $q->with(['user'=>function($sq){
+            ->when(\request()->has('slug'), function ($q) use ($requestedStatus) {
+                $q->where('status', $requestedStatus);
+            })
+            ->with(['bill' => function ($q) {
+                $q->with(['user' => function ($sq) {
                     $sq->with('employees');
                 }])
-                ->when(\request()->has('year'), function ($q) {
-                    $q->whereYear('created_at', '=', \request('year'));
-                })
-                ->when(\request()->has('period'), function ($q) {
-                    if (\request('period') == 1) {
-                        $q->whereMonth('created_at', '<', '5');
-                    } else if (\request('period') == 2) {
-                        $q->where(function ($query) {
-                            $query->whereMonth('created_at', 5);
-                            $query->orWhere(function ($query2) {
-                                $query2->whereMonth('created_at', 6);
+                    ->when(\request()->has('year'), function ($q) {
+                        $q->whereYear('created_at', '=', \request('year'));
+                    })
+                    ->when(\request()->has('period'), function ($q) {
+                        if (\request('period') == 1) {
+                            $q->whereMonth('created_at', '<', '5');
+                        } else if (\request('period') == 2) {
+                            $q->where(function ($query) {
+                                $query->whereMonth('created_at', 5);
+                                $query->orWhere(function ($query2) {
+                                    $query2->whereMonth('created_at', 6);
+                                });
+                                $query->orWhere(function ($query1) {
+                                    $query1->whereMonth('created_at', 7);
+                                });
+                                $query->orWhere(function ($query1) {
+                                    $query1->whereMonth('created_at', 8);
+                                });
                             });
-                            $query->orWhere(function ($query1) {
-                                $query1->whereMonth('created_at', 7);
-                            });
-                            $query->orWhere(function ($query1) {
-                                $query1->whereMonth('created_at', 8);
-                            });
-                        });
-                    } else {
-                        $q->whereMonth('created_at', '>', '8');
-                    }
-                });
+                        } else {
+                            $q->whereMonth('created_at', '>', '8');
+                        }
+                    });
             }])
             ->with('type')
             ->with('response')
@@ -116,26 +117,24 @@ class RequestRepository
     }
 
 
-    public function categorizedBills (){
+    public function categorizedBills()
+    {
 
-       $requests= BillRequest::where('user_id',auth()->user()->id)
+        return BillRequest::where('user_id', auth()->user()->id)
             ->when(\request()->has('status'), function ($q) {
-                if(\request('status')==1){
-                    $q->where('status','!=', '2');
-                }
-                else{
+                if (\request('status') == 1) {
+                    $q->where('status', '!=', '2');
+                } else {
                     $q->where('status', 2);
                     // ->where('created_at', '>' , now()->subMonth('4'));
                 }
             })
             ->with('bill')
-            ->with(['type'=>function($q){
-                $q->where('title',\request('type'));
+            ->with(['type' => function ($q) {
+                $q->where('title', \request('type'));
             }])
             ->with('response')
             ->paginate(8);
-
-        return $requests;
     }
 
 }

@@ -48,6 +48,8 @@ class RequestResponseController extends Controller
         $user->update(['last_response_at' => Carbon::now()]);
 
         $billRequest = $response->request;
+        $billRequest->update(['published'=>0]);
+
         $notificationData = [
             'bill_request_id' => $billRequest->id,
             'user_id' => $billRequest->user_id

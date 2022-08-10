@@ -44,24 +44,4 @@ class Employee extends Model
     {
         return $this->belongsToMany(Category::class, 'employee_categories', 'employee_id', 'category_id')->withPivot('id');
     }
-
-    // /**
-    //  * Bills Relation
-    //  * @return HasMany
-    //  */
-
-    // public function bills(): HasMany
-    // {
-    //     return $this->hasMany(Bill::class);
-    // }
-
-    // /**
-    //  * Notification  Relation
-    //  * @return HasMany
-    //  */
-
-    // public function response(): HasMany
-    // {
-    //     return $this->hasMany(Notification::class);
-    // }
 }

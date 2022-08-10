@@ -49,13 +49,6 @@ const Employees = () => {
         setFilter({...filter, search: e.target.value})
     }
 
-    function SendTest(){
-        Api().get('/send-notification').then(res=>{
-            console.log('res', res)
-        })
-    }
-
-
     return (
         <div className='employees'>
             <h1>Employees</h1>
@@ -67,9 +60,6 @@ const Employees = () => {
                 </form>
                 <button className='addEmployee ' onClick={toggleEmployeeForm}>
                     + Add New Employee
-                </button>
-                <button className='addEmployee ' onClick={SendTest}>
-                    TEST
                 </button>
             </div>
             {/*{Employee List}*/}

@@ -49,7 +49,7 @@ class EmployeeController extends ApiController
             'token'=>$token,
             'user_id'=>auth()->user()->id
         ];
-        Device::create($data);
+        Device::updateorcreate($data);
     }
 
     /**

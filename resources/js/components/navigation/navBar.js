@@ -74,9 +74,10 @@ const Navbar = () => {
                     )
                 }
             </ul>
-            <p className={modal ? 'modal-logout' : 'hide'}>
+            <div className={modal ? 'modal-logout' : 'hide'}>
                 <button onClick={logout}>Log Out</button>
-            </p>
+                <Link to={'/settings'} onClick={()=>setModal(false)}>Settings</Link>
+            </div>
             <button onClick={toggleNav} className="btn"><AiOutlineMenu size={'30px'}/></button>
         </nav>
     )

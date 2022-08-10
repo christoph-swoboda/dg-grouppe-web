@@ -5,24 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use App\Models\BillCategory;
 use App\Models\BillRequest;
-use App\Models\Employee;
+use App\Models\Device;
 use App\Models\Notification;
-use App\Models\User;
 use App\Models\RequestResponse;
+use App\Repositories\Notifications\NotificationRepository;
 use App\Repositories\Request\RequestRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Notifications\SendPushNotification;
+use Kutia\Larafirebase\Facades\Larafirebase;
 
 class RequestController extends Controller
 {
 
     public $requestRepository;
+    public $notificationsRepository;
 
-    public function __construct(RequestRepository $requestRepository)
+    public function __construct(RequestRepository $requestRepository, NotificationRepository $notificationRepository)
     {
         $this->requestRepository = $requestRepository;
+        $this->notificationsRepository = $notificationRepository;
     }
 
     /**
@@ -108,25 +110,8 @@ class RequestController extends Controller
             }
         }
 
-        $previousBills = User::where('id', $request->input('user'))
-            ->with(['bills' => function ($q) use ($year, $period) {
-                $q->with('type');
-                if ($period === '1') {
-                    $q->whereMonth('created_at', '<', '5')
-                        ->whereYear('created_at', '=', $year);
-                } else if ($period === '2') {
-                    $q->whereYear('created_at', '=', $year)
-                        ->whereMonth('created_at', '>', '4')
-                        ->orWhere(function ($subQ) use ($year) {
-                            $subQ->whereMonth('created_at', '<', '9')
-                                ->whereYear('created_at', '=', $year);
-                        });
-                } else if ($period === '3') {
-                    $q->whereMonth('created_at', '>', '8')
-                        ->whereYear('created_at', '=', $year);
-                }
-            }])
-            ->first();
+        $previousBills = $this->notificationsRepository->PreviousBills($request->input('user'), $year, $period);
+        $fcmToken = Device::whereNotNull('token')->where('user_id', $request->input('user'))->pluck('token')->toArray();
 
         $billTypes = [];
         foreach ($previousBills->bills as $bill) {
@@ -154,11 +139,9 @@ class RequestController extends Controller
                     'bill_id' => $bill->id,
                     'category_id' => $newType,
                 ]);
-            }
-            foreach ($newTypeTobeSaved as $type) {
                 $reqData = [
                     'bill_id' => $bill->id,
-                    'category_id' => $type,
+                    'category_id' => $newType,
                     'user_id' => $request->input('user')
                 ];
                 $billRequest = BillRequest::create($reqData);
@@ -166,10 +149,16 @@ class RequestController extends Controller
                 $resData = [
                     'bill_request_id' => $billRequest->id,
                 ];
-                $response = RequestResponse::create($resData);
+                RequestResponse::create($resData);
 
+                $title = 'Request To Upload Bill';
+                $message = 'Upload appropriate photo for the required bill';
+
+                Larafirebase::withTitle($title)
+                    ->withBody($message)
+                    ->sendNotification($fcmToken);
             }
-            return response($bill, '201');
+            return response($fcmToken, '201');
         } else if (count($previousBills->bills) > 0 && !empty($newTypeTobeSaved)) {
 
             $bill = Bill::updateorcreate($billData);
@@ -178,11 +167,9 @@ class RequestController extends Controller
                     'bill_id' => $bill->id,
                     'category_id' => $newType,
                 ]);
-            }
-            foreach ($newTypeTobeSaved as $type) {
                 $reqData = [
                     'bill_id' => $bill->id,
-                    'category_id' => $type,
+                    'category_id' => $newType,
                     'user_id' => $request->input('user')
                 ];
                 $billRequest = BillRequest::updateorcreate($reqData);
@@ -191,9 +178,18 @@ class RequestController extends Controller
                     'bill_request_id' => $billRequest->id,
                 ];
                 RequestResponse::updateorcreate($resData);
+
+                $title = 'Request To Upload Bill';
+                $message = 'Upload appropriate photo for the required bill';
+
+                Larafirebase::withTitle($title)
+                    ->withBody($message)
+                    ->sendNotification($fcmToken);
             }
-            return response($bill, '201');
+
+            return response($fcmToken, '201');
         } else {
+
             return response('Request Already Exists', 202);
         }
     }
@@ -254,7 +250,7 @@ class RequestController extends Controller
             $q->with('user');
         }])->find($id);
 
-        $billRequest->update(['status' => '2', 'published' => false]);
+        $billRequest->update(['status' => '2', 'published' => 1]);
 
         $response = $billRequest->response;
         $response->update(['message' => '1 Image Was Approved']);
@@ -279,7 +275,7 @@ class RequestController extends Controller
             $q->with('user');
         }])->find($id);
 
-        $billRequest->update(['status' => '3', 'published' => false]);
+        $billRequest->update(['status' => '3', 'published' => 1]);
 
         $response = $billRequest->response;
         $response->update(['message' => '1 Image rejected with reason: ' . $request->input('message')]);

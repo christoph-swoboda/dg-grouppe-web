@@ -10,7 +10,8 @@ import Navbar from "./components/navigation/navBar";
 import Requests from "./views/requests";
 import Employees from "./views/employees";
 import Employee from "./views/employee";
-import AllRequests from "./views/AllRequests";
+import AllRequests from "./views/allRequests";
+import Settings from "./views/settings";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
                 <Routes>
                     <Route index element={user ? <Requests/> : <Navigate to="/login"/>}/>
                     <Route path="/dashboard" element={user ? <Requests/> : <Navigate to="/login"/>}/>
+                    <Route path="/settings" element={user ? <Settings/> : <Navigate to="/login"/>}/>
                     <Route path="/dashboard/:slug" element={user ? <AllRequests/> : <Navigate to="/login"/>}/>
                     <Route path="/employees" element={user ? <Employees/> : <Navigate to="/login"/>}/>
                     <Route path="/employees/:id" element={user ? <Employee/> : <Navigate to="/login"/>}/>
@@ -33,7 +35,7 @@ function App() {
                     <Route path="/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
                 </Routes>
             </Router>
-            <ToastContainer/>
+            <ToastContainer style={{zIndex:'99999999999'}}/>
         </div>
     );
 }

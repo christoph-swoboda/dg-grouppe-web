@@ -1,135 +1,128 @@
 <?php
 
-namespace App\Console\Commands;
 
+namespace App\Console\commands;
+
+
+use App\Models\Bill;
+use App\Models\BillCategory;
+use App\Models\BillRequest;
 use App\Models\Device;
-use Exception;
+use App\Models\RequestResponse;
+use App\Models\User;
+use App\Repositories\Notifications\NotificationRepository;
+use App\Repositories\Request\RequestRepository;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
+use Kutia\Larafirebase\Facades\Larafirebase;
+
 
 class SendPushNotification extends Command
+
 {
+
+    public $notificationsRepository;
+
+    public function __construct(NotificationRepository $notificationRepository)
+    {
+        $this->notificationsRepository = $notificationRepository;
+        parent::__construct();
+    }
+
+
     /**
-     * if specific device tokens passed as parameter then send notification to those specific devices
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'send:notification {notificationData} {deviceTokens=all}';
+
+    protected $signature = 'sendNotification:cron';
+
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This command sends web/mobile push notification with firebase';
 
-    /**
-     * @var array
-     */
-    protected  $headers;
+    protected $description = 'Sending requests at the start of every period to all users';
 
-    /**
-     * @var string
-     */
-    protected  $requestUri = 'https://fcm.googleapis.com/fcm/send';
 
-    /**
-     * Firebase Configuration Data
-     * @var array
-     */
-    protected  $data;
-
-    /**
-     * @var array
-     */
-    protected  $deviceTokens;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
      *
-     * @return void
-     */
-    public function handle(): void
-    {
-        $this->info('notification sending to mobile...');
-        try {
-            $this->verifyNotificationData();
-            $this->setDeviceTokens();
-            $this->prepareData();
-            $this->send();
-            $this->info('Notification sent successfully!');
-
-        } catch (Exception $exception) {
-            $this->info($exception->getMessage());
-            \Log::info($exception->getMessage());
-        }
-    }
-
-    /**
-     * Checks if notification data is an and it has title and body index
-     * @return bool
+     * @return mixed
      */
 
-    private function verifyNotificationData(): bool
+    public function handle()
+
     {
-        $data = $this->argument('notificationData');
 
-        if (!is_array($data) && (is_string($data['title']) && strlen($data['title']) < 3 && is_string($data['body']) && strlen($data['body']) < 10)) return false;
+        \Log::info("Requests Sent!");
+        $year = Carbon::now()->year;
+        $month = Carbon::now()->month;
 
-        return true;
-    }
-
-    /**
-     * @return void
-     * @throws Exception
-     */
-    private function setDeviceTokens(): void
-    {
-        if ($this->argument('deviceTokens') == 'all') {
-            $tokens = (array)Device::pluck('token')->toArray();
+        if ($month <= 4) {
+            $period = '1';
+        } else if ($month >= 5 && $month <= 8) {
+            $period = '2';
         } else {
-            if (!is_array($this->argument('deviceTokens'))) throw new Exception('DeviceTokens should pass as array');
-
-            $tokens = (array)$this->argument('deviceTokens');
+            $period = '3';
         }
 
-        $this->deviceTokens = $tokens;
-    }
+        $fcmTokens = Device::whereNotNull('token')->get();
 
-    /**
-     * @return void
-     */
-    private function prepareData(): void
-    {
-        $this->headers = [
-            'Authorization' => "key=" . env('FIREBASE_SERVER_KEY'),
-            'Content-Type' => 'application/json',
-        ];
+        $users = User::where('role', '!=', 1)->get();
 
-        $this->data = [
-            "registration_ids" => (array)$this->deviceTokens,
-            "notification" => (array)$this->argument('notificationData'),
-            "data" => ['article_id' => $this->argument('notificationData')['article_id']],
-        ];
-    }
+        foreach ($users as $key => $User) {
 
-    private function send()
-    {
-        try {
-            $output = Http::withHeaders($this->headers)->post($this->requestUri, $this->data);
-            \Log::info('Success: ' . json_encode($output));
-        } catch (Exception $exception) {
-            \Log::error($exception->getMessage());
+            $previousBills = $this->notificationsRepository->PreviousBills($User->id, $year, $period);
+
+            if (count($previousBills->bills) === 0) {
+                $bill = Bill::create(['user_id' => $User->id]);
+
+                $userWithTypes = User::where('id', $User->id)
+                    ->with(['employees' => function ($q) {
+                        $q->with('types');
+                    }])->get();
+
+                $userTypes = [];
+                $userTypesTitle = [];
+                foreach ($userWithTypes as $user) {
+                    $employees = $user->employees;
+                    foreach ($employees->types as $type) {
+                        $userTypes[] = $type->id;
+                        $userTypesTitle[] = $type->title;
+                    }
+                }
+
+                foreach ($userTypes as $index => $userType) {
+                    BillCategory::create([
+                        'bill_id' => $bill->id,
+                        'category_id' => $userType,
+                    ]);
+
+                    $billRequest = BillRequest::create([
+                        'bill_id' => $bill->id,
+                        'category_id' => $userType,
+                        'user_id' => $User->id
+                    ]);
+
+                    RequestResponse::create([
+                        'bill_request_id' => $billRequest->id,
+                    ]);
+
+                    $title = 'Request To Upload ' . $userTypesTitle[$index] . ' Bill';
+                    $message = 'Upload appropriate photo for the required bill';
+                    if ($User->id == $fcmTokens[$key]->user_id) {
+                        Larafirebase::withTitle($title)
+                            ->withBody($message)
+                            ->sendNotification($fcmTokens[$key]->token);
+                    }
+                }
+            }
         }
+        return response($fcmTokens, 201);
     }
 }

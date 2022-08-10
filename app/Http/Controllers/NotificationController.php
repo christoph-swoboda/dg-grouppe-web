@@ -105,75 +105,22 @@ class NotificationController extends Controller
 
     public function sendNotification(Request $request)
     {
-//        $title = 'hey there';
-//        $message = 'Your Notification';
-//
-//        try {
-//            $devicesWithUsers = Device::whereNotNull('token')->get();
-//            $fcmTokens = $devicesWithUsers->pluck('token')->toArray();
-//
-//            Larafirebase::withTitle($title)
-//                ->withBody($message)
-//                ->sendNotification($fcmTokens);
-//            return response($fcmTokens, 201);
-//
-//        } catch (\Exception $e) {
-//            report($e);
-//            return response('failed', 560);
-//        }
+        $title = 'hey there';
+        $message = 'Your Notification';
 
+        try {
+            $devicesWithUsers = Device::whereNotNull('token')->get();
+            $fcmTokens = $devicesWithUsers->pluck('token')->toArray();
 
-//        $fcmTokens = Device::whereNotNull('token')->pluck('token')->toArray();
-        $fcmTokens = Device::whereNotNull('token')->get();
+            Larafirebase::withTitle($title)
+                ->withBody($message)
+                ->sendNotification($fcmTokens);
+            return response($fcmTokens, 201);
 
-
-        $users = User::where('role', '!=', 1)->get();
-
-        foreach ($users as $key => $User) {
-            $bill = Bill::create(['user_id' => $User->id]);
-
-            $userWithTypes = User::where('id', $User->id)
-                ->with(['employees' => function ($q) {
-                    $q->with('types');
-                }])->get();
-
-            $userTypes = [];
-            $userTypesTitle = [];
-            foreach ($userWithTypes as $user) {
-                $employees = $user->employees;
-                foreach ($employees->types as $type) {
-                    $userTypes[] = $type->id;
-                    $userTypesTitle[] = $type->title;
-                }
-            }
-
-            foreach ($userTypes as $index=> $userType) {
-                BillCategory::create([
-                    'bill_id' => $bill->id,
-                    'category_id' => $userType,
-                ]);
-
-                $billRequest = BillRequest::create([
-                    'bill_id' => $bill->id,
-                    'category_id' => $userType,
-                    'user_id' => $User->id
-                ]);
-
-                RequestResponse::create([
-                    'bill_request_id' => $billRequest->id,
-                ]);
-
-                $title = 'Request To Upload ' . $userTypesTitle[$index] . ' Bill';
-                $message = 'Upload appropriate photo for the required bill';
-                if ($User->id == $fcmTokens[$key]->user_id) {
-                    Larafirebase::withTitle($title)
-                        ->withBody($message)
-                        ->sendNotification($fcmTokens[$key]->token);
-                }
-            }
+        } catch (\Exception $e) {
+            report($e);
+            return response('failed', 560);
         }
-        return response($fcmTokens, 201);
-
     }
 
     /**
