@@ -117,7 +117,7 @@ class RequestController extends Controller
         $billTypes = [];
         foreach ($previousBills->bills as $bill) {
             foreach ($bill->type as $type) {
-                $billTypes[] = $type;
+                $billTypes[] = $type->id;
             }
         }
         $newTypeTobeSaved = [];
