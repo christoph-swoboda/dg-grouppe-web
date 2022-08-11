@@ -11,14 +11,14 @@ import {useStateValue} from "../../states/StateProvider";
 
 const Requests = ({slug}) => {
 
-    const [{approve, pageNumber}, dispatch] = useStateValue()
+    const [{approve, pageNumber}] = useStateValue()
     const [filterDate, setFilterDate] = useState(new Date());
     const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false)
     const [bills, setBills] = useState([])
     const [filter, setFilter] = useState({year: null, period: null, slug: slug, page: pageNumber})
     const query = qs.stringify(filter, {encode: false, skipNulls: true})
-    const periodCount = process.env.MIX_PERIODCOUNT
+    // const periodCount = process.env.MIX_PERIODCOUNT
 
 
     useEffect(() => {
@@ -28,8 +28,8 @@ const Requests = ({slug}) => {
         setLoading(true)
         const delayQuery = setTimeout(async () => {
             await Api().get(`/requests?${query}`).then(res => {
-                console.log('req', res.data)
                 setBills(res.data)
+                console.log('res', res.data)
                 setLoading(false)
             }).catch(e => {
                 if (e.response.status === 401) {
@@ -42,11 +42,6 @@ const Requests = ({slug}) => {
         return () => clearTimeout(delayQuery)
 
     }, [query, approve, pageNumber]);
-
-    // useEffect(async () => {
-    //     await Api().post('send-notification').then(res => console.log('res', res.data.results))
-    // }, []);
-
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -61,7 +56,8 @@ const Requests = ({slug}) => {
     return (
         <div className='requests'>
             <div hidden={slug}>
-                <StatsCard openReq={bills?.open?.total} approvedReq={bills?.approved?.total} rejectedReq={bills?.rejected?.total}/>
+                <StatsCard openReq={bills?.open?.total} approvedReq={bills?.approved?.total}
+                           rejectedReq={bills?.rejected?.total}/>
             </div>
             {/*filter*/}
             <div className='filters'>
@@ -96,13 +92,13 @@ const Requests = ({slug}) => {
             {/*filter*/}
 
             {/*list*/}
-            <div className='requestsList'>
+            <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
                 <RequestsList slug={slug} loading={loading} status={1} header={'pending'} bills={bills?.open}/>
             </div>
-            <div className='requestsList'>
+            <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
                 <RequestsList slug={slug} loading={loading} status={2} header={'confirmed'} bills={bills?.approved}/>
             </div>
-            <div className='requestsList'>
+            <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
                 <RequestsList slug={slug} loading={loading} status={3} header={'rejected'} bills={bills?.rejected}/>
             </div>
             {/*list*/}

@@ -51,7 +51,7 @@
 
 .modal-logout {
     border-style: none;
-    background-color: #dadada;
+    background-color: #696969;
     width: 160px;
     position: absolute;
     top: 6vh;
@@ -65,13 +65,14 @@
 
     button, a {
         border-style: none;
-        background-color: #ffffff;
+        background-color: inherit;
         font-size: 1.6vh;
         width: 160px;
         margin: .8rem 0;
+        border-bottom: 1px solid #b9b9b9;
         padding: 9px;
         border-radius: 5px;
-        color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
         cursor: pointer;
         &:hover{
             background-color: black;

@@ -31,7 +31,7 @@
         }
     }
 
-    .requestsList {
+    .requestsList, .requestsListNoBorder {
         border: 1px solid $borderColor;
         margin-bottom: 2rem;
 
@@ -39,8 +39,19 @@
             overflow-x: auto;
             margin: 1rem 1rem 2rem 1.5rem;
             @include tableStyle(70vw, 95vw);
+
+            h2{
+                font-size: 30px;
+                text-align: center;
+                font-weight: lighter;
+            }
         }
     }
+
+    .requestsListNoBorder{
+        border: none;
+    }
+
 }
 
 .statCards {

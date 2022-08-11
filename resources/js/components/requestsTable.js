@@ -8,7 +8,7 @@ import ManageRequests from "../views/requests/partial/manageRequests";
 import {getDeadline, getPeriod} from "../helpers/calculatePeriod&Deadline";
 import {Link} from "react-router-dom";
 
-const RequestsTable = ({id, title, period, status, year, name, responseImage, type, user,billId}) => {
+const RequestsTable = ({id, title, period, status, year, name, responseImage, type, user, billId}) => {
 
     const {toggleApprovalModal} = useModal();
     const [Period, setPeriod] = useState('')

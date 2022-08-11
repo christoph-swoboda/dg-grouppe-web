@@ -5,6 +5,7 @@ namespace App\Repositories\Request;
 use App\Models\Bill;
 use App\Models\BillRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
@@ -87,7 +88,12 @@ class RequestRepository
                     $sq->with('employees');
                 }])
                     ->when(\request()->has('year'), function ($q) {
-                        $q->whereYear('created_at', '=', \request('year'));
+                        if(\request('year')==='1970'){
+                            $q->whereYear('created_at', '>', '1970');
+                        }
+                        else{
+                            $q->whereYear('created_at', '=', \request('year'));
+                        }
                     })
                     ->when(\request()->has('period'), function ($q) {
                         if (\request('period') == 1) {
