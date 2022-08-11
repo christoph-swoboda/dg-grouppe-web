@@ -29,7 +29,6 @@ const Employee = () => {
     const [approved, setApproved] = useState([])
     const [rejected, setRejected] = useState([])
     const [userTypes, setUserTypes] = useState([])
-    const [credentials, setCredentials] = useState([])
     const [filter, setFilter] = useState({search: null, year: null, period: null, category: null})
     const query = qs.stringify(filter, {encode: false, skipNulls: true})
     let params = useParams()
@@ -44,14 +43,12 @@ const Employee = () => {
         setLoading(true)
         const delayQuery = setTimeout(async () => {
             await Api().get(`/employees/${params.id}?${query}`).then(res => {
-                setUser(res.data.user)
-                setRejected(res.data.rejected)
+                setUser(res.data?.user)
+                setRejected(res.data?.rejected)
                 setOpen(res.data.open)
                 setApproved(res.data.approved)
-                setCredentials(res.data.credentials)
                 setUserTypes(res.data.user?.employees?.types)
                 setLoading(false)
-                console.log('employee', res.data)
             })
         }, (query) ? 500 : 0)
         return () => clearTimeout(delayQuery)
@@ -139,7 +136,7 @@ const Employee = () => {
             {/*edit employee modal*/}
             <Modal toggle={toggleEmployeeForm}
                    visible={addEmployeeModal}
-                   component={<AddEmployee user={user} credentials={credentials} categories={categories} edit/>}
+                   component={<AddEmployee user={user} categories={categories} edit/>}
                    className='addEmployeeContainer'
             />
             {/*edit employee modal*/}

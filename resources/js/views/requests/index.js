@@ -29,7 +29,6 @@ const Requests = ({slug}) => {
         const delayQuery = setTimeout(async () => {
             await Api().get(`/requests?${query}`).then(res => {
                 setBills(res.data)
-                console.log('res', res.data)
                 setLoading(false)
             }).catch(e => {
                 if (e.response.status === 401) {

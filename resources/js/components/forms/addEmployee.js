@@ -8,7 +8,7 @@ import Api from "../../api/api";
 import {toast} from "react-toastify";
 import useModal from "../../hooks/useModal";
 
-const AddEmployee = ({edit, categories, user, credentials}) => {
+const AddEmployee = ({edit, categories, user}) => {
 
     const [{addEmployeeDone}, dispatch] = useStateValue();
     const {toggleEmployeeForm} = useModal();
@@ -16,7 +16,7 @@ const AddEmployee = ({edit, categories, user, credentials}) => {
     const [emailError, setEmailError] = useState('')
     let keys = ''
     const {
-        register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
+        register, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
@@ -46,7 +46,7 @@ const AddEmployee = ({edit, categories, user, credentials}) => {
     }
 
     async function updateUser(data) {
-        await Api().put(`/employees/${credentials.id}`, data)
+        await Api().put(`/employees/${user.id}`, data)
             .then((res) => {
                 toast.success('User Info Saved Successfully');
                 setLoading(false)
@@ -54,9 +54,10 @@ const AddEmployee = ({edit, categories, user, credentials}) => {
                 toggleEmployeeForm()
             })
             .catch(err => {
+                console.log('err', err)
+                setLoading(false)
                 setEmailError(err.response.data.errors)
                 toast.error('Something went wrong! ');
-                setLoading(false)
             })
     }
 

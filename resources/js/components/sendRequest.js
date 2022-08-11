@@ -7,12 +7,11 @@ import {toast} from "react-toastify";
 
 const SendRequest = ({title, types, user, name}) => {
     const [period, setPeriod] = useState()
-    const [type, setType] = useState()
     const [{sendReqModal, sendReqDone}, dispatch] = useStateValue();
     const [loading, setLoading] = useState(false)
 
     const {
-        register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
+        register, handleSubmit, formState, formState: {},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
@@ -20,18 +19,19 @@ const SendRequest = ({title, types, user, name}) => {
     const onSubmit = async (data) => {
         console.log('data', data)
         setLoading(true)
-        Api().post('/requests', data)
-            .then(res => {
-                if(res.status===201){
-                    toast.success('Request Sent Successfully')
-                    dispatch({type: "Set_SendReqDone", item: !sendReqDone})
-                }
-                else if(res.status===202){
-                    toast.warning('Request Already Exists')
-                }
-                setLoading(false)
-                dispatch({type: "Set_SendReqModal", item: !sendReqModal})
-            })
+        Api().post('/requests', data).then(res => {
+            if (res.status === 201) {
+                toast.success('Request Sent Successfully')
+                dispatch({type: "Set_SendReqDone", item: !sendReqDone})
+            } else if (res.status === 202) {
+                toast.warning('Request Already Exists')
+            }
+            setLoading(false)
+            dispatch({type: "Set_SendReqModal", item: !sendReqModal})
+        }).catch(e => {
+            setLoading(false)
+            toast.error('Something went wrong...')
+        })
     };
 
     return (
@@ -45,9 +45,7 @@ const SendRequest = ({title, types, user, name}) => {
                     {
                         types.map(cat => (
                             <div className='flex' key={cat.id}>
-                                <input type='checkbox' defaultChecked value={cat.id}{...register(`types`)}
-                                       onChange={(e) => setType(e.target.value)}
-                                />
+                                <input type='checkbox' defaultChecked value={cat.id}{...register(`types`)}/>
                                 <label>{cat.title} </label>
                             </div>
                         ))
