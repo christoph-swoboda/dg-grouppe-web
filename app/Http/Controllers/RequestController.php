@@ -259,7 +259,8 @@ class RequestController extends Controller
             'bill_request_id' => $billRequest->id,
             'user_id' => $billRequest->bill->user->id
         ];
-        $notification = Notification::create($notificationData);
+        $notification = Notification::updateorcreate($notificationData);
+        $notification->update(['seen'=>0]);
 
         return \response($response, '201');
     }
@@ -284,7 +285,8 @@ class RequestController extends Controller
             'bill_request_id' => $billRequest->id,
             'user_id' => $billRequest->bill->user->id
         ];
-        $notification = Notification::create($notificationData);
+        $notification = Notification::updateorcreate($notificationData);
+        $notification->update(['seen'=>0]);
 
         return \response($response, '201');
     }

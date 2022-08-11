@@ -54,7 +54,8 @@ class RequestResponseController extends Controller
             'bill_request_id' => $billRequest->id,
             'user_id' => $billRequest->user_id
         ];
-        Notification::create($notificationData);
+        $notification= Notification::updateorcreate($notificationData);
+        $notification->update(['seen'=>0]);
 
         return response('Photo Uploaded Successfully', 200);
     }
