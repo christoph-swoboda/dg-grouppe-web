@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use App\Models\BillCategory;
 use App\Models\BillRequest;
+use App\Models\Category;
 use App\Models\Device;
 use App\Models\Notification;
 use App\Models\RequestResponse;
@@ -116,7 +117,7 @@ class RequestController extends Controller
         $billTypes = [];
         foreach ($previousBills->bills as $bill) {
             foreach ($bill->type as $type) {
-                $billTypes[] = $type->id;
+                $billTypes[] = $type;
             }
         }
         $newTypeTobeSaved = [];
@@ -151,7 +152,9 @@ class RequestController extends Controller
                 ];
                 RequestResponse::create($resData);
 
-                $title = 'Request To Upload Bill';
+                $type = Category::where('id', $newType)->first();
+
+                $title = 'Request To Upload ' . $type->title . ' Bill';
                 $message = 'Upload appropriate photo for the required bill';
 
                 Larafirebase::withTitle($title)
@@ -179,14 +182,15 @@ class RequestController extends Controller
                 ];
                 RequestResponse::updateorcreate($resData);
 
-                $title = 'Request To Upload Bill';
+                $type = Category::where('id', $newType)->first();
+
+                $title = 'Request To Upload' . $type->title . 'Bill';
                 $message = 'Upload appropriate photo for the required bill';
 
                 Larafirebase::withTitle($title)
                     ->withBody($message)
                     ->sendNotification($fcmToken);
             }
-
             return response($fcmToken, '201');
         } else {
 
@@ -260,7 +264,7 @@ class RequestController extends Controller
             'user_id' => $billRequest->bill->user->id
         ];
         $notification = Notification::updateorcreate($notificationData);
-        $notification->update(['seen'=>0]);
+        $notification->update(['seen' => 0]);
 
         return \response($response, '201');
     }
@@ -286,7 +290,7 @@ class RequestController extends Controller
             'user_id' => $billRequest->bill->user->id
         ];
         $notification = Notification::updateorcreate($notificationData);
-        $notification->update(['seen'=>0]);
+        $notification->update(['seen' => 0]);
 
         return \response($response, '201');
     }
