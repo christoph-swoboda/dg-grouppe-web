@@ -8,7 +8,7 @@ import ManageRequests from "../views/requests/partial/manageRequests";
 import {getDeadline, getPeriod} from "../helpers/calculatePeriod&Deadline";
 import {Link} from "react-router-dom";
 
-const RequestsTable = ({id, title, period, status, year, name, responseImage, type, user, billId}) => {
+const RequestsTable = ({id, title, period, status, year, name, responseImage, type, user, billId, published}) => {
 
     const {toggleApprovalModal} = useModal();
     const [Period, setPeriod] = useState('')
@@ -55,8 +55,9 @@ const RequestsTable = ({id, title, period, status, year, name, responseImage, ty
             <td>{title} {type} Bill</td>
             <td>{Period}</td>
             <td>{deadline}</td>
-            <td
-                onClick={() => openModal(Period, deadline)}
+            <td hidden={published===1} style={{color:published===0? 'green':''}}>{status==='3'?'Awaiting Recheck':'Awaiting Approval'}</td>
+            <td hidden={published===0}>{status === '1' ? 'Pending': status === '2' ? 'Approved' : 'Rejected'}</td>
+            <td onClick={() => openModal(Period, deadline)}
                 style={{cursor: 'pointer'}}
             >
                 <GrFormNext size='25px'/>

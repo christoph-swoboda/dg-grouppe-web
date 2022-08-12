@@ -154,12 +154,8 @@ class RequestController extends Controller
 
                 $type = Category::where('id', $newType)->first();
 
-                $title = 'Request To Upload ' . $type->title . ' Bill';
-                $message = 'Upload appropriate photo for the required bill';
+                $this->sendPushNotification($fcmToken,'Request To Upload ' . $type->title . ' Bill', 'Upload appropriate photo for the required bill' );
 
-                Larafirebase::withTitle($title)
-                    ->withBody($message)
-                    ->sendNotification($fcmToken);
             }
             return response($fcmToken, '201');
         } else if (count($previousBills->bills) > 0 && !empty($newTypeTobeSaved)) {
@@ -184,12 +180,8 @@ class RequestController extends Controller
 
                 $type = Category::where('id', $newType)->first();
 
-                $title = 'Request To Upload' . $type->title . 'Bill';
-                $message = 'Upload appropriate photo for the required bill';
+                $this->sendPushNotification($fcmToken,'Request To Upload ' . $type->title . ' Bill', 'Upload appropriate photo for the required bill' );
 
-                Larafirebase::withTitle($title)
-                    ->withBody($message)
-                    ->sendNotification($fcmToken);
             }
             return response($fcmToken, '201');
         } else {
@@ -243,6 +235,12 @@ class RequestController extends Controller
         //
     }
 
+    private function sendPushNotification($fcmToken, $title, $message){
+        Larafirebase::withTitle($title)
+            ->withBody($message)
+            ->sendNotification($fcmToken);
+    }
+
     /**
      * @param $id
      * @return Response
@@ -252,7 +250,7 @@ class RequestController extends Controller
 
         $billRequest = BillRequest::with(['bill' => function ($q) {
             $q->with('user');
-        }])->find($id);
+        }])->with('type')->find($id);
 
         $billRequest->update(['status' => '2', 'published' => 1]);
 
@@ -266,6 +264,11 @@ class RequestController extends Controller
         $notification = Notification::updateorcreate($notificationData);
         $notification->update(['seen' => 0]);
 
+        $type=$billRequest->type->title;
+
+        $fcmToken = Device::whereNotNull('token')->where('user_id', $billRequest->bill->user->id)->pluck('token')->toArray();
+        $this->sendPushNotification($fcmToken,'1 Image Was Approved For' .$type. ' Bill', 'Open to see details' );
+
         return \response($response, '201');
     }
 
@@ -278,12 +281,12 @@ class RequestController extends Controller
     {
         $billRequest = BillRequest::with(['bill' => function ($q) {
             $q->with('user');
-        }])->find($id);
+        }])->with('type')->find($id);
 
         $billRequest->update(['status' => '3', 'published' => 1]);
 
         $response = $billRequest->response;
-        $response->update(['message' => '1 Image rejected with reason: ' . $request->input('message')]);
+        $response->update(['message' => $request->input('message')]);
 
         $notificationData = [
             'bill_request_id' => $billRequest->id,
@@ -291,6 +294,11 @@ class RequestController extends Controller
         ];
         $notification = Notification::updateorcreate($notificationData);
         $notification->update(['seen' => 0]);
+
+        $type=$billRequest->type->title;
+
+        $fcmToken = Device::whereNotNull('token')->where('user_id', $billRequest->bill->user->id)->pluck('token')->toArray();
+        $this->sendPushNotification($fcmToken,'1 Image Was Rejected For '.$type. ' Bill', $request->input('message') );
 
         return \response($response, '201');
     }

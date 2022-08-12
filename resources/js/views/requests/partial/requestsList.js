@@ -36,6 +36,7 @@ const RequestsList = ({bills, header, loading, slug}) => {
                                         <th>REQUEST</th>
                                         <th>PERIOD</th>
                                         <th>DEADLINE</th>
+                                        <th>STATUS</th>
                                         <th>VERIFY</th>
                                     </tr>
                                     </thead>
@@ -45,6 +46,7 @@ const RequestsList = ({bills, header, loading, slug}) => {
                                             <RequestsTable
                                                 key={req.id}
                                                 id={req.id}
+                                                published={req.published}
                                                 billId={req.id}
                                                 user={req?.bill?.user_id}
                                                 type={req?.type?.title}

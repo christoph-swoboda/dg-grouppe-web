@@ -49,6 +49,7 @@ class RequestResponseController extends Controller
 
         $billRequest = $response->request;
         $billRequest->update(['published'=>0]);
+        $billRequest->update(['status'=>'1']);
 
         $notificationData = [
             'bill_request_id' => $billRequest->id,
