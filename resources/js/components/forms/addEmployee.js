@@ -61,7 +61,6 @@ const AddEmployee = ({edit, categories, user}) => {
     }
 
     useEffect(() => {
-        console.log('user', user)
         if (edit) {
             keys = getValues()
             setValue("email", user.email)
@@ -79,14 +78,14 @@ const AddEmployee = ({edit, categories, user}) => {
             <h2 className='centerItem'>{edit ? 'Edit Employee' : 'Add New Employee'}</h2>
             {/*<br/>*/}
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label className='name'>First Name *</label>
-                <input className='name' placeholder='First Name...'
+                <label>First Name *</label>
+                <input placeholder='First Name...'
                        {...register('first_name', {required: true})}
                        style={{border: errors.first_name && '1px solid red'}}
                 />
                 {errors.first_name && touchedFields && <p>First Name is required</p>}
-                <label className='name'>Last Name *</label>
-                <input className='name' placeholder='Last Name...'
+                <label>Last Name *</label>
+                <input placeholder='Last Name...'
                        {...register('last_name', {required: 'Last Name is required'})}
                        style={{border: errors.last_name && '1px solid red'}}
                 />
@@ -108,7 +107,7 @@ const AddEmployee = ({edit, categories, user}) => {
 
                 <label>Password </label>
                 <input placeholder='Enter Password'
-                       // hidden={edit}
+                    // hidden={edit}
                        type='password'
                        autoFocus
                        {...register('password', {

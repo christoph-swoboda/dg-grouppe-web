@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import Login from "./components/forms/login";
 import Register from "./components/forms/register";
@@ -12,8 +12,18 @@ import Employees from "./views/employees";
 import Employee from "./views/employee";
 import AllRequests from "./views/allRequests";
 import Settings from "./views/settings";
+import Api from "./api/api";
+import {useStateValue} from "./states/StateProvider";
 
 function App() {
+
+    const [{loadSettings}] = useStateValue()
+    const [settings, setSettings] = useState([])
+    useEffect(async () => {
+        await Api().get('settings').then(res => {
+            setSettings(res.data)
+        })
+    }, [loadSettings]);
 
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -24,7 +34,7 @@ function App() {
                 <Routes>
                     <Route index element={user ? <Requests/> : <Navigate to="/login"/>}/>
                     <Route path="/dashboard" element={user ? <Requests/> : <Navigate to="/login"/>}/>
-                    <Route path="/settings" element={user ? <Settings/> : <Navigate to="/login"/>}/>
+                    <Route path="/settings" element={user ? <Settings settings={settings}/> : <Navigate to="/login"/>}/>
                     <Route path="/dashboard/:slug" element={user ? <AllRequests/> : <Navigate to="/login"/>}/>
                     <Route path="/employees" element={user ? <Employees/> : <Navigate to="/login"/>}/>
                     <Route path="/employees/:id" element={user ? <Employee/> : <Navigate to="/login"/>}/>

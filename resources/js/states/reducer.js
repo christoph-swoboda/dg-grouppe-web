@@ -6,6 +6,7 @@ export const initialState = {
     sendReqDone:false,
     approve:false,
     pageNumber:1,
+    loadSettings:false,
     addEmployeeDone:false,
     approveData:{},
     reqData:{},
@@ -61,6 +62,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 pageNumber: action.item
+            }
+            case "setLoadSettings":
+            return {
+                ...state,
+                loadSettings: action.item
             }
         default:
             return state;

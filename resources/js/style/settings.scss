@@ -1,0 +1,89 @@
+@import "variables";
+@import "mixin";
+
+.settingsContainer {
+    @include container;
+
+    h2 {
+        font-size: 30px;
+        text-align: left;
+        margin-bottom: 2rem;
+    }
+
+    form {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 20px;
+
+        @media screen and (max-width: $bp-tablet) {
+            grid-template-columns: auto;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                text-align: left;
+                margin-bottom: 5px;
+                color: #262626;
+            }
+        }
+
+        input {
+            padding: 5px;
+            width: 97%;
+
+            @media screen and (max-width: $bp-tablet) {
+                width: 95%;
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .faqEdit {
+        margin: 2rem 0;
+        @media screen and (max-width: $bp-tablet) {
+            margin: 1rem;
+        }
+
+        button {
+            padding: 5px;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+            background-color: black;
+            color: white;
+        }
+
+        label {
+            position: relative;
+            font-size: 20px;
+            color: #262626;
+        }
+    }
+
+    .faq {
+        margin: 2rem 0;
+        @media screen and (max-width: $bp-tablet) {
+            margin: 1rem;
+        }
+
+        label {
+            position: relative;
+            right: 48%;
+            font-size: 20px;
+            color: #262626;
+        }
+    }
+
+    .save {
+        margin-top: 30px;
+        padding: .5rem;
+        font-size: 22px;
+        border-radius: 5px;
+    }
+}
