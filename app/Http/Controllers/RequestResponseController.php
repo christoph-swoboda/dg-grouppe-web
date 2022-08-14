@@ -40,6 +40,11 @@ class RequestResponseController extends Controller
     public function store(Request $request): Response
     {
         $response = RequestResponse::with('request')->where('id', $request->input('id'))->first();
+
+        if(\File::exists($response->image)) {
+            \File::delete($response->image);
+        }
+
         $image_url = $this->storeImage($request);
         $response->update(['image' => $image_url]);
         $response->update(['message' => '1 Image Was Uploaded']);
@@ -48,29 +53,28 @@ class RequestResponseController extends Controller
         $user->update(['last_response_at' => Carbon::now()]);
 
         $billRequest = $response->request;
-        $billRequest->update(['published'=>0]);
-        $billRequest->update(['status'=>'1']);
+        $billRequest->update(['published' => 0]);
+        $billRequest->update(['status' => '1']);
 
         $notificationData = [
             'bill_request_id' => $billRequest->id,
             'user_id' => $billRequest->user_id
         ];
-        $notification= Notification::updateorcreate($notificationData);
-        $notification->update(['seen'=>0]);
+        $notification = Notification::updateorcreate($notificationData);
+        $notification->update(['seen' => 0]);
 
         return response('Photo Uploaded Successfully', 200);
     }
 
     private function storeImage($request): string
     {
-
         if ($request->input('image')) {
             $image = $request->input('image');
             $image = str_replace('data:image/jpeg;base64,', '', $image);
             $image = str_replace('data:image/png;base64,', '', $image);
             $image = str_replace(' ', '+', $image);
 
-            $imageName = 'response_' . $request->input('id') . '.' . 'png';
+            $imageName = 'response_' . now()->timestamp . '_' . $request->input('id') . '.' . 'png';
             $upload_path = 'assets/responses/';
             if (!\File::isDirectory($upload_path)) {
                 \File::makeDirectory($upload_path, 777);

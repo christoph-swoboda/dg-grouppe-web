@@ -38,6 +38,10 @@ const Login = () => {
                     }
 
                 }
+                else{
+                    setLoading(false)
+                    toast.error('User not authorized!!!')
+                }
             })
             .catch(e => {
                 toast.error(e.data?.message)
@@ -49,8 +53,9 @@ const Login = () => {
             setErrors(user?.errors)
             if (user?.role === '1') {
                 window.location.replace('/dashboard')
-
             } else {
+                setLoading(false)
+                toast.error('User not authorized!!!')
                 navigate('/dashboard')
             }
         }

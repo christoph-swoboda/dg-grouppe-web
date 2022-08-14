@@ -54,7 +54,7 @@ const Intro = ({user}) => {
             </span>
 
             </h3>
-            <button onClick={toggleEmployeeForm}>Edit User</button>
+            <button disabled={user.length===0} onClick={toggleEmployeeForm}>Edit User</button>
         </div>
     )
 }

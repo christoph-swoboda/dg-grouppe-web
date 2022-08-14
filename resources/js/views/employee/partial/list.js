@@ -51,6 +51,7 @@ const List = ({user, bills, loading}) => {
                                                 loading={loading}
                                                 title={bill.title}
                                                 status={req?.status}
+                                                published={req?.published}
                                                 type={bill.type[key]?.title}
                                                 responseImage={req?.response?.image}
                                                 created_at={bill.created_at}

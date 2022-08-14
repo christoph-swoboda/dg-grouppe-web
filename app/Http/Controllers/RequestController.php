@@ -267,7 +267,7 @@ class RequestController extends Controller
         $type=$billRequest->type->title;
 
         $fcmToken = Device::whereNotNull('token')->where('user_id', $billRequest->bill->user->id)->pluck('token')->toArray();
-        $this->sendPushNotification($fcmToken,'1 Image Was Approved For' .$type. ' Bill', 'Open to see details' );
+        $this->sendPushNotification($fcmToken,'1 Image Was Approved For ' .$type. ' Bill', 'Open app to see details' );
 
         return \response($response, '201');
     }

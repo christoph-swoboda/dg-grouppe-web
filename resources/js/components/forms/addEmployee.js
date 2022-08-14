@@ -54,7 +54,6 @@ const AddEmployee = ({edit, categories, user}) => {
                 toggleEmployeeForm()
             })
             .catch(err => {
-                console.log('err', err)
                 setLoading(false)
                 setEmailError(err.response.data.errors)
                 toast.error('Something went wrong! ');
@@ -62,6 +61,7 @@ const AddEmployee = ({edit, categories, user}) => {
     }
 
     useEffect(() => {
+        console.log('user', user)
         if (edit) {
             keys = getValues()
             setValue("email", user.email)
@@ -79,14 +79,14 @@ const AddEmployee = ({edit, categories, user}) => {
             <h2 className='centerItem'>{edit ? 'Edit Employee' : 'Add New Employee'}</h2>
             {/*<br/>*/}
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>First Name *</label>
-                <input placeholder='First Name...'
+                <label className='name'>First Name *</label>
+                <input className='name' placeholder='First Name...'
                        {...register('first_name', {required: true})}
                        style={{border: errors.first_name && '1px solid red'}}
                 />
                 {errors.first_name && touchedFields && <p>First Name is required</p>}
-                <label>Last Name *</label>
-                <input placeholder='Last Name...'
+                <label className='name'>Last Name *</label>
+                <input className='name' placeholder='Last Name...'
                        {...register('last_name', {required: 'Last Name is required'})}
                        style={{border: errors.last_name && '1px solid red'}}
                 />
@@ -105,6 +105,22 @@ const AddEmployee = ({edit, categories, user}) => {
                        style={{border: errors.email && '1px solid red'}}
                 />
                 {errors.email && touchedFields && <p>{errors.email.message}</p>}
+
+                <label>Password </label>
+                <input placeholder='Enter Password'
+                       // hidden={edit}
+                       type='password'
+                       autoFocus
+                       {...register('password', {
+                           required: !edit,
+                           pattern: {
+                               value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                               message: 'Min eight characters, at least one uppercase, one lowercase letter and one number',
+                           },
+                       })}
+                />
+                {errors.password && touchedFields && <p>{errors.password.message}</p>}
+
                 {emailError && <p>{emailError.email}</p>}
                 <label>Gender *</label>
                 <select
@@ -144,7 +160,7 @@ const AddEmployee = ({edit, categories, user}) => {
                                 <input type='checkbox' value={cat.id}
                                        {...register(`categories`, {required: true})}
                                 />
-                                <label style={{textTransform:'capitalize'}}>{cat.title} </label>
+                                <label style={{textTransform: 'capitalize'}}>{cat.title} </label>
                             </div>
                         ))
                     }

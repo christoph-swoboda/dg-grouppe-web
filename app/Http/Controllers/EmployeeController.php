@@ -26,13 +26,13 @@ class EmployeeController extends ApiController
     public function index()
     {
         $users = User::where('role', 2)
-        ->with(['bills' => function ($q) {
-            $q->with(['requests' => function ($sq) {
-                $sq->where('status', '!=', '2');
-            }]);
-        }])->with(['employees'=>function ($q){
-            $q->with('types');
-        }])
+            ->with(['bills' => function ($q) {
+                $q->with(['requests' => function ($sq) {
+                    $sq->where('status', '!=', '2');
+                }]);
+            }])->with(['employees' => function ($q) {
+                $q->with('types');
+            }])
             ->when(\request()->has('search'), function ($q) {
                 $q->where('title', 'LIKE', '%' . \request('search') . '%');
             })
@@ -45,9 +45,9 @@ class EmployeeController extends ApiController
 
     public function saveDeviceId($token)
     {
-        $data=[
-            'token'=>$token,
-            'user_id'=>auth()->user()->id
+        $data = [
+            'token' => $token,
+            'user_id' => auth()->user()->id
         ];
         Device::updateorcreate($data);
     }
@@ -91,10 +91,16 @@ class EmployeeController extends ApiController
 
     private function storeUserData($request): array
     {
-        return [
-            'email' => $request->input('email'),
-            'password' => bcrypt('123456'),
-        ];
+        if ($request->input('password')) {
+            return [
+                'email' => $request->input('email'),
+                'password' => bcrypt($request->input('password')),
+            ];
+        } else {
+            return [
+                'email' => $request->input('email'),
+            ];
+        }
     }
 
     private function storeEmployeeData($request, $id): array
@@ -140,16 +146,16 @@ class EmployeeController extends ApiController
                         if (\request('period') == 1) {
                             $q->whereMonth('created_at', '<', '5');
                         } else if (\request('period') == 2) {
-                            $q->where(function($query){
-                                $query->whereMonth('created_at' , 5);
-                                $query->orWhere(function($query2){
-                                    $query2->whereMonth('created_at',6);
+                            $q->where(function ($query) {
+                                $query->whereMonth('created_at', 5);
+                                $query->orWhere(function ($query2) {
+                                    $query2->whereMonth('created_at', 6);
                                 });
-                                $query->orWhere(function($query1){
-                                    $query1->whereMonth('created_at',7);
+                                $query->orWhere(function ($query1) {
+                                    $query1->whereMonth('created_at', 7);
                                 });
-                                $query->orWhere(function($query1){
-                                    $query1->whereMonth('created_at',8);
+                                $query->orWhere(function ($query1) {
+                                    $query1->whereMonth('created_at', 8);
                                 });
                             });
                         } else {
@@ -163,29 +169,29 @@ class EmployeeController extends ApiController
                         $q->where('title', 'LIKE', '%' . \request('search') . '%');
                     });
             }])
-            ->with(['employees'=> function($q){
+            ->with(['employees' => function ($q) {
                 $q->with('types');
             }])
             ->first();
 
-        $open=[];
-        $approved=[];
-        $rejected=[];
-        foreach ($user->bills as $bills){
-            foreach ($bills->requests as $request){
-                if($request->status=='1'){
-                    $open[]=$request;
+        $open = [];
+        $approved = [];
+        $rejected = [];
+        foreach ($user->bills as $bills) {
+            foreach ($bills->requests as $request) {
+                if ($request->status == '1') {
+                    $open[] = $request;
                 }
-                if($request->status=='2'){
-                    $approved[]=$request;
+                if ($request->status == '2') {
+                    $approved[] = $request;
                 }
-                if($request->status=='3'){
-                    $rejected[]=$request;
+                if ($request->status == '3') {
+                    $rejected[] = $request;
                 }
             }
         }
 
-        $result = [ 'user' => $user, 'open'=>$open, 'approved'=>$approved, 'rejected'=>$rejected];
+        $result = ['user' => $user, 'open' => $open, 'approved' => $approved, 'rejected' => $rejected];
 
         return response($result, 201);
     }
@@ -240,28 +246,29 @@ class EmployeeController extends ApiController
     }
 
 
-    public function admin( )
+    public function admin()
     {
-       return User::with('admins')
-           ->where('id', auth()->user()->id)
-           ->first();
+        return User::with('admins')
+            ->where('id', auth()->user()->id)
+            ->first();
     }
 
-    public function employee( )
+    public function employee()
     {
-       return User::with('employees')
-           ->where('id', auth()->user()->id)
-           ->first();
+        return User::with('employees')
+            ->where('id', auth()->user()->id)
+            ->first();
     }
 
-    public function profileImage(Request $request,  $id){
+    public function profileImage(Request $request, $id)
+    {
 
-       $employee= Employee::find($id);
-       $image_url = $this->storeImage($request, $id);
+        $employee = Employee::find($id);
+        $image_url = $this->storeImage($request, $id);
 
-       $employee->update(['image' => $image_url]);
+        $employee->update(['image' => $image_url]);
 
-       return response('done', 201);
+        return response('done', 201);
     }
 
     private function storeImage($request, $id): string
@@ -273,13 +280,13 @@ class EmployeeController extends ApiController
             $image = str_replace('data:image/png;base64,', '', $image);
             $image = str_replace(' ', '+', $image);
 
-            $imageName ='user_'.$id . '.' . 'png';
+            $imageName = 'user_' . $id . '.' . 'png';
             $upload_path = 'assets/userImage/';
             if (!\File::isDirectory($upload_path)) {
                 \File::makeDirectory($upload_path, 777);
             }
             \File::put(public_path($upload_path) . $imageName, base64_decode($image));
-            $image_url= $upload_path . $imageName;
+            $image_url = $upload_path . $imageName;
         }
         return $image_url;
     }

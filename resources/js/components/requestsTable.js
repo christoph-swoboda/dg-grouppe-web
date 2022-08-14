@@ -55,7 +55,7 @@ const RequestsTable = ({id, title, period, status, year, name, responseImage, ty
             <td>{title} {type} Bill</td>
             <td>{Period}</td>
             <td>{deadline}</td>
-            <td hidden={published===1} style={{color:published===0? 'green':''}}>{status==='3'?'Awaiting Recheck':'Awaiting Approval'}</td>
+            <td hidden={published===1} style={{color:published===0? 'darkred':''}}>{status==='3'?'Recheck':'Awaiting'}</td>
             <td hidden={published===0}>{status === '1' ? 'Pending': status === '2' ? 'Approved' : 'Rejected'}</td>
             <td onClick={() => openModal(Period, deadline)}
                 style={{cursor: 'pointer'}}

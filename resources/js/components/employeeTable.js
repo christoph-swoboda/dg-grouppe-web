@@ -7,7 +7,7 @@ import Modal from "./modal";
 import ManageRequests from "../views/requests/partial/manageRequests";
 import {getDeadline, getPeriod} from "../helpers/calculatePeriod&Deadline";
 
-const EmployeesTable = ({status, id, company, period, created,created_at, year, title, name, type, responseImage}) => {
+const EmployeesTable = ({status, id, company, period, created,created_at, year, title, name, type, responseImage, published}) => {
 
     const {toggleApprovalModal} = useModal();
     const [{approveData, approvalModal}, dispatch] = useStateValue();
@@ -55,7 +55,10 @@ const EmployeesTable = ({status, id, company, period, created,created_at, year, 
             <td>{Period}</td>
             <td>{created}</td>
             <td>{deadline}</td>
-            <td className={status === '1' ? 'listPending' : status === '2' ? 'listApproved' : 'listRejected'}>
+            <td hidden={published===1} style={{color:published===0? 'darkred':''}} className='listPending'>
+                <li>{status==='3'?'Recheck':'Awaiting'}</li>
+            </td>
+            <td hidden={published===0} className={status === '1' ? 'listPending' : status === '2' ? 'listApproved' : 'listRejected'}>
                 <li>{status === '1' ? 'Pending' : status === '2' ? 'Approved' : 'Rejected'}</li>
             </td>
             <td

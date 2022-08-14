@@ -51,7 +51,7 @@
 
 .modal-logout {
     border-style: none;
-    background-color: #696969;
+    background-color: #252323;
     width: 160px;
     position: absolute;
     top: 6vh;
@@ -64,12 +64,11 @@
     flex-direction: column;
 
     button, a {
-        border-style: none;
         background-color: inherit;
         font-size: 1.6vh;
         width: 160px;
         margin: .8rem 0;
-        border-bottom: 1px solid #b9b9b9;
+        border: 1px solid #414141;
         padding: 9px;
         border-radius: 5px;
         color: rgb(255, 255, 255);
@@ -89,6 +88,6 @@
     }
 }
 .text-mainBlue{
-    color: #0a53be;
+    color: rgba(0, 135, 214, 1);
 }
 

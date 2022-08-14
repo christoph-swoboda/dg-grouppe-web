@@ -25,8 +25,8 @@
     li{
         list-style: none;
         display: flex;
-        justify-items: center;
-        justify-content: center;
+        justify-items: left;
+        justify-content: left;
     }
     li::before {
         content: "\2022";
@@ -82,7 +82,8 @@
             //width: $width;
             border-collapse: collapse;
             border-spacing: 0;
-            width: 100%;
+            min-width: 100%;
+            max-width: 1400px;
             @media screen and (max-width: $bp-mobile) {
                 width: $mobileWidth;
             }
