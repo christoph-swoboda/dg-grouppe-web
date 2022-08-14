@@ -59,7 +59,7 @@ class RequestRepository
             }])
             ->with('type')
             ->with('response')
-            ->orderBy('id', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(5);
     }
 
@@ -118,14 +118,13 @@ class RequestRepository
             }])
             ->with('type')
             ->with('response')
-            ->orderBy('id', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate($perPage);
     }
 
 
     public function categorizedBills()
     {
-
         return BillRequest::where('user_id', auth()->user()->id)
             ->when(\request()->has('status'), function ($q) {
                 if (\request('status') == 1) {
@@ -140,6 +139,7 @@ class RequestRepository
                 $q->where('title', \request('type'));
             }])
             ->with('response')
+            ->orderBy('updated_at', 'desc')
             ->paginate(8);
     }
 
