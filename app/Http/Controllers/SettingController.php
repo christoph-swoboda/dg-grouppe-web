@@ -39,13 +39,40 @@ class SettingController extends Controller
         foreach ($request->input() as $key => $input) {
             $keys[$key]['keyword'] = $input[0];
             $keys[$key]['value'] = $input[1];
+            if ($input[0] == 'app_logo') {
+                if ($input[1]!='') {
+                    $image_url = $this->storeImage($input[1]);
+                    $keys[$key]['value'] = $image_url;
+                }
+                else{
+                    $settings= Setting::where('keyword','app_logo')->first();
+                    $keys[$key]['value'] =$settings->value;
+                }
+            }
         }
-
         foreach ($keys as $data) {
-            Setting::updateorcreate(['keyword' => $data['keyword']],$data);
+            Setting::updateorcreate(['keyword' => $data['keyword']], $data);
         }
 
         return response($keys, '201');
+    }
+
+    private function storeImage($image): string
+    {
+        if ($image) {
+            $image = str_replace('data:image/jpeg;base64,', '', $image);
+            $image = str_replace('data:image/png;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+
+            $imageName = 'logo' . now()->timestamp . '.' . 'png';
+            $upload_path = 'assets/logo/';
+            if (!\File::isDirectory($upload_path)) {
+                \File::makeDirectory($upload_path, 777);
+            }
+            \File::put(public_path($upload_path) . $imageName, base64_decode($image));
+            $image_url = $upload_path . $imageName;
+        }
+        return $image_url;
     }
 
     /**

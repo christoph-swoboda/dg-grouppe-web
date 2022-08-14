@@ -55,8 +55,13 @@
             border-radius: 5px;
             margin: 0 10px;
             cursor: pointer;
-            background-color: black;
+            background-color: #000000;
             color: white;
+
+            &:hover{
+                background-color: #c4c4c4;
+                color: black;
+            }
         }
 
         label {
@@ -67,7 +72,13 @@
     }
 
     .faq {
+        border: 1px solid rgb(215, 215, 215);
         margin: 2rem 0;
+
+        .rdw-editor-main {
+            padding: 0 20px 10px;
+        }
+
         @media screen and (max-width: $bp-tablet) {
             margin: 1rem;
         }
@@ -81,9 +92,39 @@
     }
 
     .save {
-        margin-top: 30px;
+        margin-top: 1px;
         padding: .5rem;
         font-size: 22px;
         border-radius: 5px;
     }
+
+    .logoContainer{
+        margin-top: 200px;
+        margin-bottom: -100px;
+        @include centerItems;
+        width: 40vw;
+
+        img{
+            height: 300px;
+            width: 300px;
+            object-fit: contain;
+            border: 1px solid grey;
+        }
+    }
+    .uploadLogo{
+        @include flexCenter;
+        //margin: 2rem 0;
+        cursor: pointer;
+        float: right;
+        padding: 0 10px;
+        border-radius: 5px;
+        border: 1px solid #d7d7d7;
+
+
+        label{
+            margin-top: 1rem;
+            margin-left: 10px;
+        }
+    }
+
 }
