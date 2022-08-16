@@ -3,7 +3,7 @@ import useModal from "../../../hooks/useModal";
 import {RiUserSettingsLine} from "react-icons/ri";
 import {BeatLoader} from "react-spinners";
 
-const Intro = ({user}) => {
+const Intro = ({user, printing}) => {
     const {toggleEmployeeForm} = useModal();
     const [lastActive, setLastActive] = useState(0)
 
@@ -54,7 +54,7 @@ const Intro = ({user}) => {
             </span>
 
             </h3>
-            <button disabled={user.length===0} onClick={toggleEmployeeForm}>Edit User</button>
+            <button hidden={printing} disabled={user.length===0} onClick={toggleEmployeeForm}>Edit User</button>
         </div>
     )
 }

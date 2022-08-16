@@ -160,6 +160,7 @@
 
     //filterSection
     .generatePDF {
+        cursor: pointer;
         @include flexCenter;
 
         p {

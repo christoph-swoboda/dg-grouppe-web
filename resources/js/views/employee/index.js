@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import '../../style/employee.scss'
 import Intro from "./partial/intro";
-import RequestStatus from "../../components/requestStatus";
 import {BsCalendar3, BsSearch} from "react-icons/bs";
 import DatePicker from "react-datepicker";
 import {SiMicrosoftexcel} from "react-icons/si";
@@ -15,13 +14,16 @@ import Api from '../../api/api'
 import qs from "qs";
 import {useParams} from "react-router";
 import StatsCard from "../../components/statsCard";
+import {useReactToPrint} from "react-to-print";
+import {BeatLoader} from "react-spinners";
 
 const Employee = () => {
 
     const [filterDate, setFilterDate] = useState(new Date());
+    const [printing, setPrinting] = useState(false)
     const [loading, setLoading] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
-    const [{addEmployeeDone, addEmployeeModal,approve}] = useStateValue();
+    const [{addEmployeeDone, addEmployeeModal, approve}] = useStateValue();
     const [categories, setCategories] = useState([])
     const {toggleEmployeeForm} = useModal();
     const [user, setUser] = useState([])
@@ -32,6 +34,7 @@ const Employee = () => {
     const [filter, setFilter] = useState({search: null, year: null, period: null, category: null})
     const query = qs.stringify(filter, {encode: false, skipNulls: true})
     let params = useParams()
+    const componentRef = useRef();
 
     useEffect(async () => {
         await Api().get(`/categories`).then(res => {
@@ -53,7 +56,7 @@ const Employee = () => {
         }, (query) ? 500 : 0)
         return () => clearTimeout(delayQuery)
 
-    }, [addEmployeeDone, query,approve]);
+    }, [addEmployeeDone, query, approve]);
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -65,19 +68,28 @@ const Employee = () => {
         setFilter({...filter, year: new Date(e).getFullYear()})
     }
 
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+
+    async function setPrintState() {
+        setPrinting(true)
+        setTimeout(() =>handlePrint(), 1);
+        setTimeout(() =>setPrinting(false), 1);
+    }
+
     return (
-        <div className='employeeContainer'>
-            <Intro user={user}/>
+        <div className='employeeContainer' ref={componentRef}>
+            <Intro user={user} printing={printing}/>
             <hr/>
             {/*statistics*/}
             <StatsCard openReq={open} approvedReq={approved} rejectedReq={rejected} user/>
             {/*statistics*/}
             <hr/>
-            <h1>Requests</h1>
-
+            <h1 hidden={printing}>Requests</h1>
             {/* Filter */}
-            <div className='filtersContainer'>
-                <div className="yearInputEmployee"  onClick={handleClick}>
+            <div style={{display: printing ? 'none' : 'grid'}} className='filtersContainer'>
+                <div className="yearInputEmployee" onClick={handleClick}>
                     <DatePicker selected={filterDate}
                                 showYearPicker
                                 dateFormat="yyyy"
@@ -118,7 +130,7 @@ const Employee = () => {
             {/* Filter */}
 
             {/*print pdf*/}
-            <div className='generatePDF'>
+            <div style={{display: printing ? 'none' : ''}} className='generatePDF' onClick={setPrintState}>
                 <SiMicrosoftexcel color={'rgba(46, 125, 50, 1)'} size='25px'/>
                 <p>Generate Report PDF</p>
             </div>
