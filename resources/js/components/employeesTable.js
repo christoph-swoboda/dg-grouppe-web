@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {GrFormNext} from "react-icons/gr";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -9,17 +9,8 @@ import useModal from "../hooks/useModal";
 
 const EmployeesTable = ({name, id, bills, enabled, types}) => {
 
-    // const [lastActive, setLastActive] = useState(0)
     const [{reqData, sendReqModal}, dispatch] = useStateValue();
     const {toggleSendReqModal} = useModal();
-
-    // useEffect(() => {
-    //     let date = new Date(updated_at)
-    //     let now = new Date()
-    //     const diffTime = Math.abs(now - date);
-    //     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    //     setLastActive(diffDays)
-    // }, []);
 
     function openModal() {
         dispatch({

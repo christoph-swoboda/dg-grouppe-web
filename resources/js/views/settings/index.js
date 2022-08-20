@@ -21,7 +21,7 @@ const Settings = ({settings}) => {
     const [faq, setFaq] = useState('')
     const [editFaq, setEditFaq] = useState(false)
     const {
-        register, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
+        register, setValue, handleSubmit, formState, formState: {errors, touchedFields},
     } = useForm({mode: "onChange"});
     const {isValid} = formState
     const ref = useRef();
@@ -49,8 +49,6 @@ const Settings = ({settings}) => {
     }, [settings]);
 
     const onSubmit = async (data) => {
-        console.log('data', Object.entries(data))
-
         setLoading(true)
         Api().post('settings', Object.entries(data)).then(res => {
             toast.success('Settings saved successfully')
@@ -67,7 +65,6 @@ const Settings = ({settings}) => {
         const file = e.target.files[0];
         if (file) {
             let reader = new FileReader();
-            // await setValue("app_logo",file);
             reader.onloadend = async () => {
                 setValue("app_logo", reader.result)
                 setImg(reader.result)

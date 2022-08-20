@@ -15,6 +15,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class EmployeeController extends ApiController
 {
@@ -62,6 +64,7 @@ class EmployeeController extends ApiController
     {
         $request->validate([
             'email' => 'required|unique:users,email',
+            'password' => ['required', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/']
         ]);
 
         DB::beginTransaction();
@@ -89,16 +92,66 @@ class EmployeeController extends ApiController
         }
     }
 
+    /**
+     * @throws ValidationException
+     */
+    public function addBulk(Request $request, $failed): JsonResponse
+    {
+       $this->validate($request, [
+            '*.email' => 'required|email|unique:users,email'
+        ]);
+
+       $unresolved=json_decode($failed);
+
+//        dd($request->input());
+
+        if(count($request->input())>0){
+            DB::beginTransaction();
+            $types = [];
+            for ($i = 0; $i < count($request->input()); $i++) {
+                if ($request[$i]['phone'] == 'y') {
+                    $types[] = 1;
+                }
+                if ($request[$i]['internet'] == 'y') {
+                    $types[] = 2;
+                }
+                if ($request[$i]['car'] == 'y') {
+                    $types[] = 3;
+                }
+                if ($request[$i]['train'] == 'y') {
+                    $types[] = 4;
+                }
+
+                try {
+                    $data = $this->storeUserData($request[$i]);
+                    $user = User::create($data);
+                    $employeeData = $this->storeEmployeeData($request[$i], $user->id);
+                    $employee = Employee::create($employeeData);
+                    $employee->types()->sync($types);
+                    DB::commit();
+                    $types = [];
+
+                } catch (\Throwable $throwable) {
+                    DB::rollBack();
+                    $this->errorLog($throwable, 'api');
+                    return $this->failResponse($throwable->getMessage());
+                }
+            }
+        }
+
+        return $this->successResponse([$user]);
+    }
+
     private function storeUserData($request): array
     {
-        if ($request->input('password')) {
+        if ($request['password']) {
             return [
-                'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
+                'email' => $request['email'],
+                'password' => bcrypt($request['password']),
             ];
         } else {
             return [
-                'email' => $request->input('email'),
+                'email' => $request['email'],
             ];
         }
     }
@@ -107,11 +160,11 @@ class EmployeeController extends ApiController
     {
         return [
             'user_id' => $id,
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'gender' => $request->input('gender'),
-            'phone' => $request->input('phone-input'),
-            'address' => $request->input('address'),
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'gender' => $request['gender'],
+            'phone' => $request['phone_number'],
+            'address' => $request['address'],
         ];
     }
 

@@ -67,7 +67,7 @@ const AddEmployee = ({edit, categories, user}) => {
             setValue("first_name", user.employees.first_name)
             setValue("last_name", user.employees.last_name)
             setValue("address", user.employees.address)
-            setValue("phone-input", user.employees.phone)
+            setValue("phone_number", user.employees.phone)
             setValue("gender", user.employees.gender)
             setValue("categories", user.employees.types?.map(t => t.id.toString()))
         }
@@ -129,10 +129,10 @@ const AddEmployee = ({edit, categories, user}) => {
                     <option value='f'>Female</option>
                     <option value='o'>Others</option>
                 </select>
-                <label htmlFor="phone-input">Phone Number *</label>
+                <label htmlFor="phone_number">Phone Number *</label>
                 <div style={{marginLeft: '1rem'}}>
                     <Controller
-                        name="phone-input"
+                        name="phone_number"
                         control={control}
                         rules={{required: true}}
                         render={({field: {onChange, value}}) => (
@@ -140,7 +140,7 @@ const AddEmployee = ({edit, categories, user}) => {
                                 value={value}
                                 onChange={onChange}
                                 defaultCountry="DE"
-                                id="phone-input"
+                                id="phone_number"
                             />
                         )}
                     />
@@ -167,9 +167,8 @@ const AddEmployee = ({edit, categories, user}) => {
                 {errors.categories && touchedFields && <p>Choose at least one type for this user</p>}
                 <h5>* marked fields are mandatory to fill</h5>
                 <div className='flexButtons'>
-                    <button onClick={() => {
-                        dispatch({type: "Set_EmployeeModal", item: false,})
-                    }}>Cancel
+                    <button onClick={() => {dispatch({type: "Set_EmployeeModal", item: false,})}}>
+                        Cancel
                     </button>
                     <input
                         className={(isValid) ? 'enabled' : 'disabled'}

@@ -11,7 +11,8 @@
 
     .topSection {
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: auto auto auto;
+        grid-gap: 20px;
         width: 100%;
         margin: auto;
         @media screen and (max-width: $bp-mobile) {
@@ -26,7 +27,7 @@
 
             input {
                 padding: .9rem;
-                width: 65vw;
+                width: 60vw;
                 border: 1px solid $borderColor;
                 border-radius: 8px;
                 font-size: 2vh;

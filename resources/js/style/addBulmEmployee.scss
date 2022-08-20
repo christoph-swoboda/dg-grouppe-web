@@ -1,0 +1,103 @@
+@import "variables";
+@import "mixin";
+
+.addBulkEmployeeContainer {
+    @include addEmployeeSection;
+    width: 95vw;
+    margin: 10vh 0 0 2vw ;
+    font-size: 1rem;
+    @media screen and (max-width: $bp-tablet) {
+        font-size: 2rem;
+    }
+
+    a{
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 1rem;
+        float: right;
+        color: #18398c;
+        @media screen and (max-width: $bp-tablet) {
+            font-size: 2rem;
+        }
+    }
+
+    .defaultDiv {
+        height: 70vh;
+        border: 1px solid #c4c4c4;
+        background-color: #f1f1f1;
+
+        label {
+            @include centerItemsAbsolute;
+            text-align: left;
+            font-size: 2rem;
+            color: #1a202c;
+            cursor: pointer;
+        }
+    }
+
+    .tableDiv {
+        height: 70vh;
+        overflow-y: scroll;
+        margin: 1rem;
+        font-size: 2rem;
+        border: 1px solid #dedede;
+
+        .displayExcel {
+            width: 90vw;
+
+            td, .error {
+                padding: 10px;
+                margin: 5px;
+                font-size: 1rem;
+                color: #1a202c;
+                @media screen and (max-width: $bp-tablet) {
+                    font-size: 2rem;
+                }
+            }
+
+            th {
+                color: #5b5b5b;
+                font-weight: 400;
+                font-size: 1rem;
+                @media screen and (max-width: $bp-tablet) {
+                    font-size: 2rem;
+                }
+            }
+
+            .error {
+                border: 1px solid red;
+            }
+        }
+    }
+
+    p {
+        font-size: 22px;
+        margin: 1rem;
+        text-transform: uppercase;
+        color: red;
+        letter-spacing: 1px;
+    }
+
+    .buttons {
+        @include flexCenter;
+
+        button {
+            width: 20%;
+            background-color: #eeeeee;
+            color: #000000;
+        }
+
+        .active {
+            background-color: black;
+            color: white;
+
+            &:hover {
+                background-color: #171717;
+            }
+        }
+        .inactive{
+            opacity: .2;
+        }
+    }
+
+}

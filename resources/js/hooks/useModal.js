@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import {useStateValue} from "../states/StateProvider";
 
 const useModal = () => {
-    const [visible2, setVisible2] = useState(false);
     const [{addEmployeeModal,approvalModal,sendReqModal}, dispatch] = useStateValue();
 
     function toggleEmployeeForm() {

@@ -14,6 +14,7 @@ import AllRequests from "./views/allRequests";
 import Settings from "./views/settings";
 import Api from "./api/api";
 import {useStateValue} from "./states/StateProvider";
+import AddBulkEmployee from "./components/forms/addBulkEmployee";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/settings" element={user ? <Settings settings={settings}/> : <Navigate to="/login"/>}/>
                     <Route path="/dashboard/:slug" element={user ? <AllRequests/> : <Navigate to="/login"/>}/>
                     <Route path="/employees" element={user ? <Employees/> : <Navigate to="/login"/>}/>
+                    <Route path="/employees/add-bulk" element={user ? <AddBulkEmployee/> : <Navigate to="/login"/>}/>
                     <Route path="/employees/:id" element={user ? <Employee/> : <Navigate to="/login"/>}/>
                     <Route path='*' exact={true} element={<NotFound/>}/>
                     {/*Protected Routes*/}
