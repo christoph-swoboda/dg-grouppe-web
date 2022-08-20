@@ -3,19 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
-use App\Models\Bill;
 use App\Models\Device;
 use App\Models\Employee;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class EmployeeController extends ApiController
@@ -97,16 +93,18 @@ class EmployeeController extends ApiController
      */
     public function addBulk(Request $request, $failed): JsonResponse
     {
-       $this->validate($request, [
+        $this->validate($request, [
             '*.email' => 'required|email|unique:users,email'
-        ]);
+            ],
+            [
+                '*.email.unique' => ':attribute Already Exists',
+            ]);
 
-       $unresolved=json_decode($failed);
+        $unresolved = json_decode($failed);
 
 //        dd($request->input());
 
-        if(count($request->input())>0){
-            DB::beginTransaction();
+        if (count($request->input()) > 0) {
             $types = [];
             for ($i = 0; $i < count($request->input()); $i++) {
                 if ($request[$i]['phone'] == 'y') {
@@ -121,7 +119,7 @@ class EmployeeController extends ApiController
                 if ($request[$i]['train'] == 'y') {
                     $types[] = 4;
                 }
-
+                DB::beginTransaction();
                 try {
                     $data = $this->storeUserData($request[$i]);
                     $user = User::create($data);

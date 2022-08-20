@@ -14,6 +14,7 @@ const AddBulkEmployee = () => {
     const [failedData, setFailedData] = useState([])
     const [unresolvedUser, setUnresolvedUser] = useState([])
     const [resolvedUser, setResolvedUser] = useState([])
+    const [error, setError] = useState([])
     const [emailError, setEmailError] = useState([])
     const [nameError, setNameError] = useState([])
     const [passError, setPassError] = useState([])
@@ -23,6 +24,7 @@ const AddBulkEmployee = () => {
     const [internetError, setInternetError] = useState([])
     const [carError, setCarError] = useState([])
     const [trainError, setTrainError] = useState([])
+    const [emailCopyIndex, setEmailCopyIndex] = useState([])
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     const formatLink = process.env.EXCELFORMATLINK
@@ -46,9 +48,18 @@ const AddBulkEmployee = () => {
         setFailedData([...failedData, ...nameError, ...emailError, ...passError, ...genderError, ...cellNoError, ...trainError, ...phoneError, ...internetError, ...carError])
     }, [nameError, emailError, passError, genderError, cellNoError, carError, phoneError, internetError, trainError]);
 
+    useEffect(() => {
+        setEmailCopyIndex([...emailCopyIndex, ...error])
+    }, [error]);
+
+    useEffect(() => {
+        console.log('emailCopyIndex', emailCopyIndex)
+    }, [emailCopyIndex]);
+
+
     //import and process the .xlsx, or .csv file
-    const handleImport = ($event) => {
-        const files = $event.target.files;
+    const handleImport = (event) => {
+        const files = event.target.files;
         if (files.length) {
             const file = files[0];
             const reader = new FileReader();
@@ -145,8 +156,14 @@ const AddBulkEmployee = () => {
             toast.success('Employees Added')
             //update states for reloading data after the upload operation
             dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone,})
-        }).catch(e => {
-            console.log('e', e.response.data.errors)
+        }).catch(er => {
+            console.log('e', er.response.data)
+            let err = Object.values(er.response.data.errors)
+            err.map(e => {
+                let errorInIndex = e.toString().split('.')[0]
+                setError([...error, errorInIndex])
+                toast.error('Already Existing Emails Found!! Please Provide Unique Emails')
+            })
         })
         setLoading(false)
     }
@@ -164,6 +181,8 @@ const AddBulkEmployee = () => {
         setCarError([])
         setInternetError([])
         setTrainError([])
+        setEmailCopyIndex([])
+        setError([])
     }
 
     return (
@@ -215,7 +234,7 @@ const AddBulkEmployee = () => {
                             <tr>
                                 <td className={!d.first_name && 'error'}>{d.first_name}</td>
                                 <td className={!d.last_name && 'error'}>{d.last_name}</td>
-                                <td className={(!d.email || !d.email.match(validEmailRegex)) && 'error'}>{d.email}</td>
+                                <td className={(!d.email || !d.email.match(validEmailRegex) || emailCopyIndex.includes(index.toString())) && 'error'}>{d.email}</td>
                                 <td className={(!d.password || !d.password.match(validPassRegex)) && 'error'}>{d.password}</td>
                                 <td className={(!d.gender || (d.gender !== 'f' && d.gender !== 'm')) && 'error'}>{d.gender}</td>
                                 <td className={!d.phone_number && 'error'}>{d.phone_number}</td>

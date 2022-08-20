@@ -8,13 +8,12 @@ import AddEmployee from "../../components/forms/addEmployee";
 import {useStateValue} from "../../states/StateProvider";
 import Api from "../../api/api";
 import qs from "qs"
-import AddBulkEmployee from "../../components/forms/addBulkEmployee";
 import {Link} from "react-router-dom";
 
 const Employees = () => {
 
     const {toggleEmployeeForm} = useModal();
-    const [{addEmployeeDone, sendReqDone, addEmployeeModal,addBulkEmployeeModal, pageNumber}] = useStateValue();
+    const [{addEmployeeDone, sendReqDone, addEmployeeModal, pageNumber}] = useStateValue();
     const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(false)
     const [users, setUsers] = useState([])
@@ -60,7 +59,7 @@ const Employees = () => {
                     <input type='search' value={filter.search} placeholder='Search Employees' onChange={filterSelect}/>
                     <button className='searchIcon'><BsSearch size='20px' color='grey'/></button>
                 </form>
-                <button className='addEmployee ' onClick={toggleEmployeeForm}>
+                <button className='addEmployee' onClick={toggleEmployeeForm}>
                     + Add New Employee
                 </button>
                 <button className='addEmployee '>
