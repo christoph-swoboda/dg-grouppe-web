@@ -44,9 +44,9 @@ class UnresolvedUserController extends Controller
      * Display the specified resource.
      *
      * @param $id
-     * @return Response
+     * @return mixed
      */
-    public function show($id): Response
+    public function show($id)
     {
         return UnresolvedUser::find($id);
     }
@@ -77,11 +77,12 @@ class UnresolvedUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param UnresolvedUser $unresolvedUser
+     * @param $id
      * @return Response
      */
-    public function destroy(UnresolvedUser $unresolvedUser)
+    public function destroy($id): Response
     {
-        //
+        UnresolvedUser::where('id',$id)->delete();
+        return response('deleted', 201);
     }
 }

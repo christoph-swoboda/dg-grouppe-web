@@ -207,4 +207,31 @@
     }
 }
 
+@mixin excelTableStyle{
+    width: 90vw;
+
+    td, .error {
+        padding: 10px;
+        margin: 5px;
+        font-size: 1rem;
+        color: #1a202c;
+        @media screen and (max-width: $bp-tablet) {
+            font-size: 2rem;
+        }
+    }
+
+    th {
+        color: #5b5b5b;
+        font-weight: 400;
+        font-size: 1rem;
+        @media screen and (max-width: $bp-tablet) {
+            font-size: 2rem;
+        }
+    }
+
+    .error {
+        border: 1px solid red;
+    }
+}
+
 

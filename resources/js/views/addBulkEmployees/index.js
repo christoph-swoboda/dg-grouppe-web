@@ -6,6 +6,7 @@ import {toast} from "react-toastify"
 import {read, utils} from 'xlsx'
 import '../../style/addBulmEmployee.scss'
 import {useNavigate} from "react-router";
+import {BeatLoader} from "react-spinners";
 
 const Index = () => {
 
@@ -39,8 +40,6 @@ const Index = () => {
         //subtract the array that doesn't contain any error
         let intersection = data.filter(x => !filtered.includes(x))
         setResolvedUser(intersection)
-        console.log('unresolved users: ', filtered)
-        console.log('resolved users: ', intersection)
     }, [failedData, data]);
 
     //create an array with all the rows that contains an error
@@ -146,13 +145,17 @@ const Index = () => {
 
     async function upload() {
         setLoading(true)
-
         await Api().post(`/employees/bulk/${JSON.stringify(unresolvedUser)}`, resolvedUser).then(res => {
             toast.success('Employees Added')
             //update states for reloading data after the upload operation
-            dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone,})
+            dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone})
+            if(unresolvedUser.length>0){
+                navigate('/resolve-users')
+            }
+            else{
+                navigate('/employees')
+            }
         }).catch(er => {
-            console.log('e', er.response.data)
             let err = Object.values(er.response.data.errors)
             err.map(e => {
                 let errorInIndex = e.toString().split('.')[0]
@@ -197,12 +200,12 @@ const Index = () => {
                 </div>
             }
             <div style={{
-                display: data.length === 0 ? 'none' : 'flex',
-                margin: '0 1rem',
-                color: 'darkred',
-                cursor: 'pointer'
-            }}
-                 onClick={removeFile}
+                    display: data.length === 0 ? 'none' : 'flex',
+                    margin: '0 1rem',
+                    color: 'darkred',
+                    cursor: 'pointer'
+                }}
+                onClick={removeFile}
             >
                 <h2 style={{margin: '-2px 10px 0 0', color: 'black'}}>Remove File</h2> <AiFillDelete/>
             </div>
@@ -224,7 +227,7 @@ const Index = () => {
                     </tr>
                     </thead>
                     {
-                        data?.map((d, index) => (// index===0 &&
+                        data?.map((d, index) => (
                             <tbody>
                             <tr>
                                 <td className={!d.first_name && 'error'}>{d.first_name}</td>
@@ -239,9 +242,7 @@ const Index = () => {
                                 <td className={(!d.car || (d.car !== 'y' && d.car !== 'n')) && 'error'}>{d.car}</td>
                                 <td className={(!d.train || (d.train !== 'y' && d.train !== 'n')) && 'error'}>{d.train}</td>
                             </tr>
-                            {/*<br/>*/}
                             </tbody>
-                            // <input value={d}/>
                         ))}
                 </table>
             </div>
@@ -252,7 +253,7 @@ const Index = () => {
                         onClick={upload}
                         disabled={(data.length === 0)}
                 >
-                    Upload
+                    {loading? <BeatLoader size={5} color={'#ffffff'}/>:'Upload'}
                 </button>
             </div>
         </div>

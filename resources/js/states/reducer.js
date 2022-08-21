@@ -3,6 +3,7 @@ export const initialState = {
     addEmployeeModal:false,
     approvalModal:false,
     sendReqModal:false,
+    resolved:null,
     sendReqDone:false,
     approve:false,
     pageNumber:1,
@@ -17,6 +18,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.item
+            }
+            case "SET_RESOLVED":
+            return {
+                ...state,
+                resolved: action.item
             }
             case "Set_ApprovalModal":
             return {

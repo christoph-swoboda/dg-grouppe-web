@@ -14,7 +14,7 @@ import {BeatLoader} from "react-spinners";
 const Employees = () => {
 
     const {toggleEmployeeForm} = useModal();
-    const [{addEmployeeDone, sendReqDone, addEmployeeModal, pageNumber}] = useStateValue();
+    const [{addEmployeeDone, sendReqDone, addEmployeeModal, pageNumber,resolved}] = useStateValue();
     const [categories, setCategories] = useState([])
     const [unresolvedUsers, setUnresolvedUsers] = useState([])
     const [loading, setLoading] = useState(false)
@@ -24,7 +24,6 @@ const Employees = () => {
 
     useEffect(async () => {
         await Api().get(`/unresolved-users`).then(res => {
-            console.log('unresolved-users', res.data)
             setUnresolvedUsers(res.data)
         })
         await Api().get(`/categories`).then(res => {
@@ -49,7 +48,7 @@ const Employees = () => {
         }, (query) ? 500 : 0)
         return () => clearTimeout(delayQuery)
 
-    }, [addEmployeeDone, query, sendReqDone, pageNumber]);
+    }, [addEmployeeDone, query, sendReqDone, pageNumber, resolved]);
 
     function filterSelect(e) {
         setFilter({...filter, search: e.target.value})

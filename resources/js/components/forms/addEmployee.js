@@ -7,10 +7,11 @@ import PropTypes from "prop-types";
 import Api from "../../api/api";
 import {toast} from "react-toastify";
 import useModal from "../../hooks/useModal";
+import {BeatLoader} from "react-spinners";
 
-const AddEmployee = ({edit, categories, user}) => {
+const AddEmployee = ({edit, categories, user, resolve}) => {
 
-    const [{addEmployeeDone}, dispatch] = useStateValue();
+    const [{addEmployeeDone, resolved}, dispatch] = useStateValue();
     const {toggleEmployeeForm} = useModal();
     const [loading, setLoading] = useState(false)
     const [emailError, setEmailError] = useState('')
@@ -18,7 +19,7 @@ const AddEmployee = ({edit, categories, user}) => {
     const {
         register, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
         control
-    } = useForm({mode: "onChange"});
+    } = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
@@ -36,6 +37,12 @@ const AddEmployee = ({edit, categories, user}) => {
                 toast.success('User Info Saved Successfully');
                 setLoading(false)
                 dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone,})
+                if(resolve && resolved){
+                    Api().delete(`unresolved-users/${resolved}`).then(res=>{
+                        dispatch({type: "SET_RESOLVED", item: null})
+                        console.log('deleted')
+                    })
+                }
                 toggleEmployeeForm()
             })
             .catch(err => {
@@ -50,7 +57,7 @@ const AddEmployee = ({edit, categories, user}) => {
             .then((res) => {
                 toast.success('User Info Saved Successfully');
                 setLoading(false)
-                dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone,})
+                dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone})
                 toggleEmployeeForm()
             })
             .catch(err => {
@@ -61,8 +68,10 @@ const AddEmployee = ({edit, categories, user}) => {
     }
 
     useEffect(() => {
+        keys = getValues()
+        document.getElementsByName('first_name')[0].focus();
+
         if (edit) {
-            keys = getValues()
             setValue("email", user.email)
             setValue("first_name", user.employees.first_name)
             setValue("last_name", user.employees.last_name)
@@ -71,7 +80,23 @@ const AddEmployee = ({edit, categories, user}) => {
             setValue("gender", user.employees.gender)
             setValue("categories", user.employees.types?.map(t => t.id.toString()))
         }
-    }, [keys]);
+        if(resolve){
+            setValue("email", user.email)
+            setValue("first_name", user.first_name)
+            setValue("last_name", user.last_name)
+            setValue("address", user.address)
+            setValue("password", user.password)
+            setValue("phone_number", user.phone_number)
+            setValue("gender", user.gender)
+            setValue("categories", user.types?.map(t => t.id.toString()))
+
+            Object.keys(keys).map(k=>{
+                document.getElementsByName(k)[0]?.focus();
+            })
+            document.getElementsByName('first_name')[0].focus();
+        }
+
+    }, [keys, user]);
 
     return (
         <div>
@@ -104,11 +129,12 @@ const AddEmployee = ({edit, categories, user}) => {
                        style={{border: errors.email && '1px solid red'}}
                 />
                 {errors.email && touchedFields && <p>{errors.email.message}</p>}
+                {emailError && <p>{emailError.email}</p>}
 
                 <label>Password </label>
                 <input placeholder='Enter Password'
                     // hidden={edit}
-                       type='password'
+                       type={!resolve?'password':'text'}
                        autoFocus
                        {...register('password', {
                            required: !edit,
@@ -120,7 +146,6 @@ const AddEmployee = ({edit, categories, user}) => {
                 />
                 {errors.password && touchedFields && <p>{errors.password.message}</p>}
 
-                {emailError && <p>{emailError.email}</p>}
                 <label>Gender *</label>
                 <select
                     {...register("gender", {required: true})}>
@@ -173,7 +198,7 @@ const AddEmployee = ({edit, categories, user}) => {
                     <input
                         className={(isValid) ? 'enabled' : 'disabled'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? !edit ? 'Add New User' : 'Update User' : 'saving...'}
+                        value={(!loading) ? !edit ? 'Add New User' : 'Update User' : <BeatLoader size={5} color={'#ffffff'}/>}
                     />
                 </div>
             </form>
@@ -185,11 +210,8 @@ export default AddEmployee
 
 AddEmployee.propTypes = {
     edit: PropTypes.bool,
+    resolve: PropTypes.bool,
     categories: PropTypes.array,
-    credentials: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.array
-    ]),
     user: PropTypes.oneOfType([
         PropTypes.object,
         PropTypes.array
