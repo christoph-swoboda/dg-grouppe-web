@@ -29,7 +29,7 @@ Route::group([
     Route::apiResource("/employees", EmployeeController::class);
     Route::get('/admin', [EmployeeController::class, 'admin']);
     Route::get('/employee', [EmployeeController::class, 'employee']);
-    Route::post('/employees/bulk/{failed}', [EmployeeController::class, 'addBulk']);
+    Route::post('/employees/bulk', [EmployeeController::class, 'addBulk']);
     Route::post('/save-device-id/{token}', [EmployeeController::class, 'saveDeviceId']);
     Route::post('/employee/profileImage/{id}', [EmployeeController::class, 'profileImage']);
 

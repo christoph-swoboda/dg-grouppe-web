@@ -25,7 +25,7 @@ const ResolveUsers = () => {
 
     return (
         <div className='resolveUsersContainer'>
-            <h1 hidden={resolved}>Resolve These Users</h1>
+            <h1 hidden={!loading && users.length===0}>Resolve These Users</h1>
             <hr/>
             <table className='displayExcel'>
                 <thead>

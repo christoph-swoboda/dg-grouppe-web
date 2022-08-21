@@ -15,12 +15,65 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
     const {toggleEmployeeForm} = useModal();
     const [loading, setLoading] = useState(false)
     const [emailError, setEmailError] = useState('')
+    const [userCategories, setUserCategories] = useState([])
+    const [phone, setPhone] = useState([])
+    const [internet, setInternet] = useState([])
+    const [car, setCar] = useState([])
+    const [train, setTrain] = useState([])
     let keys = ''
     const {
         register, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
         control
     } = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
     const {isValid} = formState;
+
+
+    useEffect(() => {
+        if (resolve) {
+            setUserCategories([...phone, ...internet, ...car, ...train])
+        }
+    }, [phone, car, train, internet]);
+
+    useEffect(() => {
+        keys = getValues()
+        document.getElementsByName('first_name')[0].focus();
+
+        if (edit) {
+            setValue("email", user.email)
+            setValue("first_name", user.employees.first_name)
+            setValue("last_name", user.employees.last_name)
+            setValue("address", user.employees.address)
+            setValue("phone_number", user.employees.phone)
+            setValue("gender", user.employees.gender)
+            setValue("categories", user.employees.types?.map(t => t.id.toString()))
+        }
+        if (resolve) {
+            setValue("email", user.email)
+            setValue("first_name", user.first_name)
+            setValue("last_name", user.last_name)
+            setValue("address", user.address)
+            setValue("password", user.password)
+            setValue("phone_number", user.phone_number)
+            setValue("gender", user.gender)
+            user.phone === 'y' && setPhone([...phone, 1])
+            user.internet === 'y' && setInternet([...internet, 2])
+            user.car === 'y' && setCar([...car, 3])
+            user.train === 'y' && setTrain([...train, 4])
+        }
+
+    }, [keys, user]);
+
+    useEffect(() => {
+        keys = getValues()
+        if (resolve) {
+            setValue("categories", userCategories?.map(t => t.toString()))
+            Object.keys(keys).map(k => {
+                document.getElementsByName(k)[0]?.focus();
+            })
+            document.getElementsByName('first_name')[0].focus();
+        }
+    }, [userCategories]);
+
 
     const onSubmit = async (data) => {
         setLoading(true)
@@ -37,8 +90,8 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                 toast.success('User Info Saved Successfully');
                 setLoading(false)
                 dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone,})
-                if(resolve && resolved){
-                    Api().delete(`unresolved-users/${resolved}`).then(res=>{
+                if (resolve && resolved) {
+                    Api().delete(`unresolved-users/${resolved}`).then(res => {
                         dispatch({type: "SET_RESOLVED", item: null})
                         console.log('deleted')
                     })
@@ -47,7 +100,7 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
             })
             .catch(err => {
                 setEmailError(err.response.data.errors)
-                toast.error('Something went wrong! ');
+                toast.error('Something went wrong!');
                 setLoading(false)
             })
     }
@@ -66,37 +119,6 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                 toast.error('Something went wrong! ');
             })
     }
-
-    useEffect(() => {
-        keys = getValues()
-        document.getElementsByName('first_name')[0].focus();
-
-        if (edit) {
-            setValue("email", user.email)
-            setValue("first_name", user.employees.first_name)
-            setValue("last_name", user.employees.last_name)
-            setValue("address", user.employees.address)
-            setValue("phone_number", user.employees.phone)
-            setValue("gender", user.employees.gender)
-            setValue("categories", user.employees.types?.map(t => t.id.toString()))
-        }
-        if(resolve){
-            setValue("email", user.email)
-            setValue("first_name", user.first_name)
-            setValue("last_name", user.last_name)
-            setValue("address", user.address)
-            setValue("password", user.password)
-            setValue("phone_number", user.phone_number)
-            setValue("gender", user.gender)
-            setValue("categories", user.types?.map(t => t.id.toString()))
-
-            Object.keys(keys).map(k=>{
-                document.getElementsByName(k)[0]?.focus();
-            })
-            document.getElementsByName('first_name')[0].focus();
-        }
-
-    }, [keys, user]);
 
     return (
         <div>
@@ -134,7 +156,7 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                 <label>Password </label>
                 <input placeholder='Enter Password'
                     // hidden={edit}
-                       type={!resolve?'password':'text'}
+                       type={!resolve ? 'password' : 'text'}
                        autoFocus
                        {...register('password', {
                            required: !edit,
@@ -192,13 +214,16 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                 {errors.categories && touchedFields && <p>Choose at least one type for this user</p>}
                 <h5>* marked fields are mandatory to fill</h5>
                 <div className='flexButtons'>
-                    <button onClick={() => {dispatch({type: "Set_EmployeeModal", item: false,})}}>
+                    <button onClick={() => {
+                        dispatch({type: "Set_EmployeeModal", item: false,})
+                    }}>
                         Cancel
                     </button>
                     <input
                         className={(isValid) ? 'enabled' : 'disabled'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? !edit ? 'Add New User' : 'Update User' : <BeatLoader size={5} color={'#ffffff'}/>}
+                        value={(!loading) ? !edit ? 'Add New User' : 'Update User' :
+                            <BeatLoader size={5} color={'#ffffff'}/>}
                     />
                 </div>
             </form>

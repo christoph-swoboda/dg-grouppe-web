@@ -92,8 +92,9 @@ class EmployeeController extends ApiController
     /**
      * @throws ValidationException
      */
-    public function addBulk(Request $request, $failed): JsonResponse
+    public function addBulk(Request $request): JsonResponse
     {
+
         $this->validate($request, [
             '*.email' => 'required|email|unique:users,email'
         ],
@@ -101,12 +102,21 @@ class EmployeeController extends ApiController
                 '*.email.unique' => ':attribute Already Exists',
             ]);
 
-        $unresolved = json_decode($failed,true);
+        $unresolved = [];
+        $resolved = [];
 
-        if (count($request->input()) > 0) {
-            $user = $this->saveBulkUsers($request);
+        for ($i = 0; $i < count($request->input()); $i++) {
+            if ($request[$i]['error']) {
+                $unresolved[] = $request[$i];
+            } else {
+                $resolved[] = $request[$i];
+            }
         }
-        if(count($unresolved)>0) {
+
+        if (!empty($resolved)) {
+            $user = $this->saveBulkUsers($resolved);
+        }
+        if (!empty($unresolved)) {
             $user = $this->saveUnresolvedUsers($unresolved);
         }
 
@@ -117,17 +127,17 @@ class EmployeeController extends ApiController
     private function saveBulkUsers($request): JsonResponse
     {
         $types = [];
-        for ($i = 0; $i < count($request->input()); $i++) {
-            if ($request[$i]['phone'] == 'y') {
+        for ($i = 0; $i < count($request); $i++) {
+            if ($request[$i]['phone'] && $request[$i]['phone'] == 'y') {
                 $types[] = 1;
             }
-            if ($request[$i]['internet'] == 'y') {
+            if ($request[$i]['internet'] && $request[$i]['internet'] == 'y') {
                 $types[] = 2;
             }
-            if ($request[$i]['car'] == 'y') {
+            if ($request[$i]['car'] && $request[$i]['car'] == 'y') {
                 $types[] = 3;
             }
-            if ($request[$i]['train'] == 'y') {
+            if ($request[$i]['train'] && $request[$i]['train'] == 'y') {
                 $types[] = 4;
             }
             DB::beginTransaction();
@@ -149,7 +159,7 @@ class EmployeeController extends ApiController
         return $this->successResponse([$user]);
     }
 
-    private function saveUnresolvedUsers($data)
+    private function saveUnresolvedUsers($data): JsonResponse
     {
         for ($i = 0; $i < count($data); $i++) {
             $user = UnresolvedUser::create($data[$i]);

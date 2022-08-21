@@ -30,7 +30,6 @@ const ResolveUsersTable = ({
     async function resolve() {
         Api().get(`unresolved-users/${id}`).then(res => {
             setUser(res.data)
-        }).finally(res=>{
             toggleEmployeeForm()
             dispatch({type: "SET_RESOLVED", item: id})
         })

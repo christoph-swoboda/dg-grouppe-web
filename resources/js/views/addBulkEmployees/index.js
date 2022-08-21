@@ -21,10 +21,7 @@ const Index = () => {
     const [passError, setPassError] = useState([])
     const [genderError, setGenderError] = useState([])
     const [cellNoError, setCellNoError] = useState([])
-    const [phoneError, setPhoneError] = useState([])
-    const [internetError, setInternetError] = useState([])
-    const [carError, setCarError] = useState([])
-    const [trainError, setTrainError] = useState([])
+    const [noCategoryError, setNoCategoryError] = useState([])
     const [emailCopyIndex, setEmailCopyIndex] = useState([])
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
@@ -44,8 +41,8 @@ const Index = () => {
 
     //create an array with all the rows that contains an error
     useEffect(() => {
-        setFailedData([...failedData, ...nameError, ...emailError, ...passError, ...genderError, ...cellNoError, ...trainError, ...phoneError, ...internetError, ...carError])
-    }, [nameError, emailError, passError, genderError, cellNoError, carError, phoneError, internetError, trainError]);
+        setFailedData([...failedData, ...nameError, ...emailError, ...passError, ...genderError, ...cellNoError, ...noCategoryError])
+    }, [nameError, emailError, passError, genderError, cellNoError, noCategoryError]);
 
     useEffect(() => {
         setEmailCopyIndex([...emailCopyIndex, ...error])
@@ -66,17 +63,18 @@ const Index = () => {
                     let newRows = [];
                     rows.map((row, index) => {
                         newRows.push({
-                            first_name: row?.first_name,
-                            last_name: row?.last_name,
-                            email: row?.email,
-                            password: row?.password?.toString(),
-                            gender: row?.gender,
-                            phone_number: row?.phone_number?.toString(),
-                            address: row?.address,
-                            phone: row?.phone,
-                            internet: row?.internet,
-                            car: row?.car,
-                            train: row?.train,
+                            first_name: row.first_name,
+                            last_name: row.last_name,
+                            email: row.email,
+                            password: row.password?.toString(),
+                            gender: row.gender,
+                            phone_number: row.phone_number?.toString(),
+                            address: row.address,
+                            phone: row.phone ? row.phone : 'N/A',
+                            internet: row.internet ? row.internet : 'N/A',
+                            car: row.car ? row.car : 'N/A',
+                            train: row.train ? row.train : 'N/A',
+                            error: false,
                         });
                     })
                     //filter out the duplicates from file
@@ -87,30 +85,27 @@ const Index = () => {
                     filtered.map((r, index) => {
                         if (!r.email || !validateEmail(r.email)) {
                             setEmailError([...emailError, r])
+                            r.error = true
                         }
                         if (!r.first_name) {
                             setNameError([...nameError, r])
+                            r.error = true
                         }
                         if (!r.password || !validatePass(r.password)) {
                             setPassError([...passError, r])
+                            r.error = true
                         }
                         if (!r.gender || (r.gender !== 'f' && r.gender !== 'm')) {
                             setGenderError([...genderError, r])
+                            r.error = true
                         }
                         if (!r.phone_number) {
                             setCellNoError([...cellNoError, r])
+                            r.error = true
                         }
-                        if (!r.phone || (r.phone !== 'y' && r.phone !== 'n')) {
-                            setPhoneError([...phoneError, r])
-                        }
-                        if (!r.internet || (r.internet !== 'y' && r.internet !== 'n')) {
-                            setInternetError([...internetError, r])
-                        }
-                        if (!r.car || (r.car !== 'y' && r.car !== 'n')) {
-                            setCarError([...carError, r])
-                        }
-                        if (!r.train || (r.train !== 'y' && r.train !== 'n')) {
-                            setTrainError([...trainError, r])
+                        if (r.train !== 'y' && r.phone !== 'y' && r.internet !== 'y' && r.car !== 'y') {
+                            setNoCategoryError([...noCategoryError, r])
+                            r.error = true
                         }
                     })
                 }
@@ -145,23 +140,29 @@ const Index = () => {
 
     async function upload() {
         setLoading(true)
-        await Api().post(`/employees/bulk/${JSON.stringify(unresolvedUser)}`, resolvedUser).then(res => {
+        let Data = resolvedUser.concat(unresolvedUser)
+        await Api().post(`/employees/bulk`, Data).then(res => {
             toast.success('Employees Added')
             //update states for reloading data after the upload operation
             dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone})
-            if(unresolvedUser.length>0){
+            if (unresolvedUser.length > 0) {
                 navigate('/resolve-users')
-            }
-            else{
+            } else {
                 navigate('/employees')
             }
         }).catch(er => {
             let err = Object.values(er.response.data.errors)
-            err.map(e => {
-                let errorInIndex = e.toString().split('.')[0]
-                setError([...error, errorInIndex])
-                toast.error('Already Existing Emails Found!! Please Provide Unique Emails')
-            })
+            if (er.response.status === 422) {
+                err.map(e => {
+                    let errorInIndex = e.toString().split('.')[0]
+                    setError([...error, errorInIndex])
+                    toast.error('Invalid Existing Emails Found!! Please Provide Unique Emails')
+                })
+            } else {
+                toast.error('Something Went Wrong!!!')
+                setLoading(false)
+            }
+
         })
         setLoading(false)
     }
@@ -175,12 +176,9 @@ const Index = () => {
         setPassError([])
         setGenderError([])
         setCellNoError([])
-        setPhoneError([])
-        setCarError([])
-        setInternetError([])
-        setTrainError([])
         setEmailCopyIndex([])
         setError([])
+        setNoCategoryError([])
     }
 
     return (
@@ -200,12 +198,12 @@ const Index = () => {
                 </div>
             }
             <div style={{
-                    display: data.length === 0 ? 'none' : 'flex',
-                    margin: '0 1rem',
-                    color: 'darkred',
-                    cursor: 'pointer'
-                }}
-                onClick={removeFile}
+                display: data.length === 0 ? 'none' : 'flex',
+                margin: '0 1rem',
+                color: 'darkred',
+                cursor: 'pointer'
+            }}
+                 onClick={removeFile}
             >
                 <h2 style={{margin: '-2px 10px 0 0', color: 'black'}}>Remove File</h2> <AiFillDelete/>
             </div>
@@ -237,10 +235,10 @@ const Index = () => {
                                 <td className={(!d.gender || (d.gender !== 'f' && d.gender !== 'm')) && 'error'}>{d.gender}</td>
                                 <td className={!d.phone_number && 'error'}>{d.phone_number}</td>
                                 <td className={!d.address && 'error'}>{d.address}</td>
-                                <td className={(!d.phone || (d.phone !== 'y' && d.phone !== 'n')) && 'error'}>{d.phone}</td>
-                                <td className={(!d.internet || (d.internet !== 'y' && d.internet !== 'n')) && 'error'}>{d.internet}</td>
-                                <td className={(!d.car || (d.car !== 'y' && d.car !== 'n')) && 'error'}>{d.car}</td>
-                                <td className={(!d.train || (d.train !== 'y' && d.train !== 'n')) && 'error'}>{d.train}</td>
+                                <td className={(d.train !== 'y' && d.phone !== 'y' && d.internet !== 'y' && d.car !== 'y') && 'error'}>{d.phone}</td>
+                                <td className={(d.train !== 'y' && d.phone !== 'y' && d.internet !== 'y' && d.car !== 'y') && 'error'}>{d.internet}</td>
+                                <td className={(d.train !== 'y' && d.phone !== 'y' && d.internet !== 'y' && d.car !== 'y') && 'error'}>{d.car}</td>
+                                <td className={(d.train !== 'y' && d.phone !== 'y' && d.internet !== 'y' && d.car !== 'y') && 'error'}>{d.train}</td>
                             </tr>
                             </tbody>
                         ))}
@@ -253,7 +251,7 @@ const Index = () => {
                         onClick={upload}
                         disabled={(data.length === 0)}
                 >
-                    {loading? <BeatLoader size={5} color={'#ffffff'}/>:'Upload'}
+                    {loading ? <BeatLoader size={5} color={'#ffffff'}/> : 'Upload'}
                 </button>
             </div>
         </div>
