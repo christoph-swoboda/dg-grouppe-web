@@ -8,6 +8,7 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RequestResponseController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UnresolvedUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,9 @@ Route::group([
     Route::post('/employee/profileImage/{id}', [EmployeeController::class, 'profileImage']);
 
     Route::apiResource("/categories", CategoryController::class);
+
+    Route::apiResource("/unresolved-users", UnresolvedUserController::class);
+
 
     Route::get('/requests/published', [RequestController::class, 'publishedBills']);
     Route::get('/requests/categorized', [RequestController::class, 'categorizedBills']);

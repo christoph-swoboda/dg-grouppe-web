@@ -3,7 +3,7 @@
 
 .addBulkEmployeeContainer {
     @include addEmployeeSection;
-    width: 95vw;
+    width: 94.5vw;
     margin: 10vh 0 0 2vw ;
     font-size: 1rem;
     @media screen and (max-width: $bp-tablet) {

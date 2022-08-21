@@ -9,25 +9,30 @@ import {useStateValue} from "../../states/StateProvider";
 import Api from "../../api/api";
 import qs from "qs"
 import {Link} from "react-router-dom";
+import {BeatLoader} from "react-spinners";
 
 const Employees = () => {
 
     const {toggleEmployeeForm} = useModal();
     const [{addEmployeeDone, sendReqDone, addEmployeeModal, pageNumber}] = useStateValue();
     const [categories, setCategories] = useState([])
+    const [unresolvedUsers, setUnresolvedUsers] = useState([])
     const [loading, setLoading] = useState(false)
     const [users, setUsers] = useState([])
     const [filter, setFilter] = useState({search: null, page: pageNumber})
     const query = qs.stringify(filter, {encode: false, skipNulls: true})
 
     useEffect(async () => {
+        await Api().get(`/unresolved-users`).then(res => {
+            console.log('unresolved-users', res.data)
+            setUnresolvedUsers(res.data)
+        })
         await Api().get(`/categories`).then(res => {
             setCategories(res.data)
         })
     }, []);
 
     useEffect(() => {
-
         setFilter({...filter, page: pageNumber})
         setLoading(true)
         const delayQuery = setTimeout(async () => {
@@ -59,14 +64,21 @@ const Employees = () => {
                     <input type='search' value={filter.search} placeholder='Search Employees' onChange={filterSelect}/>
                     <button className='searchIcon'><BsSearch size='20px' color='grey'/></button>
                 </form>
-                <button className='addEmployee' onClick={toggleEmployeeForm}>
-                    + Add New Employee
-                </button>
-                <button className='addEmployee '>
-                    <Link to={'/employees/add-bulk'} className='addEmployee'>
-                        + Add Bulk
-                    </Link>
-                </button>
+                <button className='addEmployee' onClick={toggleEmployeeForm}>+ Add New Employee</button>
+                {
+                    unresolvedUsers.length === 0 ?
+                        <button className='addEmployee '>
+                            <Link to={'/employees/add-bulk'}>
+                                {loading?<BeatLoader size={5} color={'#ffffff'}/>:'+ Add Bulk'}
+                            </Link>
+                        </button>
+                        :
+                        <button className='addEmployee '>
+                            <Link to={'/resolve-users'}>
+                                {loading? <BeatLoader size={5} color={'#ffffff'}/>:'Resolve Users'}
+                            </Link>
+                        </button>
+                }
             </div>
             {/*{Employee List}*/}
             <EmployeesList

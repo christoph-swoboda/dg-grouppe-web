@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Device;
 use App\Models\Employee;
+use App\Models\UnresolvedUser;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -95,46 +96,63 @@ class EmployeeController extends ApiController
     {
         $this->validate($request, [
             '*.email' => 'required|email|unique:users,email'
-            ],
+        ],
             [
                 '*.email.unique' => ':attribute Already Exists',
             ]);
 
-        $unresolved = json_decode($failed);
-
-//        dd($request->input());
+        $unresolved = json_decode($failed,true);
 
         if (count($request->input()) > 0) {
-            $types = [];
-            for ($i = 0; $i < count($request->input()); $i++) {
-                if ($request[$i]['phone'] == 'y') {
-                    $types[] = 1;
-                }
-                if ($request[$i]['internet'] == 'y') {
-                    $types[] = 2;
-                }
-                if ($request[$i]['car'] == 'y') {
-                    $types[] = 3;
-                }
-                if ($request[$i]['train'] == 'y') {
-                    $types[] = 4;
-                }
-                DB::beginTransaction();
-                try {
-                    $data = $this->storeUserData($request[$i]);
-                    $user = User::create($data);
-                    $employeeData = $this->storeEmployeeData($request[$i], $user->id);
-                    $employee = Employee::create($employeeData);
-                    $employee->types()->sync($types);
-                    DB::commit();
-                    $types = [];
+            $user = $this->saveBulkUsers($request);
+        }
+        if(count($unresolved)>0) {
+            $user = $this->saveUnresolvedUsers($unresolved);
+        }
 
-                } catch (\Throwable $throwable) {
-                    DB::rollBack();
-                    $this->errorLog($throwable, 'api');
-                    return $this->failResponse($throwable->getMessage());
-                }
+        return $this->successResponse([$user]);
+
+    }
+
+    private function saveBulkUsers($request): JsonResponse
+    {
+        $types = [];
+        for ($i = 0; $i < count($request->input()); $i++) {
+            if ($request[$i]['phone'] == 'y') {
+                $types[] = 1;
             }
+            if ($request[$i]['internet'] == 'y') {
+                $types[] = 2;
+            }
+            if ($request[$i]['car'] == 'y') {
+                $types[] = 3;
+            }
+            if ($request[$i]['train'] == 'y') {
+                $types[] = 4;
+            }
+            DB::beginTransaction();
+            try {
+                $data = $this->storeUserData($request[$i]);
+                $user = User::create($data);
+                $employeeData = $this->storeEmployeeData($request[$i], $user->id);
+                $employee = Employee::create($employeeData);
+                $employee->types()->sync($types);
+                DB::commit();
+                $types = [];
+
+            } catch (\Throwable $throwable) {
+                DB::rollBack();
+                $this->errorLog($throwable, 'api');
+                return $this->failResponse($throwable->getMessage());
+            }
+        }
+        return $this->successResponse([$user]);
+    }
+
+    private function saveUnresolvedUsers($data)
+    {
+        for ($i = 0; $i < count($data); $i++) {
+            $user = UnresolvedUser::create($data[$i]);
         }
 
         return $this->successResponse([$user]);
