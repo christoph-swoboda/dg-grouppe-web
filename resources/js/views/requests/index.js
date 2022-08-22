@@ -58,6 +58,7 @@ const Requests = ({slug}) => {
                 <StatsCard openReq={bills?.open?.total} approvedReq={bills?.approved?.total}
                            rejectedReq={bills?.rejected?.total}/>
             </div>
+            <br/>
             {/*filter*/}
             <div className='filters'>
                 <div>
