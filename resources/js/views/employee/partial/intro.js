@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import useModal from "../../../hooks/useModal";
 import {RiUserSettingsLine} from "react-icons/ri";
 import {BeatLoader} from "react-spinners";
+import avatar from "../../../assets/1.jpg";
 
 const Intro = ({user, printing}) => {
     const {toggleEmployeeForm} = useModal();
@@ -17,12 +18,17 @@ const Intro = ({user, printing}) => {
 
     return (
         <div className='intro'>
-            <img src={`/${user.employees?.image}`} alt={user.employees?.first_name}/>
+            {
+                user.employees?.image ?
+                    <img hidden={!user} src={`/${user.employees?.image}`}/>
+                    :
+                    <img src={avatar}/>
+            }
             <div className='userName'>
                 <h2>
                     {
                         !user.id ?
-                            <BeatLoader size={15} color={'#73856f'}/>
+                            <BeatLoader size={10} color={'#000000'}/>
                             :
                             `${user.employees?.first_name} ${user.employees?.last_name}`
                     }
@@ -34,7 +40,7 @@ const Intro = ({user, printing}) => {
 
                 {
                     !user.id ?
-                        <BeatLoader size={8} color={'#73856f'}/>
+                        <BeatLoader size={10} color={'#000000'}/>
                         :
                         user.employees?.types?.map((type, index) => type.title + (index ? ' ' : ', '))
                 }
@@ -42,7 +48,7 @@ const Intro = ({user, printing}) => {
             <h3><span>Status:
                 {
                     !user.id ?
-                        <BeatLoader size={8} color={'#888888'}/>
+                        <BeatLoader size={10} color={'#000000'}/>
                         :
                         <>
                             {lastActive > 30 ? ' Offline ' : ' Online '}
@@ -54,7 +60,7 @@ const Intro = ({user, printing}) => {
             </span>
 
             </h3>
-            <button hidden={printing} disabled={user.length===0} onClick={toggleEmployeeForm}>Edit User</button>
+            <button hidden={printing} disabled={user.length === 0} onClick={toggleEmployeeForm}>Edit User</button>
         </div>
     )
 }

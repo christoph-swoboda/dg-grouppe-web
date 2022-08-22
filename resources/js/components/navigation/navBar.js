@@ -4,6 +4,8 @@ import {AiOutlineDown, AiOutlineMenu} from "react-icons/ai";
 import {Link, useLocation} from "react-router-dom";
 import '../../style/navBar.scss'
 import Api from "../../api/api";
+import logo from '../../assets/logo.png'
+import avatar from '../../assets/1.jpg'
 
 const Navbar = () => {
 
@@ -53,20 +55,27 @@ const Navbar = () => {
     return (
         <nav ref={modalRef} hidden={path.pathname === '/login'}>
             <ul className="list">
-                <Link to="/" className='logo'>DG GRUPPE |||</Link>
+                <Link to="/dashboard" className='logo'><img src={logo} alt='logo'/></Link>
                 {
                     (toggleMenu || screenWidth > 500) && (
                         <>
-                            <Link to={'/'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname === '/' && 'text-mainBlue'}`}>Dashboard</li>
+                            <Link to={'/dashboard'} onClick={toggleNav}>
+                                <li className={`items ${path.pathname.includes('/dashboard') && 'text-bold'}`}>Dashboard</li>
                             </Link>
 
                             <Link to={'/employees'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname.includes('/employees') && 'text-mainBlue'}`}>Employees</li>
+                                <li className={`items ${path.pathname.includes('/employees') && 'text-bold'}`}>Employees</li>
                             </Link>
 
                             <li className='userInfo'>
-                                <img onClick={() => setModal(!modal)} hidden={!user} src={`/${user?.admins.image}`}/>
+                                {
+                                    user?.admins.image ?
+                                        <img onClick={() => setModal(!modal)} hidden={!user}
+                                             src={`/${user?.admins.image}`}/>
+                                        :
+                                        <img onClick={() => setModal(!modal)} src={avatar}/>
+                                }
+                                <p hidden={user} onClick={() => setModal(!modal)}>Admin</p>
                                 <p hidden={!user} onClick={() => setModal(!modal)}>{user?.admins.first_name}</p>
                                 <p><AiOutlineDown size={'20px'} onClick={() => setModal(!modal)}/></p>
                             </li>
@@ -76,7 +85,7 @@ const Navbar = () => {
             </ul>
             <div className={modal ? 'modal-logout' : 'hide'}>
                 <button onClick={logout}>Log Out</button>
-                <Link to={'/settings'} onClick={()=>setModal(false)}>Settings</Link>
+                <Link to={'/settings'} onClick={() => setModal(false)}>Settings</Link>
             </div>
             <button onClick={toggleNav} className="btn"><AiOutlineMenu size={'30px'}/></button>
         </nav>

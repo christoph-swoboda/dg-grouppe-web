@@ -178,7 +178,7 @@
 
 .tableContainer {
     overflow-x: auto;
-    margin: 1rem 1rem 2rem -1.5rem;
+    margin: 1rem 1rem 2rem 1rem;
     @include tableStyle(85vw, 95vw);
 
     .listApproved {

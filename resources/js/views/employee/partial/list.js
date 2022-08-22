@@ -34,7 +34,7 @@ const List = ({user, bills, loading}) => {
                         <tbody>
                         <tr>
                             <th>
-                                <BeatLoader size={20} color={'#73856f'}/>
+                                <BeatLoader size={15} color={'#000000'}/>
                             </th>
                         </tr>
                         </tbody>

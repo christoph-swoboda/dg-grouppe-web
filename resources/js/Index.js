@@ -34,7 +34,7 @@ function App() {
             <Router>
                 <Navbar/>
                 <Routes>
-                    <Route index element={user ? <Requests/> : <Navigate to="/login"/>}/>
+                    <Route index element={user ?  <Navigate to="/dashboard"/>  : <Navigate to="/login"/>}/>
                     <Route path="/dashboard" element={user ? <Requests/> : <Navigate to="/login"/>}/>
                     <Route path="/settings" element={user ? <Settings settings={settings}/> : <Navigate to="/login"/>}/>
                     <Route path="/dashboard/:slug" element={user ? <AllRequests/> : <Navigate to="/login"/>}/>
@@ -46,7 +46,7 @@ function App() {
                     {/*Protected Routes*/}
                     {/*Protected Routes*/}
                     <Route path='/register' element={<Register/>}/>
-                    <Route path="/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
+                    <Route path="/login" element={!user ? <Login/> : <Navigate to="/dashboard"/>}/>
                 </Routes>
             </Router>
             <ToastContainer style={{zIndex:'99999999999'}}/>

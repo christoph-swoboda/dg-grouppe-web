@@ -1,7 +1,7 @@
 @import "mixin";
 @import "variables";
 
-.requestStatus {
+.requestStatus, .requestStatusSmall {
     border: 1px solid $borderColor;
     //width: 25vw;
     padding: 1vh;
@@ -11,7 +11,7 @@
         border-style: none;
     }
 
-    .flexStatus {
+    .flexStatus, .status {
         @include flexCenter;
 
         .wrapIcon {
@@ -24,8 +24,8 @@
             }
         }
 
-        //.statusInfo {
-        //    padding-left: 1rem;
+        .statusInfo,.status {
+            padding-left: 1rem;
             h1{
                 font-size: 1.7rem;
                 font-weight: 500;
@@ -43,6 +43,17 @@
                     font-size: 1.8vh;
                 }
             }
-        //}
+        }
+    }
+
+    .statusInfo{
+        h1{
+            padding:0 !important;
+            font-size: 2rem !important;
+        }
+        h2{
+            font-size: 1.1rem !important;
+            font-weight: 400 !important;
+        }
     }
 }
