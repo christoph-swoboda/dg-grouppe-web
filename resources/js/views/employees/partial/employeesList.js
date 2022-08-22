@@ -31,7 +31,7 @@ const EmployeesList = ({loading, users, search}) => {
                             <tbody>
                             <tr>
                                 <th>
-                                    <BeatLoader size={20} color={'#73856f'}/>
+                                    <BeatLoader size={20} color={'#000000'}/>
                                 </th>
                             </tr>
                             </tbody>

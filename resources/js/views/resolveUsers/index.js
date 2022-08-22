@@ -28,7 +28,7 @@ const ResolveUsers = () => {
             <h1 hidden={!loading && users.length===0}>Resolve These Users</h1>
             <hr/>
             <table className='displayExcel'>
-                <thead>
+                <thead hidden={users.length===0}>
                 <tr>
                     <th>First Name</th>
                     <th>Last Name</th>

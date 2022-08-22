@@ -4,6 +4,10 @@
 .employeeContainer {
     @include container;
     text-align: left;
+    @media screen and (max-width: $bp-tablet) {
+        margin-top: 4vh;
+    }
+
 
     hr {
         display: none;
@@ -18,6 +22,11 @@
     h1 {
         font-size: 25px;
         font-weight: 700;
+        @media screen and (max-width: $bp-tablet) {
+            font-size: 22px;
+            text-align: center;
+            margin: 3rem 0;
+        }
     }
 
     //introSection
@@ -39,8 +48,9 @@
         h2 {
             font-size: 25px;
             font-weight: 700;
+            margin-left: 10px;
             @media screen and (max-width: $bp-tablet) {
-                font-size: 2.3vh;
+                font-size: 2vh;
                 //width: 120px;
             }
         }
@@ -51,7 +61,7 @@
             font-weight: 600;
             margin-right: 2rem;
             @media screen and (max-width: $bp-tablet) {
-                font-size: 1.7vh;
+                font-size: 1.5vh;
                 min-width: 140px;
                 margin-top: 2rem;
             }
@@ -64,6 +74,10 @@
         span {
             font-size: 2vh;
             font-weight: 700;
+            @media screen and (max-width: $bp-tablet) {
+                font-size: 1.5vh;
+            }
+
         }
 
         img {

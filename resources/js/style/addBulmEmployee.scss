@@ -8,6 +8,8 @@
     font-size: 1rem;
     @media screen and (max-width: $bp-tablet) {
         font-size: 2rem;
+        width: 96vw;
+        margin: 10vh 2vw 2vh 2vw ;
     }
 
     a{

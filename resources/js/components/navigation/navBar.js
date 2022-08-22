@@ -87,7 +87,9 @@ const Navbar = () => {
                 <button onClick={logout}>Log Out</button>
                 <Link to={'/settings'} onClick={() => setModal(false)}>Settings</Link>
             </div>
-            <button onClick={toggleNav} className="btn"><AiOutlineMenu size={'30px'}/></button>
+            <button onClick={toggleNav} className="btn" style={{marginRight:'20px'}}>
+                <AiOutlineMenu size={'30px'}/>
+            </button>
         </nav>
     )
 }

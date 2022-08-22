@@ -1,21 +1,21 @@
 import React, {useEffect, useRef, useState} from "react"
 import '../../style/employee.scss'
-import Intro from "./partial/intro";
-import {BsCalendar3, BsSearch} from "react-icons/bs";
-import DatePicker from "react-datepicker";
-import {SiMicrosoftexcel} from "react-icons/si";
-import List from "./partial/list";
-import Modal from "../../components/modal";
-import AddEmployee from "../../components/forms/addEmployee";
-import useModal from "../../hooks/useModal";
-import {useStateValue} from "../../states/StateProvider";
-import "react-datepicker/dist/react-datepicker.css";
+import Intro from "./partial/intro"
+import {BsSearch} from "react-icons/bs"
+import DatePicker from "react-datepicker"
+import {SiMicrosoftexcel} from "react-icons/si"
+import List from "./partial/list"
+import Modal from "../../components/modal"
+import AddEmployee from "../../components/forms/addEmployee"
+import useModal from "../../hooks/useModal"
+import {useStateValue} from "../../states/StateProvider"
+import "react-datepicker/dist/react-datepicker.css"
+import '../../style/datePicker.scss'
 import Api from '../../api/api'
 import qs from "qs";
-import {useParams} from "react-router";
-import StatsCard from "../../components/statsCard";
-import {useReactToPrint} from "react-to-print";
-import {BeatLoader} from "react-spinners";
+import {useParams} from "react-router"
+import StatsCard from "../../components/statsCard"
+import {useReactToPrint} from "react-to-print"
 
 const Employee = () => {
 
@@ -74,8 +74,8 @@ const Employee = () => {
 
     async function setPrintState() {
         setPrinting(true)
-        setTimeout(() =>handlePrint(), 1);
-        setTimeout(() =>setPrinting(false), 1);
+        setTimeout(() => handlePrint(), 1);
+        setTimeout(() => setPrinting(false), 1);
     }
 
     return (
@@ -92,12 +92,13 @@ const Employee = () => {
                 <div className="yearInputEmployee" onClick={handleClick}>
                     <DatePicker selected={filterDate}
                                 showYearPicker
+                                className={'thi'}
                                 dateFormat="yyyy"
                                 placeholderText='Select A Year'
                                 onChange={handleChange}
                                 id='date'
                     />
-                    <label htmlFor="date"> <BsCalendar3 size='3vh' color='grey'/></label>
+                    {/*<label htmlFor="date"> <BsCalendar3 size='3vh' color='grey'/></label>*/}
                 </div>
                 <select onChange={(e) => setFilter({
                     ...filter,

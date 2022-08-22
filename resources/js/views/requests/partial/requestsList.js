@@ -25,7 +25,7 @@ const RequestsList = ({bills, header, loading, slug}) => {
                         {
                             loading ?
                                 <div style={{minHeight:'20vh'}}>
-                                    <BeatLoader size={10} color={'#73856f'}/>
+                                    <BeatLoader size={10} color={'#000000'}/>
                                 </div>
                                 :
                                 <table hidden={!bills?.data[0]?.bill}>

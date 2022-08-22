@@ -12,7 +12,7 @@
         margin: 2rem 0 2rem -1.5vw;
         @media screen and (max-width: $bp-tablet) {
             width: 80vw;
-            margin: 2vh;
+            //margin: 2vh;
         }
         grid-gap: 1rem;
 
@@ -40,7 +40,7 @@
             margin: 1rem 1rem 2rem 1.5rem;
             @include tableStyle(70vw, 95vw);
 
-            h2{
+            h2 {
                 font-size: 30px;
                 text-align: center;
                 font-weight: lighter;
@@ -48,7 +48,7 @@
         }
     }
 
-    .requestsListNoBorder{
+    .requestsListNoBorder {
         border: none;
     }
 
@@ -69,6 +69,11 @@
     @include flexCenter;
     //margin-right: 1vw;
     margin-top: -1.3rem;
+    .thi{
+        @media screen and (max-width: $bp-tablet) {
+            height: 3.5vh;
+        }
+    }
 
     label {
         display: none;
@@ -79,9 +84,18 @@
     @include flexCenter;
     //margin-right: 1vw;
     margin-top: -2.8rem;
+
+    .thi{
+        @media screen and (max-width: $bp-tablet) {
+            width: 76vw!important;
+            height: 3vh;
+        }
+    }
+
     @media screen and (max-width: $bp-tablet) {
         margin-bottom: 4vh;
     }
+
     label {
         display: none;
     }
@@ -92,7 +106,7 @@
     display: flex;
     justify-content: space-between;
     border: 1px solid $borderColor;
-    padding: .7rem;
+    padding: .8rem;
     border-radius: 8px;
     color: $grey;
     background-color: #ffffff;

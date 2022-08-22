@@ -67,6 +67,7 @@ const Requests = ({slug}) => {
                         <DatePicker selected={filterDate}
                                     showYearPicker
                                     dateFormat="yyyy"
+                                    className={'thi'}
                                     placeholderText='Select A Year'
                                     onChange={handleChange}
                                     id='date'

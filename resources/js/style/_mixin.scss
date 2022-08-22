@@ -3,9 +3,9 @@
 @mixin container(){
     min-height: 80vh;
     background-color: white;
-    padding: 7rem 7rem 2rem 7rem;
+    padding: 12vh 7vw 2vh 7vw;
     @media screen and (max-width: $bp-tablet) {
-        padding: 16rem 0 2rem 3rem;
+        padding: 16rem 5rem 2rem 5rem;
     }
 }
 
@@ -231,6 +231,13 @@
 
     .error {
         border: 1px solid red;
+    }
+}
+
+.pagination{
+    a{
+        font-size: 2vh;
+        padding: 5px 15px;
     }
 }
 
