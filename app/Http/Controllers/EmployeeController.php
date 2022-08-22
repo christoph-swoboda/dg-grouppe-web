@@ -94,7 +94,6 @@ class EmployeeController extends ApiController
      */
     public function addBulk(Request $request): JsonResponse
     {
-
         $this->validate($request, [
             '*.email' => 'required|email|unique:users,email'
         ],

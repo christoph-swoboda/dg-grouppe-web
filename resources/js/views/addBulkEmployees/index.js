@@ -46,7 +46,12 @@ const Index = () => {
 
     useEffect(() => {
         setEmailCopyIndex([...emailCopyIndex, ...error])
-    }, [error]);
+    }, [error, emailError]);
+
+    useEffect(() => {
+        console.log('emerr', emailCopyIndex)
+    }, [emailCopyIndex]);
+
 
     //import and process the .xlsx, or .csv file
     const handleImport = (e) => {
@@ -140,7 +145,7 @@ const Index = () => {
 
     async function upload() {
         setLoading(true)
-        let Data = resolvedUser.concat(unresolvedUser)
+        let Data = unresolvedUser.concat(resolvedUser)
         await Api().post(`/employees/bulk`, Data).then(res => {
             toast.success('Employees Added')
             //update states for reloading data after the upload operation
@@ -179,6 +184,7 @@ const Index = () => {
         setEmailCopyIndex([])
         setError([])
         setNoCategoryError([])
+        setEmailError([])
     }
 
     return (
