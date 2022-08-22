@@ -2,26 +2,13 @@
 @import "mixin";
 @import 'node_modules/react-datepicker/src/stylesheets/datepicker.scss';
 
-
-//.react-datepicker__month-container {
-//    background-color: #081833!important;
-//    color: #969eac!important;
-//    font-size: 4rem!important;
-//
-//    .react-datepicker__month {
-//        padding: 1rem 0;
-//    }
-//
-//    .react-datepicker__month-text {
-//        display: inline-block;
-//        width: auto!important;
-//        margin: 0.5rem;
-//        font-size: 3rem!important;
-//        padding: 0.2rem;
-//        &:hover {
-//            background-color: #534cea;
-//        }
-//    }
-//
-//
-//}
+.react-datepicker__year-text {
+    display: inline-block;
+    width: auto!important;
+    //margin: 0.5rem;
+    font-size: 2vh!important;
+    padding: 1rem;
+    &:hover {
+        background-color: #bdea4c;
+    }
+}

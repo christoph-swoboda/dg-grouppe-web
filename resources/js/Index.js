@@ -2,20 +2,12 @@ import './App.css';
 import React, {useEffect, useState} from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import Login from "./components/forms/login";
-import Register from "./components/forms/register";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
-import NotFound from "./views/notFound";
 import Navbar from "./components/navigation/navBar";
-import Requests from "./views/requests";
-import Employees from "./views/employees";
-import Employee from "./views/employee";
-import AllRequests from "./views/allRequests";
-import Settings from "./views/settings";
 import Api from "./api/api";
 import {useStateValue} from "./states/StateProvider";
-import Index from "./views/addBulkEmployees";
-import ResolveUsers from "./views/resolveUsers";
+import {AdminRouter} from "./router/router";
 
 function App() {
 
@@ -34,22 +26,17 @@ function App() {
             <Router>
                 <Navbar/>
                 <Routes>
-                    <Route index element={user ?  <Navigate to="/dashboard"/>  : <Navigate to="/login"/>}/>
-                    <Route path="/dashboard" element={user ? <Requests/> : <Navigate to="/login"/>}/>
-                    <Route path="/settings" element={user ? <Settings settings={settings}/> : <Navigate to="/login"/>}/>
-                    <Route path="/dashboard/:slug" element={user ? <AllRequests/> : <Navigate to="/login"/>}/>
-                    <Route path="/employees" element={user ? <Employees/> : <Navigate to="/login"/>}/>
-                    <Route path="/employees/add-bulk" element={user ? <Index/> : <Navigate to="/login"/>}/>
-                    <Route path="/employees/:id" element={user ? <Employee/> : <Navigate to="/login"/>}/>
-                    <Route path="/resolve-users" element={user ? <ResolveUsers/> : <Navigate to="/login"/>}/>
-                    <Route path='*' exact={true} element={<NotFound/>}/>
-                    {/*Protected Routes*/}
-                    {/*Protected Routes*/}
-                    <Route path='/register' element={<Register/>}/>
+                    <Route index element={user ? <Navigate to="/dashboard"/> : <Navigate to="/login"/>}/>
+                    {
+                        AdminRouter.map(route => (
+                            <Route key={route.id} path={route.path}
+                                   element={user ? route.component : <Navigate to="/login"/>}/>
+                        ))
+                    }
                     <Route path="/login" element={!user ? <Login/> : <Navigate to="/dashboard"/>}/>
                 </Routes>
             </Router>
-            <ToastContainer style={{zIndex:'99999999999'}}/>
+            <ToastContainer style={{zIndex: '99999999999'}}/>
         </div>
     );
 }
