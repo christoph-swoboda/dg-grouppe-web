@@ -8,6 +8,7 @@ import Navbar from "./components/navigation/navBar";
 import Api from "./api/api";
 import {useStateValue} from "./states/StateProvider";
 import {AdminRouter} from "./router/router";
+import Settings from "./views/settings";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
                 <Navbar/>
                 <Routes>
                     <Route index element={user ? <Navigate to="/dashboard"/> : <Navigate to="/login"/>}/>
+                    <Route path="/settings" element={user ? <Settings settings={settings}/> : <Navigate to="/login"/>}/>
                     {
                         AdminRouter.map(route => (
                             <Route key={route.id} path={route.path}

@@ -6,7 +6,6 @@ import AddBulkEmployees from "../views/addBulkEmployees";
 import Employee from "../views/employee";
 import ResolveUsers from "../views/resolveUsers";
 import NotFound from "../views/notFound";
-import Login from "../components/forms/login";
 
 
 export const AdminRouter=[
@@ -16,12 +15,12 @@ export const AdminRouter=[
         name:'home',
         component:<Requests/>
     },
-    {
-        id:1,
-        path:'/settings',
-        name:'settings',
-        component:<Settings/>
-    },
+    // {
+    //     id:1,
+    //     path:'/settings',
+    //     name:'settings',
+    //     component:<Settings/>
+    // },
     {
         id:2,
         path:'/dashboard/:slug',
