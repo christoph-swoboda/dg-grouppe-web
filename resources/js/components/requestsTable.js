@@ -51,7 +51,7 @@ const RequestsTable = ({id, title, period, status, year, name, responseImage, ty
         />
         <tr>
             <td>{billId}</td>
-            <td className='name'><Link to={`/employees/${user}`}>{name}</Link></td>
+            <td className='name'><Link to={`/mitarbeite/${user}`}>{name}</Link></td>
             <td>{title} {type} Rechnung</td>
             <td>{Period}</td>
             <td>{deadline}</td>

@@ -107,7 +107,7 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
     async function updateUser(data) {
         await Api().put(`/employees/${user.id}`, data)
             .then((res) => {
-                toast.success('User Info Saved Successfully');
+                toast.success('Benutzerinformationen erfolgreich gespeichert');
                 setLoading(false)
                 dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone})
                 toggleEmployeeForm()
@@ -115,7 +115,7 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
             .catch(err => {
                 setLoading(false)
                 setEmailError(err.response.data.errors)
-                toast.error('Something went wrong! ');
+                toast.error('Etwas ist schief gelaufen! ');
             })
     }
 
