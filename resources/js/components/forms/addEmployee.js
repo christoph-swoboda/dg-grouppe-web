@@ -87,20 +87,19 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
     async function saveUser(data) {
         await Api().post(`/employees`, data)
             .then((res) => {
-                toast.success('User Info Saved Successfully');
+                toast.success('Benutzerinformationen erfolgreich gespeichert');
                 setLoading(false)
                 dispatch({type: "Set_EmployeeSaved", item: !addEmployeeDone,})
                 if (resolve && resolved) {
                     Api().delete(`unresolved-users/${resolved}`).then(res => {
                         dispatch({type: "SET_RESOLVED", item: null})
-                        console.log('deleted')
                     })
                 }
                 toggleEmployeeForm()
             })
             .catch(err => {
                 setEmailError(err.response.data.errors)
-                toast.error('Something went wrong!');
+                toast.error('Etwas ist schief gelaufen!!');
                 setLoading(false)
             })
     }
@@ -122,28 +121,28 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
 
     return (
         <div>
-            <h2 className='centerItem'>{edit ? 'Edit Employee' : 'Add New Employee'}</h2>
+            <h2 className='centerItem'>{edit ? 'Mitarbeiter Bearbeiten' : 'Neuen Mitarbeiter Hinzufügen'}</h2>
             {/*<br/>*/}
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>First Name *</label>
-                <input placeholder='First Name...'
+                <label>Vorname *</label>
+                <input placeholder='Vorname...'
                        {...register('first_name', {required: true})}
                        style={{border: errors.first_name && '1px solid red'}}
                 />
-                {errors.first_name && touchedFields && <p>First Name is required</p>}
-                <label>Last Name *</label>
-                <input placeholder='Last Name...'
-                       {...register('last_name', {required: 'Last Name is required'})}
+                {errors.first_name && touchedFields && <p>Vorname ist erforderlich</p>}
+                <label>Nachname *</label>
+                <input placeholder='Nachname...'
+                       {...register('last_name', {required: 'Nachname ist erforderlich'})}
                        style={{border: errors.last_name && '1px solid red'}}
                 />
                 {errors.last_name && touchedFields && <p>{errors.last_name.message}</p>}
-                <label>Email *</label>
-                <input disabled={edit} placeholder='Yourmail@domain'
+                <label>E-Mail *</label>
+                <input disabled={edit} placeholder='E-Mail'
                        {...register('email', {
-                           required: 'Email is required',
+                           required: 'E-Mail ist erforderlich',
                            pattern: {
                                value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                               message: 'Please enter a valid email',
+                               message: 'Bitte geben Sie eine gültige E-Mail ein',
                            },
                        })}
                        type="email"
@@ -153,8 +152,8 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                 {errors.email && touchedFields && <p>{errors.email.message}</p>}
                 {emailError && <p>{emailError.email}</p>}
 
-                <label>Password </label>
-                <input placeholder='Enter Password'
+                <label>Passwort </label>
+                <input placeholder='Eingabe Passwort'
                     // hidden={edit}
                        type={!resolve ? 'password' : 'text'}
                        autoFocus
@@ -162,21 +161,21 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                            required: !edit,
                            pattern: {
                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                               message: 'Min eight characters, at least one uppercase, one lowercase letter and one number',
+                               message: 'Mindestens acht Zeichen, mindestens ein Großbuchstabe, ein Kleinbuchstabe und eine Zahl',
                            },
                        })}
                 />
                 {errors.password && touchedFields && <p>{errors.password.message}</p>}
 
-                <label>Gender *</label>
+                <label>Geschlecht *</label>
                 <select
                     {...register("gender", {required: true})}>
-                    <option value="">Choose Gender...</option>
-                    <option value='m'>Male</option>
-                    <option value='f'>Female</option>
-                    <option value='o'>Others</option>
+                    <option value="">Wählen Sie Geschlecht...</option>
+                    <option value='m'>Männlich</option>
+                    <option value='f'>Weiblich</option>
+                    <option value='o'>Andere</option>
                 </select>
-                <label htmlFor="phone_number">Phone Number *</label>
+                <label htmlFor="phone_number">Rufnummer *</label>
                 <div style={{marginLeft: '1rem'}}>
                     <Controller
                         name="phone_number"
@@ -191,14 +190,14 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                             />
                         )}
                     />
-                    {errors.phone && <p>Invalid Phone Number</p>}
+                    {errors.phone && <p>Ungültige Telefonnummer</p>}
                 </div>
-                <label>Address *</label>
-                <input placeholder='St, Town, Country'
+                <label>Adresse *</label>
+                <input placeholder='St, Stadt, Land'
                        {...register('address', {required: true})}
                        style={{border: errors.address && '1px solid red'}}
                 />
-                {errors.address && touchedFields && <p>Address is required</p>}
+                {errors.address && touchedFields && <p>Adresse ist erforderlich</p>}
                 <div className='flex'>
                     {
                         categories.map(cat => (
@@ -211,18 +210,18 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                         ))
                     }
                 </div>
-                {errors.categories && touchedFields && <p>Choose at least one type for this user</p>}
-                <h5>* marked fields are mandatory to fill</h5>
+                {errors.categories && touchedFields && <p>Wählen Sie mindestens einen Typ für diesen Benutzer</p>}
+                <h5>* Die markierten Felder müssen ausgefüllt werden</h5>
                 <div className='flexButtons'>
                     <button onClick={() => {
                         dispatch({type: "Set_EmployeeModal", item: false,})
                     }}>
-                        Cancel
+                        Abbrechen
                     </button>
                     <input
                         className={(isValid) ? 'enabled' : 'disabled'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? !edit ? 'Add New User' : 'Update User' :
+                        value={(!loading) ? !edit ? 'Neu Hinzufügen' : 'Benutzer Aktualisieren' :
                             <BeatLoader size={5} color={'#ffffff'}/>}
                     />
                 </div>

@@ -20,7 +20,7 @@ const RequestsList = ({bills, header, loading, slug}) => {
                         <h1 style={{textTransform: 'capitalize'}}>{header}</h1>
 
                         <div hidden={loading || bills?.data[0]?.bill}>
-                            <h2>No Data On This Scope</h2>
+                            <h2>Keine Daten für diesen Bereich!!</h2>
                         </div>
                         {
                             loading ?
@@ -31,13 +31,13 @@ const RequestsList = ({bills, header, loading, slug}) => {
                                 <table hidden={!bills?.data[0]?.bill}>
                                     <thead>
                                     <tr>
-                                        <th>Request ID</th>
+                                        <th>ID ANFORDEN</th>
                                         <th>NAME</th>
-                                        <th>REQUEST</th>
-                                        <th>PERIOD</th>
+                                        <th>ANFORDEN</th>
+                                        <th>ZEITRAUM</th>
                                         <th>DEADLINE</th>
                                         <th>STATUS</th>
-                                        <th>VERIFY</th>
+                                        <th>ÜBERPRÜFEN</th>
                                     </tr>
                                     </thead>
                                     {
@@ -62,7 +62,7 @@ const RequestsList = ({bills, header, loading, slug}) => {
                                 </table>
                         }
                         <div hidden={slug || !bills?.data[0]?.bill || loading} className='listBottom'>
-                            <Link to={`/dashboard/${header}`}>See all</Link>
+                            <Link to={`/armaturenbrett/${header}`}>Alle Sehen</Link>
                         </div>
                         <div hidden={!slug}>
                             <Pagination

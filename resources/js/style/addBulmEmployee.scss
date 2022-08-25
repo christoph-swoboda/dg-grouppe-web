@@ -17,13 +17,15 @@
         cursor: pointer;
         padding: 1rem;
         float: right;
-        color: #18398c;
+        text-decoration: underline;
+        color: #3a92b9;
         @media screen and (max-width: $bp-tablet) {
             font-size: 2rem;
         }
     }
 
     .defaultDiv {
+        cursor: pointer;
         height: 70vh;
         border: 1px solid #c4c4c4;
         background-color: #f1f1f1;
@@ -31,7 +33,7 @@
         label {
             @include centerItemsAbsolute;
             text-align: left;
-            font-size: 2rem;
+            font-size: 2vh;
             color: #1a202c;
             cursor: pointer;
         }

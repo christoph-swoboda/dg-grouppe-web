@@ -34,7 +34,7 @@ const Requests = ({slug}) => {
                 if (e.response.status === 401) {
                     localStorage.removeItem('token')
                     localStorage.removeItem('user')
-                    window.location.replace('/login')
+                    window.location.replace('/anmeldung')
                 }
             })
         }, (query) ? 500 : 0)
@@ -62,7 +62,7 @@ const Requests = ({slug}) => {
             {/*filter*/}
             <div className='filters'>
                 <div>
-                    <h5 style={{marginLeft: '2vw'}}>Select Year</h5>
+                    <h5 style={{marginLeft: '2vw'}}>Jahr Auswählen</h5>
                     <div className="yearInput" style={{position: 'relative', zIndex: '1'}} onClick={handleClick}>
                         <DatePicker selected={filterDate}
                                     showYearPicker
@@ -76,12 +76,12 @@ const Requests = ({slug}) => {
                     </div>
                 </div>
                 <div>
-                    <h5>Select Period</h5>
+                    <h5>Zeitraum Wählen</h5>
                     <select className='selectInput' onChange={(e) => setFilter({
                         ...filter,
                         period: e.target.value !== '' ? e.target.value : null
                     })}>
-                        <option value={''}>Period: All</option>
+                        <option value={''}>Zeitraum: Alle</option>
                         {
                             [1, 2, 3].map(period => (
                                 <option key={period} value={period}>{period}</option>
@@ -94,13 +94,13 @@ const Requests = ({slug}) => {
 
             {/*list*/}
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
-                <RequestsList slug={slug} loading={loading} status={1} header={'pending'} bills={bills?.open}/>
+                <RequestsList slug={slug} loading={loading} status={1} header={'anhängig'} bills={bills?.open}/>
             </div>
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
-                <RequestsList slug={slug} loading={loading} status={2} header={'confirmed'} bills={bills?.approved}/>
+                <RequestsList slug={slug} loading={loading} status={2} header={'bestätigt'} bills={bills?.approved}/>
             </div>
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
-                <RequestsList slug={slug} loading={loading} status={3} header={'rejected'} bills={bills?.rejected}/>
+                <RequestsList slug={slug} loading={loading} status={3} header={'abgelehnt'} bills={bills?.rejected}/>
             </div>
             {/*list*/}
 

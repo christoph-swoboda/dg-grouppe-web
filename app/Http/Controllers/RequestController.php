@@ -154,7 +154,7 @@ class RequestController extends Controller
 
                 $type = Category::where('id', $newType)->first();
 
-                $this->sendPushNotification($fcmToken,'Request To Upload ' . $type->title . ' Bill', 'Upload appropriate photo for the required bill' );
+                $this->sendPushNotification($fcmToken,'Anfrage Zum Hochladen ' . $type->title . ' Rechnung', 'Laden Sie ein passendes Foto für die gewünschte Rechnung hoch' );
 
             }
             return response($fcmToken, '201');
@@ -180,7 +180,7 @@ class RequestController extends Controller
 
                 $type = Category::where('id', $newType)->first();
 
-                $this->sendPushNotification($fcmToken,'Request To Upload ' . $type->title . ' Bill', 'Upload appropriate photo for the required bill' );
+                $this->sendPushNotification($fcmToken,'Anfrage zum Hochladen ' . $type->title . ' Rechnung', 'Laden Sie ein passendes Foto für die gewünschte Rechnung hoch' );
 
             }
             return response($fcmToken, '201');

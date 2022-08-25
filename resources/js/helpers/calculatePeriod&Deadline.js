@@ -1,10 +1,10 @@
 export const getPeriod = (value, year) => {
     if (value <= 4) {
-        return (`1 of ${year}`)
+        return (`1 von ${year}`)
     } else if (value > 4 && value < 9) {
-        return (`2 of ${year}`)
+        return (`2 von ${year}`)
     } else {
-        return (`3 of ${year}`)
+        return (`3 von ${year}`)
     }
 }
 

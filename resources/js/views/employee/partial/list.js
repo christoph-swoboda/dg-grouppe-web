@@ -20,13 +20,13 @@ const List = ({user, bills, loading}) => {
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>COMPANY</th>
-                    <th>REQUEST TYPE</th>
-                    <th>PERIOD</th>
-                    <th>ISSUED</th>
+                    <th>UNTERNEHMEN</th>
+                    <th>ANTRAGSTYP</th>
+                    <th>ZEITRAUM</th>
+                    <th>AUSGEGEBEN</th>
                     <th>DEADLINE</th>
                     <th>STATUS</th>
-                    <th>VERIFY</th>
+                    <th>ÜBERPRÜFEN</th>
                 </tr>
                 </thead>
                 {
@@ -67,7 +67,7 @@ const List = ({user, bills, loading}) => {
                             :
                             <tbody>
                             <tr>
-                                <th style={{color: 'darkred'}}>Sorry, No Requests Found</th>
+                                <th style={{color: 'darkred'}}>Sorry, keine Anfragen gefunden</th>
                             </tr>
                             </tbody>
 

@@ -48,11 +48,6 @@ const Index = () => {
         setEmailCopyIndex([...emailCopyIndex, ...error])
     }, [error, emailError]);
 
-    useEffect(() => {
-        console.log('emerr', emailCopyIndex)
-    }, [emailCopyIndex]);
-
-
     //import and process the .xlsx, or .csv file
     const handleImport = (e) => {
         const files = e.target.files;
@@ -161,10 +156,10 @@ const Index = () => {
                 err.map(e => {
                     let errorInIndex = e.toString().split('.')[0]
                     setError([...error, errorInIndex])
-                    toast.error('Invalid Existing Emails Found!! Please Provide Unique Emails')
+                    toast.error('Ungültige existierende Emails gefunden!! Bitte geben Sie eindeutige Emails an')
                 })
             } else {
-                toast.error('Something Went Wrong!!!')
+                toast.error('Etwas ist schief gelaufen!!!')
                 setLoading(false)
             }
 
@@ -189,19 +184,20 @@ const Index = () => {
 
     return (
         <div className='addBulkEmployeeContainer'>
-            <a hidden={data.length > 0} href={formatLink} target='_blank'>Format/Template For Excel File</a>
+            <a hidden={data.length > 0} href={formatLink} target='_blank'>Beispiel-Excel-Datei hier herunterladen</a>
             {
                 data.length === 0 &&
-                <div className='defaultDiv'>
+                <label htmlFor="inputGroupFile" className='defaultDiv'>
                     {/*<input type="file" id="inputGroupFile" onChange={change} hidden/>*/}
                     <input type="file" hidden name="file" className="custom-file-input" id="inputGroupFile" required
                            onChange={handleImport}
                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     />
-                    <label htmlFor="inputGroupFile"> <AiOutlinePlusCircle size={40}/>Upload Formatted Excel File
+                    <label>
+                       + Füllen Sie die Exceldatei aus und laden Sie sie hier hoch
                     </label>
 
-                </div>
+                </label>
             }
             <div style={{
                 display: data.length === 0 ? 'none' : 'flex',
@@ -211,23 +207,23 @@ const Index = () => {
             }}
                  onClick={removeFile}
             >
-                <h2 style={{margin: '-2px 10px 0 0', color: 'black'}}>Remove File</h2> <AiFillDelete/>
+                <h2 style={{margin: '-2px 10px 0 0', color: 'black'}}>Datei Entfernen</h2> <AiFillDelete/>
             </div>
             <div className='tableDiv' hidden={data.length === 0}>
                 <table className='displayExcel'>
                     <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Gender</th>
-                        <th>Phone Number</th>
-                        <th>Address</th>
-                        <th>Phone</th>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>E-Mail</th>
+                        <th>Passwort</th>
+                        <th>Geschlecht</th>
+                        <th>Rufnummer</th>
+                        <th>Adresse</th>
+                        <th>Telefon</th>
                         <th>Internet</th>
-                        <th>Car</th>
-                        <th>Train</th>
+                        <th>Wagen</th>
+                        <th>Zug</th>
                     </tr>
                     </thead>
                     {
@@ -257,7 +253,7 @@ const Index = () => {
                         onClick={upload}
                         disabled={(data.length === 0)}
                 >
-                    {loading ? <BeatLoader size={5} color={'#ffffff'}/> : 'Upload'}
+                    {loading ? <BeatLoader size={5} color={'#ffffff'}/> : 'Hochladen'}
                 </button>
             </div>
         </div>

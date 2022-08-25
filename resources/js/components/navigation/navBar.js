@@ -48,23 +48,23 @@ const Navbar = () => {
         await Api().post('/logout')
             .then(res => {
                 window.localStorage.clear();
-                window.location.replace('/login')
+                window.location.replace('/anmeldung')
             })
     }
 
     return (
-        <nav ref={modalRef} hidden={path.pathname === '/login'}>
+        <nav ref={modalRef} hidden={path.pathname === '/anmeldung'}>
             <ul className="list">
-                <Link to="/dashboard" className='logo'><img src={logo} alt='logo'/></Link>
+                <Link to="/armaturenbrett" className='logo'><img src={logo} alt='logo'/></Link>
                 {
                     (toggleMenu || screenWidth > 500) && (
                         <>
-                            <Link to={'/dashboard'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname.includes('/dashboard') && 'text-bold'}`}>Dashboard</li>
+                            <Link to={'/armaturenbrett'} onClick={toggleNav}>
+                                <li className={`items ${path.pathname.includes('/armaturenbrett') && 'text-bold'}`}>Armaturenbrett</li>
                             </Link>
 
-                            <Link to={'/employees'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname.includes('/employees') && 'text-bold'}`}>Employees</li>
+                            <Link to={'/mitarbeite'} onClick={toggleNav}>
+                                <li className={`items ${path.pathname.includes('/mitarbeite') && 'text-bold'}`}>Mitarbeiter</li>
                             </Link>
 
                             <li className='userInfo'>
@@ -84,8 +84,8 @@ const Navbar = () => {
                 }
             </ul>
             <div className={modal ? 'modal-logout' : 'hide'}>
-                <button onClick={logout}>Log Out</button>
-                <Link to={'/settings'} onClick={() => setModal(false)}>Settings</Link>
+                <button onClick={logout}>Abmelden</button>
+                <Link to={'/einstellungen'} onClick={() => setModal(false)}>Einstellungen</Link>
             </div>
             <button onClick={toggleNav} className="btn" style={{marginRight:'20px'}}>
                 <AiOutlineMenu size={'30px'}/>

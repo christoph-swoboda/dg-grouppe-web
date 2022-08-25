@@ -27,15 +27,15 @@ function App() {
             <Router>
                 <Navbar/>
                 <Routes>
-                    <Route index element={user ? <Navigate to="/dashboard"/> : <Navigate to="/login"/>}/>
-                    <Route path="/settings" element={user ? <Settings settings={settings}/> : <Navigate to="/login"/>}/>
+                    <Route index element={user ? <Navigate to="/armaturenbrett"/> : <Navigate to="/anmeldung"/>}/>
+                    <Route path="/einstellungen" element={user ? <Settings settings={settings}/> : <Navigate to="/anmeldung"/>}/>
                     {
                         AdminRouter.map(route => (
                             <Route key={route.id} path={route.path}
-                                   element={user ? route.component : <Navigate to="/login"/>}/>
+                                   element={user ? route.component : <Navigate to="/anmeldung"/>}/>
                         ))
                     }
-                    <Route path="/login" element={!user ? <Login/> : <Navigate to="/dashboard"/>}/>
+                    <Route path="/anmeldung" element={!user ? <Login/> : <Navigate to="/armaturenbrett"/>}/>
                 </Routes>
             </Router>
             <ToastContainer style={{zIndex: '99999999999'}}/>

@@ -56,10 +56,10 @@ const EmployeesTable = ({status, id, company, period, created,created_at, year, 
             <td>{created}</td>
             <td>{deadline}</td>
             <td hidden={published===1} style={{color:published===0? 'darkred':''}} className='listPending'>
-                <li>{status==='3'?'Recheck':'Awaiting'}</li>
+                <li>{status==='3'?'Erneut prüfen':'Warten'}</li>
             </td>
             <td hidden={published===0} className={status === '1' ? 'listPending' : status === '2' ? 'listApproved' : 'listRejected'}>
-                <li>{status === '1' ? 'Pending' : status === '2' ? 'Approved' : 'Rejected'}</li>
+                <li>{status === '1' ? 'Anhängig' : status === '2' ? 'Bestätigt' : 'Abgelehnt'}</li>
             </td>
             <td
                 onClick={() => openModal(id, title, name, Period, deadline, status, responseImage)}

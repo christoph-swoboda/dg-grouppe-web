@@ -11,7 +11,7 @@ import NotFound from "../views/notFound";
 export const AdminRouter=[
     {
         id:0,
-        path:'/dashboard',
+        path:'/armaturenbrett',
         name:'home',
         component:<Requests/>
     },
@@ -23,31 +23,31 @@ export const AdminRouter=[
     // },
     {
         id:2,
-        path:'/dashboard/:slug',
+        path:'/armaturenbrett/:slug',
         name:'filtered-requests',
         component:<AllRequests/>
     },
     {
         id:3,
-        path:'/employees',
-        name:'employees',
+        path:'/mitarbeite',
+        name:'mitarbeite',
         component:<Employees/>
     },
     {
         id:4,
-        path:'/employees/add-bulk',
+        path:'/mitarbeite/add-bulk',
         name:'add-bulk',
         component:<AddBulkEmployees/>
     },
     {
         id:5,
-        path:'/employees/:id',
+        path:'/mitarbeite/:id',
         name:'employee',
         component:<Employee/>
     },
     {
         id:6,
-        path:'/resolve-users',
+        path:'/benutzer-lösen',
         name:'resolve',
         component:<ResolveUsers/>
     },

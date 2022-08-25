@@ -30,11 +30,12 @@ class EmployeeController extends ApiController
                     $sq->where('status', '!=', '2');
                 }]);
             }])->with(['employees' => function ($q) {
-                $q->with('types');
+                $q->with('types')
+                    ->when(\request()->has('search'), function ($sq) {
+                        $sq->where('first_name', 'LIKE', '%' . \request('search') . '%')
+                            ->orwhere('last_name', 'LIKE', '%' . \request('search') . '%');
+                    });
             }])
-            ->when(\request()->has('search'), function ($q) {
-                $q->where('title', 'LIKE', '%' . \request('search') . '%');
-            })
             ->orderBy('id', 'desc')
             ->paginate(10);
 

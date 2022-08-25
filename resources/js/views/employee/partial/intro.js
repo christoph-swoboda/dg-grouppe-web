@@ -36,7 +36,7 @@ const Intro = ({user, printing}) => {
                 <h3 style={{minWidth: '130px'}}>{user.company}</h3>
             </div>
             <h4 onClick={toggleEmployeeForm}><RiUserSettingsLine color='black' size='8rem'/></h4>
-            <h3><span>Types: </span>
+            <h3><span>Typen: </span>
 
                 {
                     !user.id ?
@@ -53,14 +53,14 @@ const Intro = ({user, printing}) => {
                         <>
                             {lastActive > 30 ? ' Offline ' : ' Online '}
                             <span className='lightFont'>
-                                 ( Last Active On {new Date(user.updated_at).toLocaleDateString()})
+                                 ( Zuletzt aktiv am {new Date(user.updated_at).toLocaleDateString()})
                             </span>
                         </>
                 }
             </span>
 
             </h3>
-            <button hidden={printing} disabled={user.length === 0} onClick={toggleEmployeeForm}>Edit User</button>
+            <button hidden={printing} disabled={user.length === 0} onClick={toggleEmployeeForm}>Benutzer Bearbeiten</button>
         </div>
     )
 }

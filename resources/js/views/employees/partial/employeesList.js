@@ -16,14 +16,14 @@ const EmployeesList = ({loading, users, search}) => {
                     <thead>
                     <tr>
                         <th>NAME</th>
-                        <th>COMPANY</th>
-                        <th>CAR</th>
-                        <th>TRAIN</th>
+                        <th>UNTERNEHME</th>
+                        <th>WAGEN</th>
+                        <th>ZUG</th>
                         <th>INTERNET</th>
-                        <th>PHONE</th>
-                        <th>OPEN REQUESTS</th>
+                        <th>TELEFON</th>
+                        <th>OFFENE ANFRAGEN</th>
                         <th>STATUS</th>
-                        <th>SEND REQUEST</th>
+                        <th>ANFRAGE SENDEN</th>
                     </tr>
                     </thead>
                     {
@@ -35,8 +35,9 @@ const EmployeesList = ({loading, users, search}) => {
                                 </th>
                             </tr>
                             </tbody>
-                            :  users?.data?.length>0?
+                            : users?.data?.length > 0 ?
                                 users?.data?.map(u => (
+                                    u.employees &&
                                     <EmployeesTable
                                         key={u.id}
                                         id={u.id}
@@ -47,17 +48,17 @@ const EmployeesList = ({loading, users, search}) => {
                                         types={u?.employees?.types}
                                     />
                                 ))
-                                : search!=='' &&
-                                    <tbody>
-                                    <tr>
-                                        <th style={{color: 'darkred'}}>Sorry, No User Found</th>
-                                    </tr>
-                                    </tbody>
+                                : search !== '' &&
+                                <tbody>
+                                <tr>
+                                    <th style={{color: 'darkred'}}>Sorry, kein Benutzer gefunden</th>
+                                </tr>
+                                </tbody>
                     }
                 </table>
                 <Pagination
                     activePage={users?.current_page ? users?.current_page : 0}
-                    itemsCountPerPage={users?.per_page ? users?.per_page : 0 }
+                    itemsCountPerPage={users?.per_page ? users?.per_page : 0}
                     totalItemsCount={users?.total ? users?.total : 0}
                     onChange={(page) => {
                         dispatch({type: "setPageNumber", item: page})

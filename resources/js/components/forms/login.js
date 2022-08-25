@@ -34,13 +34,13 @@ const Login = () => {
                         localStorage.setItem('user', JSON.stringify(user))
                     }
                     else{
-                        toast.error('something_went_wrong')
+                        toast.error('etwas ist schief gelaufen')
                     }
 
                 }
                 else{
                     setLoading(false)
-                    toast.error('User not authorized!!!')
+                    toast.error('Benutzer nicht berechtigt!!!')
                 }
             })
             .catch(e => {
@@ -52,11 +52,11 @@ const Login = () => {
         if (user) {
             setErrors(user?.errors)
             if (user?.role === '1') {
-                window.location.replace('/dashboard')
+                window.location.replace('/armaturenbrett')
             } else {
                 setLoading(false)
-                toast.error('User not authorized!!!')
-                navigate('/dashboard')
+                toast.error('Benutzer nicht berechtigt!!!')
+                navigate('/armaturenbrett')
             }
         }
     };
@@ -66,12 +66,12 @@ const Login = () => {
             <div className='login-box'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>Email *</label>
-                    <input placeholder='Yourmail@domain'
+                    <input placeholder='E-Mail'
                            {...register('email', {
-                               required: 'Email is required',
+                               required: 'E-Mail ist erforderlich',
                                pattern: {
                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                                   message: 'Please enter a valid email',
+                                   message: 'Bitte geben Sie eine gültige E-Mail ein',
                                },
                            })}
                            type="email"
@@ -79,17 +79,17 @@ const Login = () => {
                            style={{border: errors.email && '1px solid red'}}
                     />
                     {errors.email && touchedFields && <p>{errors.email.message}</p>}
-                    <label>Password *</label>
-                    <input placeholder='Password'
+                    <label>Passwort *</label>
+                    <input placeholder='Passwort'
                            type='password'
-                           {...register('password', {required: 'your password is required'})}
+                           {...register('password', {required: 'Ihr Passwort ist erforderlich'})}
                            style={{border: errors.password && '1px solid red'}}
                     />
                     {errors.password && touchedFields && <p>{errors.password.message}</p>}
                     <input
                         className={(isValid) ? 'enabled' : 'disabled'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? 'Log In' : 'Verifying...'}
+                        value={(!loading) ? 'Einloggen' : 'Überprüfen Sie...'}
                     />
                 </form>
             </div>

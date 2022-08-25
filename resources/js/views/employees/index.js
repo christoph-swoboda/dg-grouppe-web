@@ -42,7 +42,7 @@ const Employees = () => {
                 if (e.response.status === 401) {
                     localStorage.removeItem('token')
                     localStorage.removeItem('user')
-                    window.location.replace('/login')
+                    window.location.replace('/anmeldung')
                 }
             })
         }, (query) ? 500 : 0)
@@ -56,25 +56,25 @@ const Employees = () => {
 
     return (
         <div className='employees'>
-            <h1>Employees</h1>
+            <h1>Mitarbeite</h1>
             <br/>
             <div className='topSection'>
                 <form onSubmit={(e) => e.preventDefault()}>
-                    <input type='search' value={filter.search} placeholder='Search Employees' onChange={filterSelect}/>
+                    <input type='search' value={filter.search} placeholder='Suche Mitarbeiter...' onChange={filterSelect}/>
                     <button className='searchIcon'><BsSearch size='20px' color='grey'/></button>
                 </form>
-                <button className='addEmployee' onClick={toggleEmployeeForm}>+ Add New Employee</button>
+                <button className='addEmployee' onClick={toggleEmployeeForm}>+ Neu Hinzufügen</button>
                 {
                     unresolvedUsers.length === 0 ?
-                        <button className='addEmployee '>
-                            <Link to={'/employees/add-bulk'}>
-                                {loading?<BeatLoader size={5} color={'#ffffff'}/>:'+ Add Bulk'}
+                        <button className='addEmployee'>
+                            <Link to={'/mitarbeite/add-bulk'}>
+                                {loading?<BeatLoader size={5} color={'#ffffff'}/>:'+ Masse Hinzufügen'}
                             </Link>
                         </button>
                         :
-                        <button className='addEmployee '>
-                            <Link to={'/resolve-users'}>
-                                {loading? <BeatLoader size={5} color={'#ffffff'}/>:'Resolve Users'}
+                        <button className='addEmployee'>
+                            <Link to={'/benutzer-lösen'}>
+                                {loading? <BeatLoader size={5} color={'#ffffff'}/>:'Benutzer Lösen'}
                             </Link>
                         </button>
                 }

@@ -21,7 +21,7 @@ const ManageRequests = ({title, name, id, period, status, deadline, responseImag
                     dispatch({type: "Set_ApprovalModal", item: !approvalModal})
                     dispatch({type: "Set_Approved", item: !approve})
                 }).catch(e => {
-                    toast.error('Something went wrong...')
+                    toast.error('Etwas ist schief gelaufen...')
                 })
         }
     }
@@ -39,7 +39,7 @@ const ManageRequests = ({title, name, id, period, status, deadline, responseImag
                     dispatch({type: "Set_ApprovalModal", item: !approvalModal})
                     dispatch({type: "Set_Approved", item: !approve})
                 }).catch(e => {
-                    toast.error('Something went wrong...')
+                    toast.error('Etwas ist schief gelaufen...')
                 })
         }
     }
@@ -50,25 +50,26 @@ const ManageRequests = ({title, name, id, period, status, deadline, responseImag
                onClick={() => dispatch({type: "Set_ApprovalModal", item: false})}
             ><AiOutlineCloseSquare size='3vh'/>
             </p>
-            <h1 style={{textTransform:'capitalize'}}>{title} {type} bill</h1>
+            <h1 style={{textTransform:'capitalize'}}>{title} {type} Rechnung</h1>
             {
                 responseImage !== 'No Image' ?
                     <img src={`/${responseImage}`} alt={responseImage}/>
                     :
-                    <h1 style={{fontSize: '1.5vh'}}>User Has Not Uploaded An Image Yet</h1>
+                    <h1 style={{fontSize: '1.5vh'}}>Benutzer hat noch kein Bild hochgeladen</h1>
             }
             <br/>
             <h2>Id: <span>{id}</span></h2>
             <h2>Name: <span>{name}</span></h2>
-            <h2>Status: <span>{status === '1' ? 'Pending' : status === '2' ? 'Approved' : 'Rejected'}</span></h2>
-            <h2>Period: <span>{period}</span></h2>
+            <h2>Status: <span>{status === '1' ? 'Anhängig' : status === '2' ? 'Bestätigt' : 'Abgelehnt'}</span></h2>
+            <h2>Zeitraum: <span>{period}</span></h2>
             <h2>Deadline: <span>{deadline}</span></h2>
 
             <div className='rejectPopup'>
                 <select className='selectOption' hidden={!reject} onChange={(e) => setMessage(e.target.value)}>
-                    <option value={''}>Choose A Reason</option>
-                    <option value={'Photo is not clear'}>Photo Is Not Clear</option>
-                    <option value={'Photo is not from correct period'}>Photo Is Not From Correct Period</option>
+                    <option value={''}>Wählen Sie einen Grund</option>
+                    <option value={'Falsches Foto'}>Falsches Foto</option>
+                    <option value={'Foto ist unklar'}>Foto ist unklar</option>
+                    <option value={'Das Foto stammt nicht aus dem richtigen Zeitraum'}>Das Foto stammt nicht aus dem richtigen Zeitraum</option>
                 </select>
             </div>
 
@@ -76,12 +77,12 @@ const ManageRequests = ({title, name, id, period, status, deadline, responseImag
                 <button disabled={reject && !message} hidden={status === '3' || responseImage === 'No Image'}
                         className={reject && !message ? 'reject' : 'rejectEnabled'}
                         onClick={Reject}>
-                    {loading?'Rejecting...':'Reject'}
+                    {loading?'Ablehnung Von...':'Ablehnen'}
                 </button>
 
                 <button className='approve' hidden={status === '2' || reject || responseImage === 'No Image'}
                         onClick={Approve}>
-                    {loading?'Approving...':'Approve'}
+                    {loading?'Genehmigung...':'Genehmigen Sie'}
                 </button>
             </div>
         </div>

@@ -51,11 +51,11 @@ const Settings = ({settings}) => {
     const onSubmit = async (data) => {
         setLoading(true)
         Api().post('settings', Object.entries(data)).then(res => {
-            toast.success('Settings saved successfully')
+            toast.success('Einstellungen erfolgreich gespeichert')
             setLoading(false)
             dispatch({type: 'setLoadSettings', item: !loadSettings})
         }).catch(e => {
-            toast.error('Something went wrong!!!')
+            toast.error('Etwas ist schief gelaufen!!!')
             setLoading(false)
         })
         setEditFaq(false)
@@ -71,7 +71,7 @@ const Settings = ({settings}) => {
             };
             reader.readAsDataURL(file);
         } else {
-            toast.error('Something Went Wrong!');
+            toast.error('Etwas ist schief gelaufen!!!');
         }
     }
 
@@ -81,18 +81,18 @@ const Settings = ({settings}) => {
 
     return (
         <div className='settingsContainer'>
-            <h2>Settings</h2>
+            <h2>Einstellungen</h2>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className='flex-column'>
                     <label>App Name *</label>
-                    <input placeholder={errors.app_name && touchedFields ? 'App Name is required' : 'App Name'}
+                    <input placeholder={errors.app_name && touchedFields ? 'App Name ist erforderlich' : 'App Name'}
                            {...register('app_name', {required: true})}
                            style={{border: errors.app_name && '1px solid red'}}
                     />
                 </div>
                 <div className='flex-column'>
-                    <label>App Version *</label>
-                    <input placeholder={errors.app_version && touchedFields ? 'App Version is required' : 'App version'}
+                    <label>App Fassung *</label>
+                    <input placeholder={errors.app_version && touchedFields ? 'App Fassung ist erforderlich' : 'App Fassung'}
                            {...register('app_version', {required: true})}
                            style={{border: errors.app_version && '1px solid red'}}
                     />
@@ -102,8 +102,8 @@ const Settings = ({settings}) => {
             </form>
 
             <div className='faqEdit' style={{textAlign: 'unset', fontSize: 'unset'}}>
-                <label>{editFaq ? 'Editing FAQ page' : 'FAQ page '}</label>
-                <button onClick={() => setEditFaq(!editFaq)}>{editFaq ? 'Cancel' : 'Edit'}</button>
+                <label>{editFaq ? 'Bearbeitung der FAQ-Seite' : 'FAQ-Seite '}</label>
+                <button onClick={() => setEditFaq(!editFaq)}>{editFaq ? 'Abbrechen' : 'Bearbeiten'}</button>
                 <div style={{maxHeight: '40vh', overflowY: 'scroll'}}>
                     <BeatLoader loading={settings.length === 0}/>
                     <div hidden={editFaq} dangerouslySetInnerHTML={{__html: faq}}/>
@@ -116,11 +116,11 @@ const Settings = ({settings}) => {
                     editorState={information}
                     onEditorStateChange={Change}
                 />
-                {errors.faq && <p>Provide The Information</p>}
+                {errors.faq && <p>Die Informationen bereitstellen</p>}
             </div>
 
             <div className='uploadLogo'>
-                <p>{`Change app logo  `}</p>
+                <p>{`App-Logo ändern  `}</p>
                 <label ref={ref} htmlFor="fileInput"> <BsImage size={40} style={{cursor: "pointer"}}/> </label>
             </div>
             <input type='file'
@@ -138,7 +138,7 @@ const Settings = ({settings}) => {
                 className='enabled save'
                 type="submit"
                 onClick={handleSubmit(onSubmit)}
-                value={(!loading) ? 'Save' : 'saving...'}
+                value={(!loading) ? 'Speichern Sie' : 'Sparen...'}
             />
         </div>
     )

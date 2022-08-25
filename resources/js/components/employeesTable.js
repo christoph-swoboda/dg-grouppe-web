@@ -30,7 +30,7 @@ const EmployeesTable = ({name, id, bills, enabled, types}) => {
             toggle={toggleSendReqModal}
             visible={sendReqModal}
             component={<SendRequest types={reqData.types}
-                                    title={'Send Request'}
+                                    title={'Anfrage Senden'}
                                     user={reqData.user}
                                     name={reqData.name}
             />}
@@ -43,12 +43,12 @@ const EmployeesTable = ({name, id, bills, enabled, types}) => {
                 </Link>
             </td>
             <td>DG-Gruppe</td>
-            <td>{types?.filter(t => t.title === 'car').length > 0 ? 'Yes' : ' No'}</td>
-            <td>{types?.filter(t => t.title === 'train').length > 0 ? 'Yes' : ' No'}</td>
-            <td>{types?.filter(t => t.title === 'internet').length > 0 ? 'Yes' : ' No'}</td>
-            <td>{types?.filter(t => t.title === 'phone').length > 0 ? 'Yes' : ' No'}</td>
+            <td>{types?.filter(t => t.title === 'car').length > 0 ? 'ja' : ' keine'}</td>
+            <td>{types?.filter(t => t.title === 'train').length > 0 ? 'ja' : ' keine'}</td>
+            <td>{types?.filter(t => t.title === 'internet').length > 0 ? 'ja' : ' keine'}</td>
+            <td>{types?.filter(t => t.title === 'phone').length > 0 ? 'ja' : ' keine'}</td>
             <td>{bills?.reduce((amount, item) => item.requests?.length + amount, 0)}</td>
-            <td style={{color: enabled === 0 ? 'red' : 'green'}}>{enabled === 0 ? 'InActive' : 'Active'}</td>
+            <td style={{color: enabled === 0 ? 'red' : 'green'}}>{enabled === 0 ? 'InAktiv' : 'Aktiv'}</td>
             <td onClick={() => openModal()}
                 style={{cursor: 'pointer'}}
             >

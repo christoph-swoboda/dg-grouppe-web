@@ -86,7 +86,7 @@ const Employee = () => {
             <StatsCard openReq={open} approvedReq={approved} rejectedReq={rejected} user/>
             {/*statistics*/}
             <hr/>
-            <h1 hidden={printing}>Requests</h1>
+            <h1 hidden={printing}>Anfragen</h1>
             {/* Filter */}
             <div style={{display: printing ? 'none' : 'grid'}} className='filtersContainer'>
                 <div className="yearInputEmployee" onClick={handleClick}>
@@ -104,7 +104,7 @@ const Employee = () => {
                     ...filter,
                     category: e.target.value !== '' ? e.target.value : null,
                 })}>
-                    <option value={''}>Type: All</option>
+                    <option value={''}>Typen: Alle</option>
                     {
                         userTypes?.map(type => (
                             <option key={type.id} value={type.id}>{type.title}</option>
@@ -115,7 +115,7 @@ const Employee = () => {
                     ...filter,
                     period: e.target.value !== '' ? e.target.value : null
                 })}>
-                    <option value={''}>Period: All</option>
+                    <option value={''}>Zeitraum: Alle</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -124,7 +124,7 @@ const Employee = () => {
                     <input className='search' type='search' onChange={(e) => setFilter({
                         ...filter,
                         search: e.target.value,
-                    })} placeholder='Search By Request Title...'/>
+                    })} placeholder='Suche nach Anfrage Titel...'/>
                     <button className='searchIcon'><BsSearch size='20px' color='grey'/></button>
                 </form>
             </div>
@@ -133,7 +133,7 @@ const Employee = () => {
             {/*print pdf*/}
             <div style={{display: printing ? 'none' : ''}} className='generatePDF' onClick={setPrintState}>
                 <SiMicrosoftexcel color={'rgba(46, 125, 50, 1)'} size='25px'/>
-                <p>Generate Report PDF</p>
+                <p>Bericht Als PDF Generieren</p>
             </div>
             {/*print pdf*/}
 

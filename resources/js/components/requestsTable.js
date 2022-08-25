@@ -52,11 +52,11 @@ const RequestsTable = ({id, title, period, status, year, name, responseImage, ty
         <tr>
             <td>{billId}</td>
             <td className='name'><Link to={`/employees/${user}`}>{name}</Link></td>
-            <td>{title} {type} Bill</td>
+            <td>{title} {type} Rechnung</td>
             <td>{Period}</td>
             <td>{deadline}</td>
-            <td hidden={published===1} style={{color:published===0? 'darkred':''}}>{status==='3'?'Recheck':'Awaiting'}</td>
-            <td hidden={published===0}>{status === '1' ? 'Pending': status === '2' ? 'Approved' : 'Rejected'}</td>
+            <td hidden={published===1} style={{color:published===0? 'darkred':''}}>{status==='3'?'Erneut Prüfen':'Warten'}</td>
+            <td hidden={published===0}>{status === '1' ? 'Anhängig': status === '2' ? 'Bestätigt' : 'Abgelehnt'}</td>
             <td onClick={() => openModal(Period, deadline)}
                 style={{cursor: 'pointer'}}
             >
