@@ -63,17 +63,17 @@ const Index = () => {
                     let newRows = [];
                     rows.map((row, index) => {
                         newRows.push({
-                            first_name: row.first_name,
-                            last_name: row.last_name,
+                            first_name: row.vorname,
+                            last_name: row.nachname,
                             email: row.email,
-                            password: row.password?.toString(),
-                            gender: row.gender,
-                            phone_number: row.phone_number?.toString(),
-                            address: row.address,
-                            phone: row.phone ? row.phone : 'N/A',
+                            password: row.passwort?.toString(),
+                            gender: row.geschlecht,
+                            phone_number: row.rufnummer ?.toString(),
+                            address: row.adresse ,
+                            phone: row.telefon ? row.telefon : 'N/A',
                             internet: row.internet ? row.internet : 'N/A',
-                            car: row.car ? row.car : 'N/A',
-                            train: row.train ? row.train : 'N/A',
+                            car: row.wagen ? row.wagen : 'N/A',
+                            train: row.zug ? row.zug : 'N/A',
                             error: false,
                         });
                     })
@@ -135,7 +135,7 @@ const Index = () => {
     }
 
     function closeModal() {
-        navigate('/employees')
+        navigate('/mitarbeite')
     }
 
     async function upload() {
@@ -184,7 +184,7 @@ const Index = () => {
 
     return (
         <div className='addBulkEmployeeContainer'>
-            <a hidden={data.length > 0} href={formatLink} target='_blank'>Beispiel-Excel-Datei hier herunterladen</a>
+            <a hidden={data.length > 0} href='https://docs.google.com/spreadsheets/d/1d6qeVSaLGi0HEhEq_RHbWvwn-28J85Kp/edit?usp=sharing&ouid=105017687453422935174&rtpof=true&sd=true' target='_blank'>Beispiel-Excel-Datei hier herunterladen</a>
             {
                 data.length === 0 &&
                 <label htmlFor="inputGroupFile" className='defaultDiv'>
@@ -193,7 +193,7 @@ const Index = () => {
                            onChange={handleImport}
                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     />
-                    <label>
+                    <label htmlFor="inputGroupFile" >
                        + Füllen Sie die Exceldatei aus und laden Sie sie hier hoch
                     </label>
 
@@ -248,7 +248,7 @@ const Index = () => {
             </div>
 
             <div className='buttons'>
-                <button onClick={closeModal}>Cancel</button>
+                <button onClick={closeModal}>Absagen</button>
                 <button className={data.length > 0 ? 'active' : 'inactive'}
                         onClick={upload}
                         disabled={(data.length === 0)}
