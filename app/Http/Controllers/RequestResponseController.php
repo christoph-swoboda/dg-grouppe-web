@@ -47,7 +47,7 @@ class RequestResponseController extends Controller
 
         $image_url = $this->storeImage($request);
         $response->update(['image' => $image_url]);
-        $response->update(['message' => '1 Image Was Uploaded']);
+        $response->update(['message' => '1 Bild wurde hochgeladen']);
 
         $user = User::find(auth()->user()->id);
         $user->update(['last_response_at' => Carbon::now()]);

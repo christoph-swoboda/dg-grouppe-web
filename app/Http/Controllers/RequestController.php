@@ -255,7 +255,7 @@ class RequestController extends Controller
         $billRequest->update(['status' => '2', 'published' => 1]);
 
         $response = $billRequest->response;
-        $response->update(['message' => '1 Image Was Approved']);
+        $response->update(['message' => '1 Bild wurde genehmigt']);
 
         $notificationData = [
             'bill_request_id' => $billRequest->id,
@@ -267,7 +267,7 @@ class RequestController extends Controller
         $type=$billRequest->type->title;
 
         $fcmToken = Device::whereNotNull('token')->where('user_id', $billRequest->bill->user->id)->pluck('token')->toArray();
-        $this->sendPushNotification($fcmToken,'1 Image Was Approved For ' .$type. ' Bill', 'Open app to see details' );
+        $this->sendPushNotification($fcmToken,'1 Bild wurde genehmigt Für ' .$type. ' Rechnung', 'App öffnen, um Details zu sehen' );
 
         return \response($response, '201');
     }
@@ -298,7 +298,7 @@ class RequestController extends Controller
         $type=$billRequest->type->title;
 
         $fcmToken = Device::whereNotNull('token')->where('user_id', $billRequest->bill->user->id)->pluck('token')->toArray();
-        $this->sendPushNotification($fcmToken,'1 Image Was Rejected For '.$type. ' Bill', $request->input('message') );
+        $this->sendPushNotification($fcmToken,'1 Bild wurde abgelehnt für '.$type. ' Rechnung', $request->input('message') );
 
         return \response($response, '201');
     }
