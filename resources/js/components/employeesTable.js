@@ -43,10 +43,10 @@ const EmployeesTable = ({name, id, bills, enabled, types}) => {
                 </Link>
             </td>
             <td>DG-Gruppe</td>
-            <td>{types?.filter(t => t.title === 'car').length > 0 ? 'ja' : ' keine'}</td>
-            <td>{types?.filter(t => t.title === 'train').length > 0 ? 'ja' : ' keine'}</td>
+            <td>{types?.filter(t => t.title === 'wagen').length > 0 ? 'ja' : ' keine'}</td>
+            <td>{types?.filter(t => t.title === 'zug').length > 0 ? 'ja' : ' keine'}</td>
             <td>{types?.filter(t => t.title === 'internet').length > 0 ? 'ja' : ' keine'}</td>
-            <td>{types?.filter(t => t.title === 'phone').length > 0 ? 'ja' : ' keine'}</td>
+            <td>{types?.filter(t => t.title === 'telefon').length > 0 ? 'ja' : ' keine'}</td>
             <td>{bills?.reduce((amount, item) => item.requests?.length + amount, 0)}</td>
             <td style={{color: enabled === 0 ? 'red' : 'green'}}>{enabled === 0 ? 'InAktiv' : 'Aktiv'}</td>
             <td onClick={() => openModal()}
