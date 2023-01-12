@@ -1,9 +1,24 @@
 @import "variables";
 
+@mixin container(){
+    height: 100vh;
+    background-color: white;
+    padding: 3rem 7rem 2rem 7rem;
+    @media screen and (max-width: $bp-mobile) {
+        padding: 2rem 0 2rem 3rem;
+    }
+}
+
 @mixin flexEvenlyCentered(){
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+@mixin flexCenter() {
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
 
 @mixin flexEvenly(){
@@ -12,7 +27,13 @@
 }
 
 @mixin centerItems(){
-    position: fixed;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@mixin centerItemsAbsolute(){
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -30,3 +51,56 @@
     color: $color;
     box-shadow: 0 8px 24px rgba(146, 136, 224, 0.3);
 }
+
+@mixin tableStyle($width,$mobileWidth){
+        h1 {
+            margin: 0 0 1rem 0;
+            font-size: 3vh;
+            font-weight: 700;
+            color: #170303;
+        }
+
+        table {
+            //width: $width;
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            @media screen and (max-width: $bp-mobile) {
+                width: $mobileWidth;
+            }
+
+            td, th {
+                padding: 1rem 2rem 1rem 2rem;
+                font-size: 2vh;
+                font-weight: 500;
+            }
+
+            th {
+                color: $grey;
+            }
+            td{
+               font-family: "Segoe UI";
+            }
+
+            a {
+                color: $blue;
+                text-decoration: underline;
+            }
+        }
+
+        .listBottom {
+            margin: 2rem 0 2rem 0;
+
+            a {
+                padding: .4rem 1rem .4rem 1rem;
+                border: 1px solid $link;
+                font-size: 2vh;
+                @include centerItems;
+                color: $link;
+                border-radius: 8px;
+                font-weight: 700;
+            }
+        }
+}
+
+

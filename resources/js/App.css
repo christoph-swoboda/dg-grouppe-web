@@ -1,9 +1,9 @@
 .App {
     text-align: center;
-    background-color: #1F1D2BFF;
-
 }
-
+a{
+    text-decoration: none;
+}
 button {
     border-style: none;
 }
