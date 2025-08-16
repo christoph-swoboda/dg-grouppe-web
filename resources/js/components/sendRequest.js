@@ -51,7 +51,7 @@ const SendRequest = ({title, types, user, name}) => {
                         ))
                     }
                 </div>
-                <label>Zeitraum wählen </label>
+                <label>Bitte den Zeitraum auswählen </label>
                 <select   {...register("period")}
                           onChange={(e) => setPeriod(e.target.value)}
                 >

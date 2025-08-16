@@ -19,13 +19,13 @@ const List = ({user, bills, loading}) => {
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>UNTERNEHMEN</th>
-                    <th>ANTRAGSTYP</th>
-                    <th>ZEITRAUM</th>
-                    <th>AUSGEGEBEN</th>
-                    <th>DEADLINE</th>
-                    <th>STATUS</th>
+                    <th>Rechnungsnummer</th>
+                    <th>Unternehmen</th>
+                    <th>Rechnungsart</th>
+                    <th>Zeitraum</th>
+                    <th>Rechnungsdatum</th>
+                    <th>Frist</th>
+                    <th>Status</th>
                     <th>ÜBERPRÜFEN</th>
                 </tr>
                 </thead>

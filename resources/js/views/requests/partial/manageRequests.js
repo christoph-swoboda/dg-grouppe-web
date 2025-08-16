@@ -58,18 +58,18 @@ const ManageRequests = ({title, name, id, period, status, deadline, responseImag
                     <h1 style={{fontSize: '1.5vh'}}>Benutzer hat noch kein Bild hochgeladen</h1>
             }
             <br/>
-            <h2>Id: <span>{id}</span></h2>
+            <h2>Rechnungsnummer: <span>{id}</span></h2>
             <h2>Name: <span>{name}</span></h2>
-            <h2>Status: <span>{status === '1' ? 'Anhängig' : status === '2' ? 'Bestätigt' : 'Abgelehnt'}</span></h2>
+            <h2>Status: <span>{status === '1' ? 'in Bearbeitung' : status === '2' ? 'Abgerechnet' : 'Abgelehnt'}</span></h2>
             <h2>Zeitraum: <span>{period}</span></h2>
-            <h2>Deadline: <span>{deadline}</span></h2>
+            <h2>Frist: <span>{deadline}</span></h2>
 
             <div className='rejectPopup'>
                 <select className='selectOption' hidden={!reject} onChange={(e) => setMessage(e.target.value)}>
                     <option value={''}>Wählen Sie einen Grund</option>
-                    <option value={'Falsches Foto'}>Falsches Foto</option>
-                    <option value={'Foto ist unklar'}>Foto ist unklar</option>
-                    <option value={'Das Foto stammt nicht aus dem richtigen Zeitraum'}>Das Foto stammt nicht aus dem richtigen Zeitraum</option>
+                    <option value={'Bild stimmt nicht mit Rechnung überein'}>Bild stimmt nicht mit Rechnung überein</option>
+                    <option value={'Bild ist unscharf'}>Bild ist unscharf</option>
+                    <option value={'Das Foto stammt nicht aus dem richtigen Zeitraum'}>Bild stimmt nicht mit Zeitraum überein</option>
                 </select>
             </div>
 
@@ -82,7 +82,7 @@ const ManageRequests = ({title, name, id, period, status, deadline, responseImag
 
                 <button className='approve' hidden={status === '2' || reject || responseImage === 'No Image'}
                         onClick={Approve}>
-                    {loading?'Genehmigung...':'Genehmigen Sie'}
+                    {loading?'Genehmigung...':'Genehmigen'}
                 </button>
             </div>
         </div>

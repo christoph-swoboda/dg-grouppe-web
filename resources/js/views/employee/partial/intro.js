@@ -36,7 +36,7 @@ const Intro = ({user, printing}) => {
                 <h3 style={{minWidth: '130px'}}>{user.company}</h3>
             </div>
             <h4 onClick={toggleEmployeeForm}><RiUserSettingsLine color='black' size='8rem'/></h4>
-            <h3><span>Typen: </span>
+            <h3><span>Rechnungsart: </span>
 
                 {
                     !user.id ?
@@ -60,7 +60,7 @@ const Intro = ({user, printing}) => {
             </span>
 
             </h3>
-            <button hidden={printing} disabled={user.length === 0} onClick={toggleEmployeeForm}>Benutzer Bearbeiten</button>
+            <button hidden={printing} disabled={user.length === 0} onClick={toggleEmployeeForm}>Benutzer bearbeiten</button>
         </div>
     )
 }

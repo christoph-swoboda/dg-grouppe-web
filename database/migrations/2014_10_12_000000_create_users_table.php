@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->enum('role', [1,2])->default(2)->comment('1 for admin, 2 for user');
             $table->boolean('enabled')->default(0);
-            $table->dateTime('last_response_at');
+            $table->dateTime('last_response_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

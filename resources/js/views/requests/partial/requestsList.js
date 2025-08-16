@@ -20,7 +20,7 @@ const RequestsList = ({bills, header, loading, slug}) => {
                         <h1 style={{textTransform: 'capitalize'}}>{header}</h1>
 
                         <div hidden={loading || bills?.data[0]?.bill}>
-                            <h2>Keine Daten für diesen Bereich!!</h2>
+                            <h2>Es liegen keine Daten vor.</h2>
                         </div>
                         {
                             loading ?
@@ -31,11 +31,11 @@ const RequestsList = ({bills, header, loading, slug}) => {
                                 <table hidden={!bills?.data[0]?.bill}>
                                     <thead>
                                     <tr>
-                                        <th>ID ANFORDEN</th>
-                                        <th>NAME</th>
-                                        <th>ANFORDEN</th>
+                                        <th>Rechnungsnummer</th>
+                                        <th>MItarbeiter</th>
+                                        <th>Beschreibung</th>
                                         <th>ZEITRAUM</th>
-                                        <th>DEADLINE</th>
+                                        <th>Frist</th>
                                         <th>STATUS</th>
                                         <th>ÜBERPRÜFEN</th>
                                     </tr>

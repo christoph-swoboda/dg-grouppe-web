@@ -15,15 +15,15 @@ const EmployeesList = ({loading, users, search}) => {
                 <table>
                     <thead>
                     <tr>
-                        <th>NAME</th>
-                        <th>UNTERNEHME</th>
-                        <th>WAGEN</th>
-                        <th>ZUG</th>
-                        <th>INTERNET</th>
-                        <th>TELEFON</th>
-                        <th>OFFENE ANFRAGEN</th>
+                        <th>Mitarbeiter</th>
+                        <th>Unternehmen</th>
+                        <th>PKW</th>
+                        <th>Bahn</th>
+                        <th>Internet</th>
+                        <th>Telefon</th>
+                        <th>offene Rechnungen</th>
                         <th>STATUS</th>
-                        <th>ANFRAGE SENDEN</th>
+                        <th>Rechnung einreichen</th>
                     </tr>
                     </thead>
                     {

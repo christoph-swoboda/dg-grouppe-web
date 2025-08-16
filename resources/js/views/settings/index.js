@@ -138,7 +138,7 @@ const Settings = ({settings}) => {
                 className='enabled save'
                 type="submit"
                 onClick={handleSubmit(onSubmit)}
-                value={(!loading) ? 'Speichern Sie' : 'Sparen...'}
+                value={(!loading) ? 'Speichern' : 'Sparen...'}
             />
         </div>
     )

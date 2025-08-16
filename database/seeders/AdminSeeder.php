@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
     {
         $user = [
             'email' => 'dg-gruppe@admin.com',
-            'password' => bcrypt('Civediamo22'),
+            'password' => bcrypt('123456'),
             'role' => 1,
             'enabled' => true,
             'email_verified_at' => now()

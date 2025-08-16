@@ -60,7 +60,7 @@ const Navbar = () => {
                     (toggleMenu || screenWidth > 500) && (
                         <>
                             <Link to={'/armaturenbrett'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname.includes('/armaturenbrett') && 'text-bold'}`}>Armaturenbrett</li>
+                                <li className={`items ${path.pathname.includes('/armaturenbrett') && 'text-bold'}`}>Übersichtsseite</li>
                             </Link>
 
                             <Link to={'/mitarbeite'} onClick={toggleNav}>

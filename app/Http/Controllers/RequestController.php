@@ -281,7 +281,7 @@ class RequestController extends Controller
     {
         $billRequest = BillRequest::with(['bill' => function ($q) {
             $q->with('user');
-        }])->with('type')->find($id);
+        }])->with('type', 'response')->find($id);
 
         $billRequest->update(['status' => '3', 'published' => 1]);
 

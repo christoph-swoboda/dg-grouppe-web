@@ -18,7 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('user_id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('company')->default('DG-GRUPPE');
             $table->enum('gender', ['m','f','o']);
             $table->mediumText('address')->nullable();

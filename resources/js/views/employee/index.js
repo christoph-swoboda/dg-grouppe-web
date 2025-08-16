@@ -86,7 +86,7 @@ const Employee = () => {
             <StatsCard openReq={open} approvedReq={approved} rejectedReq={rejected} user/>
             {/*statistics*/}
             <hr/>
-            <h1 hidden={printing}>Anfragen</h1>
+            <h1 hidden={printing}>Rechnungen</h1>
             {/* Filter */}
             <div style={{display: printing ? 'none' : 'grid'}} className='filtersContainer'>
                 <div className="yearInputEmployee" onClick={handleClick}>
@@ -104,7 +104,7 @@ const Employee = () => {
                     ...filter,
                     category: e.target.value !== '' ? e.target.value : null,
                 })}>
-                    <option value={''}>Typen: Alle</option>
+                    <option value={''}>Rechnungsart: Alle</option>
                     {
                         userTypes?.map(type => (
                             <option key={type.id} value={type.id}>{type.title}</option>
@@ -133,7 +133,7 @@ const Employee = () => {
             {/*print pdf*/}
             <div style={{display: printing ? 'none' : ''}} className='generatePDF' onClick={setPrintState}>
                 <SiMicrosoftexcel color={'rgba(46, 125, 50, 1)'} size='25px'/>
-                <p>Bericht Als PDF Generieren</p>
+                <p>Bericht as PDF-Datei generieren</p>
             </div>
             {/*print pdf*/}
 

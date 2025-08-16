@@ -170,7 +170,7 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                 <label>Geschlecht *</label>
                 <select
                     {...register("gender", {required: true})}>
-                    <option value="">Wählen Sie Geschlecht...</option>
+                    <option value="">Bitten geben Sie ihr Geschlecht an:</option>
                     <option value='m'>Männlich</option>
                     <option value='f'>Weiblich</option>
                     <option value='o'>Andere</option>
@@ -193,7 +193,7 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                     {errors.phone && <p>Ungültige Telefonnummer</p>}
                 </div>
                 <label>Adresse *</label>
-                <input placeholder='St, Stadt, Land'
+                <input placeholder='Strasse, Stadt, Land'
                        {...register('address', {required: true})}
                        style={{border: errors.address && '1px solid red'}}
                 />
@@ -221,7 +221,7 @@ const AddEmployee = ({edit, categories, user, resolve}) => {
                     <input
                         className={(isValid) ? 'enabled' : 'disabled'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? !edit ? 'Neu Hinzufügen' : 'Benutzer Aktualisieren' :
+                        value={(!loading) ? !edit ? 'Hinzufügen' : 'Benutzer aktualisieren' :
                             <BeatLoader size={5} color={'#ffffff'}/>}
                     />
                 </div>

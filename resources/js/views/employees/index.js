@@ -56,7 +56,7 @@ const Employees = () => {
 
     return (
         <div className='employees'>
-            <h1>Mitarbeite</h1>
+            <h1>Mitarbeiter</h1>
             <br/>
             <div className='topSection'>
                 <form onSubmit={(e) => e.preventDefault()}>

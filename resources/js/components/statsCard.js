@@ -7,11 +7,11 @@ const StatsCard = ({openReq, approvedReq, rejectedReq, user}) => {
     return (
         <div className='statCards'>
             <RequestStatus count={user ? openReq?.length : openReq} iconBg={'rgba(228, 186, 33, 1)'}
-                           requestStatus='Anhängig'/>
+                           requestStatus='in Bearbeitung'/>
             <RequestStatus count={user ? rejectedReq?.length : rejectedReq} iconBg={'rgba(228, 33, 104, 1)'}
-                           requestStatus='Abgelehnt'/>
+                           requestStatus='abgelehnt'/>
             <RequestStatus count={user ? approvedReq?.length : approvedReq} iconBg={'rgba(114, 200, 47, 1)'}
-                           requestStatus='Bestätigt'/>
+                           requestStatus='abgerechnet'/>
         </div>
     )
 }

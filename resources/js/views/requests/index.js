@@ -62,7 +62,7 @@ const Requests = ({slug}) => {
             {/*filter*/}
             <div className='filters'>
                 <div>
-                    <h5 style={{marginLeft: '2vw'}}>Jahr Auswählen</h5>
+                    <h5 style={{marginLeft: '2vw'}}>Jahr</h5>
                     <div className="yearInput" style={{position: 'relative', zIndex: '1'}} onClick={handleClick}>
                         <DatePicker selected={filterDate}
                                     showYearPicker
@@ -76,7 +76,7 @@ const Requests = ({slug}) => {
                     </div>
                 </div>
                 <div>
-                    <h5>Zeitraum Wählen</h5>
+                    <h5>Zeitraum</h5>
                     <select className='selectInput' onChange={(e) => setFilter({
                         ...filter,
                         period: e.target.value !== '' ? e.target.value : null
@@ -94,10 +94,10 @@ const Requests = ({slug}) => {
 
             {/*list*/}
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
-                <RequestsList slug={slug} loading={loading} status={1} header={'anhängig'} bills={bills?.open}/>
+                <RequestsList slug={slug} loading={loading} status={1} header={'in Bearbeitung'} bills={bills?.open}/>
             </div>
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
-                <RequestsList slug={slug} loading={loading} status={2} header={'bestätigt'} bills={bills?.approved}/>
+                <RequestsList slug={slug} loading={loading} status={2} header={'Abgerechnet'} bills={bills?.approved}/>
             </div>
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
                 <RequestsList slug={slug} loading={loading} status={3} header={'abgelehnt'} bills={bills?.rejected}/>

@@ -184,7 +184,7 @@ const Index = () => {
 
     return (
         <div className='addBulkEmployeeContainer'>
-            <a hidden={data.length > 0} href='https://docs.google.com/spreadsheets/d/1d6qeVSaLGi0HEhEq_RHbWvwn-28J85Kp/edit?usp=sharing&ouid=105017687453422935174&rtpof=true&sd=true' target='_blank'>Beispiel-Excel-Datei hier herunterladen</a>
+            <a hidden={data.length > 0} href='https://docs.google.com/spreadsheets/d/1d6qeVSaLGi0HEhEq_RHbWvwn-28J85Kp/edit?usp=sharing&ouid=105017687453422935174&rtpof=true&sd=true' target='_blank'>Beispiel Excel-Datei herunterladen</a>
             {
                 data.length === 0 &&
                 <label htmlFor="inputGroupFile" className='defaultDiv'>
@@ -194,7 +194,7 @@ const Index = () => {
                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     />
                     <label htmlFor="inputGroupFile" >
-                       + Füllen Sie die Exceldatei aus und laden Sie sie hier hoch
+                        Füllen SIe die Excel-Datei aus und laden Sie diese hier noch:
                     </label>
 
                 </label>
@@ -222,8 +222,8 @@ const Index = () => {
                         <th>Adresse</th>
                         <th>Telefon</th>
                         <th>Internet</th>
-                        <th>Wagen</th>
-                        <th>Zug</th>
+                        <th>PKW</th>
+                        <th>Bahn</th>
                     </tr>
                     </thead>
                     {
@@ -248,7 +248,7 @@ const Index = () => {
             </div>
 
             <div className='buttons'>
-                <button onClick={closeModal}>Absagen</button>
+                <button onClick={closeModal}>Hinzufügen</button>
                 <button className={data.length > 0 ? 'active' : 'inactive'}
                         onClick={upload}
                         disabled={(data.length === 0)}

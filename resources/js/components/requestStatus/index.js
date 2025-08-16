@@ -31,7 +31,7 @@ const RequestStatus = ({count, requestStatus, iconBg}) => {
                 </div>
                 <div className={!path.includes('dashboard') ? 'status' : 'statusInfo'}>
                     <h1>{count || count === 0 ? count : <BeatLoader size={10} color={'#000000'}/>}</h1>
-                    <h2>{requestStatus} Anfragen</h2>
+                    <h2>Rechnung {requestStatus}</h2>
                 </div>
             </div>
         </div>

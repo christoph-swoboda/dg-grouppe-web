@@ -89,7 +89,7 @@ const Login = () => {
                     <input
                         className={(isValid) ? 'enabled' : 'disabled'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? 'Einloggen' : 'Überprüfen Sie...'}
+                        value={(!loading) ? 'Anmelden' : 'Überprüfen Sie...'}
                     />
                 </form>
             </div>
