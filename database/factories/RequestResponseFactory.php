@@ -22,7 +22,7 @@ class RequestResponseFactory extends Factory
     public function definition()
     {
         return [
-            'message' => 'Foto ist unklar',
+            'message' => 'Bild ist unscharf',
             'image' => '',
         ];
     }
