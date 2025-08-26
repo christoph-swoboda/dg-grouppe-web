@@ -6,16 +6,16 @@ import {BeatLoader} from "react-spinners";
 import Pagination from "react-js-pagination"
 import {useStateValue} from "../../../states/StateProvider";
 
-const RequestsList = ({bills, header, loading, slug}) => {
+const RequestsList = ({bills, header, loading, slug, slug_url}) => {
 
     const [{}, dispatch] = useStateValue();
 
+
+    useEffect(() => {
+        console.log(bills)
+    }, [bills]);
     return (
         <div>
-            {
-                slug && slug !== header ?
-                    ''
-                    :
                     <div className='tableContainer'>
                         <h1 style={{textTransform: 'capitalize'}}>{header}</h1>
 
@@ -62,7 +62,7 @@ const RequestsList = ({bills, header, loading, slug}) => {
                                 </table>
                         }
                         <div hidden={slug || !bills?.data[0]?.bill || loading} className='listBottom'>
-                            <Link to={`/armaturenbrett/${header}`}>Alle Sehen</Link>
+                            <Link to={`/armaturenbrett/${slug_url}`}>Alle Sehen</Link>
                         </div>
                         <div hidden={!slug}>
                             <Pagination
@@ -84,7 +84,6 @@ const RequestsList = ({bills, header, loading, slug}) => {
                             />
                         </div>
                     </div>
-            }
         </div>
     )
 }
@@ -96,6 +95,7 @@ RequestsList.propTypes = {
         PropTypes.array
     ]),
     slug: PropTypes.string,
+    slug_url: PropTypes.string,
     header: PropTypes.string,
     count: PropTypes.number,
     loading: PropTypes.bool,

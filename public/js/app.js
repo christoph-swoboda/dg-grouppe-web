@@ -11713,29 +11713,32 @@ var Requests = function Requests(_ref) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: !slug ? "requestsList" : 'requestsListNoBorder',
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_partial_requestsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      children: (!slug || slug === 'in bearbeitung') && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_partial_requestsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
         slug: slug,
         loading: loading,
         status: 1,
         header: 'in Bearbeitung',
+        slug_url: 'in bearbeitung',
         bills: bills === null || bills === void 0 ? void 0 : bills.open
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: !slug ? "requestsList" : 'requestsListNoBorder',
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_partial_requestsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      children: (!slug || slug === 'abgerechnet') && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_partial_requestsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
         slug: slug,
         loading: loading,
         status: 2,
         header: 'Abgerechnet',
+        slug_url: 'abgerechnet',
         bills: bills === null || bills === void 0 ? void 0 : bills.approved
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: !slug ? "requestsList" : 'requestsListNoBorder',
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_partial_requestsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      children: (!slug || slug === 'abgelehnt') && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_partial_requestsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
         slug: slug,
         loading: loading,
         status: 3,
         header: 'abgelehnt',
+        slug_url: 'abgelehnt',
         bills: bills === null || bills === void 0 ? void 0 : bills.rejected
       })
     })]
@@ -12066,7 +12069,8 @@ var RequestsList = function RequestsList(_ref) {
   var bills = _ref.bills,
       header = _ref.header,
       loading = _ref.loading,
-      slug = _ref.slug;
+      slug = _ref.slug,
+      slug_url = _ref.slug_url;
 
   var _useStateValue = (0,_states_StateProvider__WEBPACK_IMPORTED_MODULE_3__.useStateValue)(),
       _useStateValue2 = _slicedToArray(_useStateValue, 2);
@@ -12074,8 +12078,11 @@ var RequestsList = function RequestsList(_ref) {
   _objectDestructuringEmpty(_useStateValue2[0]);
 
   var dispatch = _useStateValue2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log(bills);
+  }, [bills]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    children: slug && slug !== header ? '' : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "tableContainer",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
         style: {
@@ -12136,7 +12143,7 @@ var RequestsList = function RequestsList(_ref) {
         hidden: slug || !(bills !== null && bills !== void 0 && (_bills$data$3 = bills.data[0]) !== null && _bills$data$3 !== void 0 && _bills$data$3.bill) || loading,
         className: "listBottom",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
-          to: "/armaturenbrett/".concat(header),
+          to: "/armaturenbrett/".concat(slug_url),
           children: "Alle Sehen"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -12170,6 +12177,7 @@ var RequestsList = function RequestsList(_ref) {
 RequestsList.propTypes = {
   bills: prop_types__WEBPACK_IMPORTED_MODULE_7___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_7___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_7___default().array)]),
   slug: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
+  slug_url: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
   header: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
   count: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().number),
   loading: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),

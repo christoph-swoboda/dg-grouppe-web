@@ -94,13 +94,13 @@ const Requests = ({slug}) => {
 
             {/*list*/}
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
-                <RequestsList slug={slug} loading={loading} status={1} header={'in Bearbeitung'} bills={bills?.open}/>
+                {(!slug || slug === 'in bearbeitung') && <RequestsList slug={slug} loading={loading} status={1} header={'in Bearbeitung'} slug_url={'in bearbeitung'} bills={bills?.open}/>}
             </div>
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
-                <RequestsList slug={slug} loading={loading} status={2} header={'Abgerechnet'} bills={bills?.approved}/>
+                {(!slug || slug === 'abgerechnet') && <RequestsList slug={slug} loading={loading} status={2} header={'Abgerechnet'} slug_url={'abgerechnet'} bills={bills?.approved}/>}
             </div>
             <div className={!slug ? `requestsList` : 'requestsListNoBorder'}>
-                <RequestsList slug={slug} loading={loading} status={3} header={'abgelehnt'} bills={bills?.rejected}/>
+                {(!slug || slug === 'abgelehnt') && <RequestsList slug={slug} loading={loading} status={3} header={'abgelehnt'} slug_url={'abgelehnt'} bills={bills?.rejected}/>}
             </div>
             {/*list*/}
 

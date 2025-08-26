@@ -66,9 +66,9 @@ class RequestRepository
     private function getBills($status): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $requestedStatus = 0;
-        if (\request('slug') == 'anhängig') {
+        if (\request('slug') == 'in bearbeitung') {
             $requestedStatus = '1';
-        } else if (\request('slug') == 'bestätigt') {
+        } else if (\request('slug') == 'abgerechnet') {
             $requestedStatus = '2';
         } else {
             $requestedStatus = '3';

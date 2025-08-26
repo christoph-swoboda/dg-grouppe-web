@@ -19,7 +19,7 @@ class BillRequestSeeder extends Seeder
                 'user_id' => $i,
                 'bill_id' => $i,
                 'category_id' => rand(1, 4),
-                'published' => rand(0, 1),
+                'published' => 1,
                 'status' => rand(1, 3),
             ]);
         }
