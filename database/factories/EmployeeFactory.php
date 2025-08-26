@@ -24,7 +24,7 @@ class EmployeeFactory extends Factory
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'image' => $this->faker->imageUrl(),
+            'image' => '',
             'company' => 'DG-GRUPPE',
             'gender' => $this->faker->randomElement(['m', 'f', 'o']),
             'address' => $this->faker->address,
