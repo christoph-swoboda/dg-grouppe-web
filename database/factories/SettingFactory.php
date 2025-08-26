@@ -2,17 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Bill;
+use App\Models\RequestResponse;
+use App\Models\Setting;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BillFactory extends Factory
+class SettingFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Bill::class;
+    protected $model = Setting::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +23,8 @@ class BillFactory extends Factory
     public function definition()
     {
         return [
-            'title' => 'Rechnung Zum Hochladen',
-            'description' => $this->faker->paragraph,
+            'keyword' => 'faq',
+            'value' => 'test faq value',
         ];
     }
 }

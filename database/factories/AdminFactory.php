@@ -24,7 +24,7 @@ class AdminFactory extends Factory
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'image' => $this->faker->imageUrl(),
+            'image' => null,
         ];
     }
 }

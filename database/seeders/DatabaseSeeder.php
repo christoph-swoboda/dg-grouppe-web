@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             DeviceSeeder::class,
             NotificationSeeder::class,
             RequestResponseSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }

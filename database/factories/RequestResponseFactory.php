@@ -22,8 +22,8 @@ class RequestResponseFactory extends Factory
     public function definition()
     {
         return [
-            'message' => $this->faker->sentence,
-            'image' => $this->faker->imageUrl(),
+            'message' => 'Foto ist unklar',
+            'image' => '',
         ];
     }
 }
