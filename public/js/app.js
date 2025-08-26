@@ -7734,8 +7734,8 @@ var EmployeesTable = function EmployeesTable(_ref) {
         children: Period
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
         children: created
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-        children: deadline
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
+        children: [" ", deadline ? new Date(deadline).toLocaleDateString("de-DE") : ""]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
         hidden: published === 1,
         style: {
@@ -9220,7 +9220,7 @@ var RequestsTable = function RequestsTable(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
         children: Period
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-        children: deadline
+        children: deadline ? new Date(deadline).toLocaleDateString("de-DE") : ""
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
         hidden: published === 1,
         style: {
@@ -10924,7 +10924,7 @@ var Intro = function Intro(_ref) {
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
           children: [lastActive > 30 ? ' Offline ' : ' Online ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
             className: "lightFont",
-            children: ["( Zuletzt aktiv am ", new Date(user.updated_at).toLocaleDateString(), ")"]
+            children: ["( Zuletzt aktiv am ", new Date(user.updated_at).toLocaleDateString("de-DE"), ")"]
           })]
         })]
       })

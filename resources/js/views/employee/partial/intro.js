@@ -53,7 +53,7 @@ const Intro = ({user, printing}) => {
                         <>
                             {lastActive > 30 ? ' Offline ' : ' Online '}
                             <span className='lightFont'>
-                                 ( Zuletzt aktiv am {new Date(user.updated_at).toLocaleDateString()})
+                                 ( Zuletzt aktiv am {new Date(user.updated_at).toLocaleDateString("de-DE")})
                             </span>
                         </>
                 }
