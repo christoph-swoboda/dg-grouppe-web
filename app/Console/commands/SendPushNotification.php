@@ -17,7 +17,7 @@ use Illuminate\Console\Command;
 use Kutia\Larafirebase\Facades\Larafirebase;
 
 
-class sendPushNotification extends Command
+class SendPushNotification extends Command
 
 {
 
