@@ -12144,7 +12144,7 @@ var RequestsList = function RequestsList(_ref) {
         className: "listBottom",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
           to: "/armaturenbrett/".concat(slug_url),
-          children: "Alle Sehen"
+          children: "Alles Sehen"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         hidden: !slug,

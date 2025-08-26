@@ -62,7 +62,7 @@ const RequestsList = ({bills, header, loading, slug, slug_url}) => {
                                 </table>
                         }
                         <div hidden={slug || !bills?.data[0]?.bill || loading} className='listBottom'>
-                            <Link to={`/armaturenbrett/${slug_url}`}>Alle Sehen</Link>
+                            <Link to={`/armaturenbrett/${slug_url}`}>Alles Sehen</Link>
                         </div>
                         <div hidden={!slug}>
                             <Pagination
