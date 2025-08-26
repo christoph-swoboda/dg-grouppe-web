@@ -53,7 +53,7 @@ const EmployeesTable = ({status, id, company, period, created,created_at, year, 
             <td>{company}</td>
             <td>{type}</td>
             <td>{Period}</td>
-            <td>{created}</td>
+            <td>{created ? new Date(created).toLocaleDateString("de-DE") : ""}</td>
             <td> {deadline ? new Date(deadline).toLocaleDateString("de-DE") : ""}</td>
             <td hidden={published===1} style={{color:published===0? 'darkred':''}} className='listPending'>
                 <li>{status==='3'?'Erneut prüfen':'Warten'}</li>

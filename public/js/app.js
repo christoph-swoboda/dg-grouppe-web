@@ -7733,7 +7733,7 @@ var EmployeesTable = function EmployeesTable(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
         children: Period
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-        children: created
+        children: created ? new Date(created).toLocaleDateString("de-DE") : ""
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
         children: [" ", deadline ? new Date(deadline).toLocaleDateString("de-DE") : ""]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
@@ -9458,7 +9458,7 @@ var SendRequest = function SendRequest(_ref) {
         disabled: !isValid,
         type: "submit",
         onClick: handleSubmit(onSubmit),
-        children: !loading ? 'Senden Sie' : 'Senden...'
+        children: !loading ? 'Ok' : 'Senden...'
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
       className: "cancel",
@@ -12078,9 +12078,6 @@ var RequestsList = function RequestsList(_ref) {
   _objectDestructuringEmpty(_useStateValue2[0]);
 
   var dispatch = _useStateValue2[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.log(bills);
-  }, [bills]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "tableContainer",

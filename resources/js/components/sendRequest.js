@@ -80,7 +80,7 @@ const SendRequest = ({title, types, user, name}) => {
 
                 <br/><br/><br/>
                 <button className='send' disabled={!isValid} type="submit" onClick={handleSubmit(onSubmit)}>
-                    {(!loading) ? 'Senden Sie' : 'Senden...'}
+                    {(!loading) ? 'Ok' : 'Senden...'}
                 </button>
             </form>
 

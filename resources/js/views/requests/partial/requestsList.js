@@ -10,10 +10,6 @@ const RequestsList = ({bills, header, loading, slug, slug_url}) => {
 
     const [{}, dispatch] = useStateValue();
 
-
-    useEffect(() => {
-        console.log(bills)
-    }, [bills]);
     return (
         <div>
                     <div className='tableContainer'>
