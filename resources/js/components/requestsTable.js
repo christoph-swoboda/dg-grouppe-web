@@ -55,8 +55,8 @@ const RequestsTable = ({id, title, period, status, year, name, responseImage, ty
             <td>{title} {type} Rechnung</td>
             <td>{Period}</td>
             <td>{deadline ? new Date(deadline).toLocaleDateString("de-DE") : ""}</td>
-            <td hidden={published===1} style={{color:published===0? 'darkred':''}}>{status==='3'?'Erneut Prüfen':'Warten'}</td>
-            <td hidden={published===0}>{status === '1' ? 'in Bearbeitung': status === '2' ? 'Abgerechnet' : 'Abgelehnt'}</td>
+            <td hidden={published===1} style={{color:published===0? 'darkred':''}}>{status===3?'Erneut Prüfen':'Warten'}</td>
+            <td hidden={published===0}>{status === 1 ? 'in Bearbeitung': status === 2 ? 'Abgerechnet' : 'Abgelehnt'}</td>
             <td onClick={() => openModal(Period, deadline)}
                 style={{cursor: 'pointer'}}
             >
