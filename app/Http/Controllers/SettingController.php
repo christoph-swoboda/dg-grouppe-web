@@ -36,26 +36,37 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         $keys = [];
+
         foreach ($request->input() as $key => $input) {
-            $keys[$key]['keyword'] = $input[0];
-            $keys[$key]['value'] = $input[1];
-            if ($input[0] == 'app_logo') {
-                if ($input[1]!='') {
-                    $image_url = $this->storeImage($input[1]);
-                    $keys[$key]['value'] = $image_url;
-                }
-                else{
-                    $settings= Setting::where('keyword','app_logo')->first();
-                    $keys[$key]['value'] =$settings->value;
+            $keyword = $input[0];
+            $value   = $input[1];
+
+            // Handle app_logo separately
+            if ($keyword === 'app_logo') {
+                if (!empty($value)) {
+                    $value = $this->storeImage($value);
+                } else {
+                    $existing = Setting::where('keyword', 'app_logo')->first();
+                    $value = $existing ? $existing->value : ''; // ensure never null
                 }
             }
-        }
-        foreach ($keys as $data) {
-            Setting::updateorcreate(['keyword' => $data['keyword']], $data);
+
+            // Update or create
+            Setting::updateOrCreate(
+                ['keyword' => $keyword],
+                ['value'   => $value]
+            );
+
+            $keys[] = [
+                'keyword' => $keyword,
+                'value'   => $value,
+            ];
         }
 
-        return response($keys, '201');
+        return response($keys, 201);
     }
+
+
 
     private function storeImage($image): string
     {
