@@ -23,6 +23,15 @@ class RequestResponse extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'bill_request_id' => 'integer',
+    ];
+
+    /**
      *Bill Request Relation
      * @return BelongsTo
      */

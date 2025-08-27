@@ -20,4 +20,14 @@ class BillCategory extends Model
         'bill_id',
         'category_id',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'bill_id' => 'integer',
+        'category_id' => 'integer',
+    ];
 }

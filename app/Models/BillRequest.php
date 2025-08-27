@@ -27,6 +27,19 @@ class BillRequest extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'bill_id' => 'integer',
+        'category_id' => 'integer',
+        'user_id' => 'integer',
+        'status' => 'integer',
+        'published' => 'integer',
+    ];
+
+    /**
      * Bill Requests Relation
      * @return BelongsTo
      */
