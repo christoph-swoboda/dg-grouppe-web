@@ -8521,7 +8521,7 @@ var Login = function Login() {
                 var Data = res.data;
                 var role = Data.user.role;
 
-                if (role === '1') {
+                if (role === 1) {
                   if (Data.access_token) {
                     var token = "".concat(Data.token_type, " ").concat(Data.access_token);
                     var _user = Data.user;
@@ -8547,7 +8547,7 @@ var Login = function Login() {
               if (user) {
                 setErrors(user === null || user === void 0 ? void 0 : user.errors);
 
-                if ((user === null || user === void 0 ? void 0 : user.role) === '1') {
+                if ((user === null || user === void 0 ? void 0 : user.role) === 1) {
                   window.location.replace('/armaturenbrett');
                 } else {
                   setLoading(false);

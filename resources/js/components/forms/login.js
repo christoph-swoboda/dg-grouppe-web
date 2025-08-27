@@ -26,7 +26,7 @@ const Login = () => {
                 const Data = res.data
                 const role = Data.user.role
 
-                if (role==='1') {
+                if (role===1) {
                     if(Data.access_token){
                         const token = `${Data.token_type} ${Data.access_token}`
                         const user = Data.user
@@ -49,9 +49,10 @@ const Login = () => {
             })
 
         let user = JSON.parse(window.localStorage.getItem('user'))
+
         if (user) {
             setErrors(user?.errors)
-            if (user?.role === '1') {
+            if (user?.role === 1) {
                 window.location.replace('/armaturenbrett')
             } else {
                 setLoading(false)

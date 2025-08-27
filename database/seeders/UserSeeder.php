@@ -15,10 +15,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->count(10)->create();
+//        User::factory()->count(10)->create();
 
         User::factory()->create([
-            'email' => 'admin@dggruppe.com',
+            'email' => 'dggruppe@admin.com',
             'password' => Hash::make('admindginvoice2025'),
             'role' => 1,
             'enabled' => 1,
