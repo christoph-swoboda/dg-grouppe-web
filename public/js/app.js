@@ -12681,7 +12681,9 @@ var Settings = function Settings(_ref) {
                   item: !loadSettings
                 });
               })["catch"](function (e) {
-                react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error('Etwas ist schief gelaufen!!!');
+                var _e$message;
+
+                react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error((_e$message = e.message) !== null && _e$message !== void 0 ? _e$message : 'Etwas ist schief gelaufen!!!');
                 setLoading(false);
               });
               setEditFaq(false);

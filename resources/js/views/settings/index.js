@@ -55,7 +55,7 @@ const Settings = ({settings}) => {
             setLoading(false)
             dispatch({type: 'setLoadSettings', item: !loadSettings})
         }).catch(e => {
-            toast.error('Etwas ist schief gelaufen!!!')
+            toast.error(e.message??'Etwas ist schief gelaufen!!!')
             setLoading(false)
         })
         setEditFaq(false)
