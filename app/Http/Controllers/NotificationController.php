@@ -10,6 +10,7 @@ use App\Models\Notification;
 use App\Models\RequestResponse;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
@@ -36,17 +37,28 @@ class NotificationController extends Controller
 
         $duplicateNotifications = [];
         $newNotifications = [];
+
         foreach ($notifications as $notification) {
             if (!in_array($notification['bill_request_id'], $duplicateNotifications)) {
                 $duplicateNotifications[] = $notification['bill_request_id'];
+
+                $response = $notification->request->response ?? null;
+                $bill = $notification->request->bill ?? null;
+
+                $notification->updated = $response && $response->updated_at
+                    ? Carbon::parse($response->updated_at)->format('d.m.Y')
+                    : null;
+
+                $notification->year = $bill && $bill->created_at
+                    ? Carbon::parse($bill->created_at)->year
+                    : null;
+
+                $notification->month = $bill && $bill->created_at
+                    ? (integer)Carbon::parse($bill->created_at)->addMonth()->format('n')
+                    : null;
+
                 $newNotifications[] = $notification;
             }
-            // to delete from db
-            // if (in_array($notification['bill_request_id'], $duplicateNotifications)) {
-            //     Notification::where('id', $notification['id'])->delete();
-            // } else {
-            //    $newNotifications[]=$notification;
-            // }
         }
 
         return response($newNotifications, 201);
