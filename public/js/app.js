@@ -7743,13 +7743,13 @@ var EmployeesTable = function EmployeesTable(_ref) {
         },
         className: "listPending",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-          children: status === '3' ? 'Erneut prüfen' : 'Warten'
+          children: status === 3 ? 'Erneut prüfen' : 'Warten'
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
         hidden: published === 0,
-        className: status === '1' ? 'listPending' : status === '2' ? 'listApproved' : 'listRejected',
+        className: status === 1 ? 'listPending' : status === 2 ? 'listApproved' : 'listRejected',
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-          children: status === '1' ? 'Anhängig' : status === '2' ? 'Bestätigt' : 'Abgelehnt'
+          children: status === 1 ? 'Anhängig' : status === 2 ? 'Bestätigt' : 'Abgelehnt'
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
         onClick: function onClick() {
@@ -12218,7 +12218,7 @@ var ManageRequests = function ManageRequests(_ref) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h2", {
       children: ["Status: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-        children: status === '1' ? 'in Bearbeitung' : status === '2' ? 'Abgerechnet' : 'Abgelehnt'
+        children: status === 1 ? 'in Bearbeitung' : status === 2 ? 'Abgerechnet' : 'Abgelehnt'
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h2", {
       children: ["Zeitraum: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
@@ -12254,13 +12254,13 @@ var ManageRequests = function ManageRequests(_ref) {
       className: "approvalSection",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
         disabled: reject && !message,
-        hidden: status === '3' || responseImage === 'No Image',
+        hidden: status === 3 || responseImage === 'No Image',
         className: reject && !message ? 'reject' : 'rejectEnabled',
         onClick: Reject,
         children: loading ? 'Ablehnung Von...' : 'Ablehnen'
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
         className: "approve",
-        hidden: status === '2' || reject || responseImage === 'No Image',
+        hidden: status === 2 || reject || responseImage === 'No Image',
         onClick: Approve,
         children: loading ? 'Genehmigung...' : 'Genehmigen'
       })]

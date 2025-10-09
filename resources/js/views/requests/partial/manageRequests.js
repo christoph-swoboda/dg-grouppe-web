@@ -60,7 +60,7 @@ const ManageRequests = ({title, name, id, period, status, deadline, responseImag
             <br/>
             <h2>Rechnungsnummer: <span>{id}</span></h2>
             <h2>Name: <span>{name}</span></h2>
-            <h2>Status: <span>{status === '1' ? 'in Bearbeitung' : status === '2' ? 'Abgerechnet' : 'Abgelehnt'}</span></h2>
+            <h2>Status: <span>{status === 1 ? 'in Bearbeitung' : status === 2 ? 'Abgerechnet' : 'Abgelehnt'}</span></h2>
             <h2>Zeitraum: <span>{period}</span></h2>
             <h2>Frist: <span>{deadline}</span></h2>
 
@@ -74,13 +74,13 @@ const ManageRequests = ({title, name, id, period, status, deadline, responseImag
             </div>
 
             <div className='approvalSection'>
-                <button disabled={reject && !message} hidden={status === '3' || responseImage === 'No Image'}
+                <button disabled={reject && !message} hidden={status === 3 || responseImage === 'No Image'}
                         className={reject && !message ? 'reject' : 'rejectEnabled'}
                         onClick={Reject}>
                     {loading?'Ablehnung Von...':'Ablehnen'}
                 </button>
 
-                <button className='approve' hidden={status === '2' || reject || responseImage === 'No Image'}
+                <button className='approve' hidden={status === 2 || reject || responseImage === 'No Image'}
                         onClick={Approve}>
                     {loading?'Genehmigung...':'Genehmigen'}
                 </button>
