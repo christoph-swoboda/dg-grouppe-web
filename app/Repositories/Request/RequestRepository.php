@@ -125,21 +125,21 @@ class RequestRepository
 
     public function categorizedBills()
     {
-        return BillRequest::where('user_id', auth()->user()->id)
-            ->when(\request()->has('status'), function ($q) {
-                if (\request('status') == 1) {
-                    $q->where('status', '!=', '2');
-                } else {
-                    $q->where('status', 2);
-                    // ->where('created_at', '>' , now()->subMonth('4'));
+        return BillRequest::where('user_id', auth()->id())
+            ->whereHas('type', function ($q) {
+                if (request()->filled('type')) {
+                    $q->where('title', request('type'));
                 }
             })
-            ->with('bill')
-            ->with(['type' => function ($q) {
-                $q->where('title', \request('type'));
-            }])
-            ->with('response')
-            ->orderBy('updated_at', 'desc')
+            ->when(request()->has('status'), function ($q) {
+                if (request('status') == 1) {
+                    $q->where('status', '!=', 2);
+                } else {
+                    $q->where('status', 2);
+                }
+            })
+            ->with(['bill', 'type', 'response'])
+            ->orderByDesc('updated_at')
             ->paginate(8);
     }
 
