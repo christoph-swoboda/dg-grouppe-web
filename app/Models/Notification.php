@@ -20,7 +20,8 @@ class Notification extends Model
     protected $fillable = [
         'user_id',
         'bill_request_id',
-        'seen'
+        'seen',
+        'created_at',
     ];
 
     /**

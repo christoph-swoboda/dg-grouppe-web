@@ -23,52 +23,52 @@ Route::get('/test', [AuthController::class, 'test']);
 Route::get('/send-notification', [NotificationController::class, 'sendNotification']);
 Route::apiResource("/settings", SettingController::class);
 
-//Route::get('/create-bills-for-test-users', function () {
-//    $userEmails = ['bensurname@example.com', 'shakil@test.com'];
-//
-//    $categories = Category::all();
-//
-//    foreach ($userEmails as $email) {
-//        $user = User::where('email', $email)->first();
-//
-//        if (!$user) {
-//            echo "❌ User with email {$email} not found.<br>";
-//            continue;
-//        }
-//
-//        foreach ($categories as $category) {
-//            $bill = Bill::create([
-//                'user_id' => $user->id,
-//                'title' => 'Rechnung Zum Hochladen',
-//                'description' => 'Aliquam repellendus eius animi vel mollitia molestiae alias. Nam maxime itaque minima ut quaerat iste maxime. Quis et numquam ut provident magni odit.',
-//            ]);
-//
-//            $bill->type()->attach($category->id);
-//
-//            $billRequest = BillRequest::create([
-//                'bill_id' => $bill->id,
-//                'category_id' => $category->id,
-//                'user_id' => $user->id,
-//                'published' => 1
-//            ]);
-//
-//            Notification::create([
-//                'user_id' => $user->id,
-//                'bill_request_id' => $billRequest->id,
-//            ]);
-//
-//            RequestResponse::create([
-//                'bill_request_id' => $billRequest->id,
-//                'message' => 'Test Request',
-//                'image' => 'no-image.png',
-//            ]);
-//        }
-//
-//        echo "✅ Bills and notifications created successfully for {$user->email}.<br>";
-//    }
-//
-//    return 'Process completed.';
-//});
+Route::get('/create-bills-for-test-users', function () {
+    $userEmails = ['bensurname@example.com', 'shakil@test.com'];
+
+    $categories = Category::all();
+
+    foreach ($userEmails as $email) {
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            echo "❌ User with email {$email} not found.<br>";
+            continue;
+        }
+
+        foreach ($categories as $category) {
+            $bill = Bill::create([
+                'user_id' => $user->id,
+                'title' => 'Rechnung Zum Hochladen',
+                'description' => 'Aliquam repellendus eius animi vel mollitia molestiae alias. Nam maxime itaque minima ut quaerat iste maxime. Quis et numquam ut provident magni odit.',
+            ]);
+
+            $bill->type()->attach($category->id);
+
+            $billRequest = BillRequest::create([
+                'bill_id' => $bill->id,
+                'category_id' => $category->id,
+                'user_id' => $user->id,
+                'published' => 1
+            ]);
+
+            Notification::create([
+                'user_id' => $user->id,
+                'bill_request_id' => $billRequest->id,
+            ]);
+
+            RequestResponse::create([
+                'bill_request_id' => $billRequest->id,
+                'message' => 'Test Request',
+                'image' => 'no-image.png',
+            ]);
+        }
+
+        echo "✅ Bills and notifications created successfully for {$user->email}.<br>";
+    }
+
+    return 'Process completed.';
+});
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -78,6 +78,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => ['auth:sanctum'],
 ], function () {
+    Route::post('/create-bills-for-user', [EmployeeController::class, 'createBillsForUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::apiResource("/employees", EmployeeController::class);

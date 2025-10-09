@@ -7929,6 +7929,253 @@ EmployeesTable.propTypes = {
 
 /***/ }),
 
+/***/ "./resources/js/components/forms/UploadBill.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/forms/UploadBill.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _states_StateProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../states/StateProvider */ "./resources/js/states/StateProvider.js");
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
+/* harmony import */ var _style_uploadBill_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../style/uploadBill.scss */ "./resources/js/style/uploadBill.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+var UploadBill = function UploadBill(_ref) {
+  var user = _ref.user,
+      userTypes = _ref.userTypes,
+      toggle = _ref.toggle;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      selectedTypes = _useState4[0],
+      setSelectedTypes = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1'),
+      _useState6 = _slicedToArray(_useState5, 2),
+      period = _useState6[0],
+      setPeriod = _useState6[1];
+
+  var currentYear = new Date().getFullYear();
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(currentYear.toString()),
+      _useState8 = _slicedToArray(_useState7, 2),
+      year = _useState8[0],
+      setYear = _useState8[1];
+
+  var years = Array.from({
+    length: 6
+  }, function (_, i) {
+    return currentYear + i;
+  });
+
+  var handleCheckboxChange = function handleCheckboxChange(typeId) {
+    setSelectedTypes(function (prevSelectedTypes) {
+      if (prevSelectedTypes.includes(typeId)) {
+        return prevSelectedTypes.filter(function (id) {
+          return id !== typeId;
+        });
+      } else {
+        return [].concat(_toConsumableArray(prevSelectedTypes), [typeId]);
+      }
+    });
+  };
+
+  var handleSubmit = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              e.preventDefault();
+              setLoading(true);
+              _context.prev = 2;
+              _context.next = 5;
+              return (0,_api_api__WEBPACK_IMPORTED_MODULE_2__["default"])().post('/create-bills-for-user', {
+                user_id: user.id,
+                types: selectedTypes,
+                period: period,
+                year: year
+              });
+
+            case 5:
+              react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success('Rechnungen erfolgreich erstellt');
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](2);
+              react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error('Fehler beim Erstellen der Rechnungen');
+
+            case 11:
+              _context.prev = 11;
+              setLoading(false);
+              return _context.finish(11);
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 8, 11, 14]]);
+    }));
+
+    return function handleSubmit(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "p-4",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+      onSubmit: handleSubmit,
+      className: 'uploadBillForm',
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+        className: "text-lg font-bold mb-4",
+        style: {
+          textAlign: 'center'
+        },
+        children: "Rechnung hochladen"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "mb-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+          htmlFor: "period",
+          className: "block text-sm text-bold font-medium text-gray-700",
+          children: "Zeitraum"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+          id: "period",
+          value: period,
+          onChange: function onChange(e) {
+            return setPeriod(e.target.value);
+          },
+          className: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            value: "1",
+            children: "1"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            value: "2",
+            children: "2"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            value: "3",
+            children: "3"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "mb-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+          htmlFor: "year",
+          className: "block text-sm text-bold font-medium text-gray-700",
+          children: "Jahr"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
+          id: "year",
+          value: year,
+          onChange: function onChange(e) {
+            return setYear(e.target.value);
+          },
+          className: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
+          children: years.map(function (y) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+              value: y,
+              children: y
+            }, y);
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "mb-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+          className: "block text-sm text-bold text-gray-700 mb-2",
+          children: "Rechnungsarten"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "flex flex-wrap gap-4",
+          children: userTypes === null || userTypes === void 0 ? void 0 : userTypes.map(function (type) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "flex items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                type: "checkbox",
+                id: "type-".concat(type.id),
+                checked: selectedTypes.includes(type.id),
+                onChange: function onChange() {
+                  return handleCheckboxChange(type.id);
+                },
+                className: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                htmlFor: "type-".concat(type.id),
+                className: "ml-2 block text-sm text-gray-900",
+                children: type.title
+              })]
+            }, type.id);
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        style: {
+          display: 'flex'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+          onClick: toggle,
+          className: "upload-bill-close-btn",
+          children: "Abbrechen"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+          type: "submit",
+          disabled: loading || selectedTypes.length === 0,
+          className: 'upload-bill-submit-btn',
+          children: loading ? 'Wird erstellt...' : 'Anfrage erstellen'
+        })]
+      })]
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UploadBill);
+
+/***/ }),
+
 /***/ "./resources/js/components/forms/addEmployee.js":
 /*!******************************************************!*\
   !*** ./resources/js/components/forms/addEmployee.js ***!
@@ -10461,25 +10708,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _style_employee_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../style/employee.scss */ "./resources/js/style/employee.scss");
 /* harmony import */ var _partial_intro__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./partial/intro */ "./resources/js/views/employee/partial/intro.js");
-/* harmony import */ var react_icons_bs__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-icons/bs */ "./node_modules/react-icons/bs/index.esm.js");
-/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-datepicker */ "./node_modules/react-datepicker/dist/react-datepicker.min.js");
-/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_datepicker__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var react_icons_si__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-icons/si */ "./node_modules/react-icons/si/index.esm.js");
+/* harmony import */ var react_icons_bs__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-icons/bs */ "./node_modules/react-icons/bs/index.esm.js");
+/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-datepicker */ "./node_modules/react-datepicker/dist/react-datepicker.min.js");
+/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react_datepicker__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var react_icons_si__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-icons/si */ "./node_modules/react-icons/si/index.esm.js");
 /* harmony import */ var _partial_list__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./partial/list */ "./resources/js/views/employee/partial/list.js");
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/modal */ "./resources/js/components/modal.js");
 /* harmony import */ var _components_forms_addEmployee__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/forms/addEmployee */ "./resources/js/components/forms/addEmployee.js");
-/* harmony import */ var _hooks_useModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/useModal */ "./resources/js/hooks/useModal.js");
-/* harmony import */ var _states_StateProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../states/StateProvider */ "./resources/js/states/StateProvider.js");
-/* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ "./node_modules/react-datepicker/dist/react-datepicker.css");
-/* harmony import */ var _style_datePicker_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../style/datePicker.scss */ "./resources/js/style/datePicker.scss");
-/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/index.js");
-/* harmony import */ var _components_statsCard__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../components/statsCard */ "./resources/js/components/statsCard.js");
-/* harmony import */ var react_to_print__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-to-print */ "./node_modules/react-to-print/lib/index.js");
-/* harmony import */ var react_to_print__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_to_print__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_forms_UploadBill__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/forms/UploadBill */ "./resources/js/components/forms/UploadBill.js");
+/* harmony import */ var _hooks_useModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../hooks/useModal */ "./resources/js/hooks/useModal.js");
+/* harmony import */ var _states_StateProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../states/StateProvider */ "./resources/js/states/StateProvider.js");
+/* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ "./node_modules/react-datepicker/dist/react-datepicker.css");
+/* harmony import */ var _style_datePicker_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../style/datePicker.scss */ "./resources/js/style/datePicker.scss");
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/index.js");
+/* harmony import */ var _components_statsCard__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../components/statsCard */ "./resources/js/components/statsCard.js");
+/* harmony import */ var react_to_print__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-to-print */ "./node_modules/react-to-print/lib/index.js");
+/* harmony import */ var react_to_print__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(react_to_print__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -10527,6 +10775,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Employee = function Employee() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Date()),
       _useState2 = _slicedToArray(_useState, 2),
@@ -10548,61 +10797,70 @@ var Employee = function Employee() {
       isOpen = _useState8[0],
       setIsOpen = _useState8[1];
 
-  var _useStateValue = (0,_states_StateProvider__WEBPACK_IMPORTED_MODULE_7__.useStateValue)(),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      uploadBillModal = _useState10[0],
+      setUploadBillModal = _useState10[1];
+
+  var toggleUploadBillModal = function toggleUploadBillModal() {
+    setUploadBillModal(!uploadBillModal);
+  };
+
+  var _useStateValue = (0,_states_StateProvider__WEBPACK_IMPORTED_MODULE_8__.useStateValue)(),
       _useStateValue2 = _slicedToArray(_useStateValue, 1),
       _useStateValue2$ = _useStateValue2[0],
       addEmployeeDone = _useStateValue2$.addEmployeeDone,
       addEmployeeModal = _useStateValue2$.addEmployeeModal,
       approve = _useStateValue2$.approve;
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState10 = _slicedToArray(_useState9, 2),
-      categories = _useState10[0],
-      setCategories = _useState10[1];
-
-  var _useModal = (0,_hooks_useModal__WEBPACK_IMPORTED_MODULE_6__["default"])(),
-      toggleEmployeeForm = _useModal.toggleEmployeeForm;
-
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      user = _useState12[0],
-      setUser = _useState12[1];
+      categories = _useState12[0],
+      setCategories = _useState12[1];
+
+  var _useModal = (0,_hooks_useModal__WEBPACK_IMPORTED_MODULE_7__["default"])(),
+      toggleEmployeeForm = _useModal.toggleEmployeeForm;
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      open = _useState14[0],
-      setOpen = _useState14[1];
+      user = _useState14[0],
+      setUser = _useState14[1];
 
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState16 = _slicedToArray(_useState15, 2),
-      approved = _useState16[0],
-      setApproved = _useState16[1];
+      open = _useState16[0],
+      setOpen = _useState16[1];
 
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState18 = _slicedToArray(_useState17, 2),
-      rejected = _useState18[0],
-      setRejected = _useState18[1];
+      approved = _useState18[0],
+      setApproved = _useState18[1];
 
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState20 = _slicedToArray(_useState19, 2),
-      userTypes = _useState20[0],
-      setUserTypes = _useState20[1];
+      rejected = _useState20[0],
+      setRejected = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState22 = _slicedToArray(_useState21, 2),
+      userTypes = _useState22[0],
+      setUserTypes = _useState22[1];
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     search: null,
     year: null,
     period: null,
     category: null
   }),
-      _useState22 = _slicedToArray(_useState21, 2),
-      filter = _useState22[0],
-      setFilter = _useState22[1];
+      _useState24 = _slicedToArray(_useState23, 2),
+      filter = _useState24[0],
+      setFilter = _useState24[1];
 
-  var query = qs__WEBPACK_IMPORTED_MODULE_11___default().stringify(filter, {
+  var query = qs__WEBPACK_IMPORTED_MODULE_12___default().stringify(filter, {
     encode: false,
     skipNulls: true
   });
-  var params = (0,react_router__WEBPACK_IMPORTED_MODULE_15__.useParams)();
+  var params = (0,react_router__WEBPACK_IMPORTED_MODULE_16__.useParams)();
   var componentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -10610,7 +10868,7 @@ var Employee = function Employee() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0,_api_api__WEBPACK_IMPORTED_MODULE_10__["default"])().get("/categories").then(function (res) {
+            return (0,_api_api__WEBPACK_IMPORTED_MODULE_11__["default"])().get("/categories").then(function (res) {
               setCategories(res.data);
             });
 
@@ -10629,7 +10887,7 @@ var Employee = function Employee() {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return (0,_api_api__WEBPACK_IMPORTED_MODULE_10__["default"])().get("/employees/".concat(params.id, "?").concat(query)).then(function (res) {
+              return (0,_api_api__WEBPACK_IMPORTED_MODULE_11__["default"])().get("/employees/".concat(params.id, "?").concat(query)).then(function (res) {
                 var _res$data, _res$data2, _res$data$user, _res$data$user$employ;
 
                 setUser((_res$data = res.data) === null || _res$data === void 0 ? void 0 : _res$data.user);
@@ -10665,7 +10923,7 @@ var Employee = function Employee() {
     }));
   };
 
-  var handlePrint = (0,react_to_print__WEBPACK_IMPORTED_MODULE_13__.useReactToPrint)({
+  var handlePrint = (0,react_to_print__WEBPACK_IMPORTED_MODULE_14__.useReactToPrint)({
     content: function content() {
       return componentRef.current;
     }
@@ -10699,29 +10957,41 @@ var Employee = function Employee() {
     return _setPrintState.apply(this, arguments);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
     className: "employeeContainer",
     ref: componentRef,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_partial_intro__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_partial_intro__WEBPACK_IMPORTED_MODULE_2__["default"], {
       user: user,
       printing: printing
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_statsCard__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_statsCard__WEBPACK_IMPORTED_MODULE_13__["default"], {
       openReq: open,
       approvedReq: approved,
       rejectedReq: rejected,
       user: true
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h1", {
-      hidden: printing,
-      children: "Rechnungen"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        gap: '10px'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h1", {
+        hidden: printing,
+        children: "Rechnungen"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("button", {
+        className: 'addBillRequest',
+        hidden: printing,
+        onClick: toggleUploadBillModal,
+        children: "Rechnung hochladen"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
       style: {
         display: printing ? 'none' : 'grid'
       },
       className: "filtersContainer",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
         className: "yearInputEmployee",
         onClick: handleClick,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)((react_datepicker__WEBPACK_IMPORTED_MODULE_16___default()), {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)((react_datepicker__WEBPACK_IMPORTED_MODULE_17___default()), {
           selected: filterDate,
           showYearPicker: true,
           className: 'thi',
@@ -10730,45 +11000,45 @@ var Employee = function Employee() {
           onChange: handleChange,
           id: "date"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("select", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("select", {
         onChange: function onChange(e) {
           return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
             category: e.target.value !== '' ? e.target.value : null
           }));
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("option", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("option", {
           value: '',
           children: "Rechnungsart: Alle"
         }), userTypes === null || userTypes === void 0 ? void 0 : userTypes.map(function (type) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("option", {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("option", {
             value: type.id,
             children: type.title
           }, type.id);
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("select", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("select", {
         onChange: function onChange(e) {
           return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
             period: e.target.value !== '' ? e.target.value : null
           }));
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("option", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("option", {
           value: '',
           children: "Zeitraum: Alle"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("option", {
           value: "1",
           children: "1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("option", {
           value: "2",
           children: "2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("option", {
           value: "3",
           children: "3"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("form", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("form", {
         onSubmit: function onSubmit(e) {
           return e.preventDefault();
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("input", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("input", {
           className: "search",
           type: "search",
           onChange: function onChange(e) {
@@ -10777,43 +11047,52 @@ var Employee = function Employee() {
             }));
           },
           placeholder: "Suche nach Anfrage Titel..."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("button", {
           className: "searchIcon",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_17__.BsSearch, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_18__.BsSearch, {
             size: "20px",
             color: "grey"
           })
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
       style: {
         display: printing ? 'none' : ''
       },
       className: "generatePDF",
       onClick: setPrintState,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_icons_si__WEBPACK_IMPORTED_MODULE_18__.SiMicrosoftexcel, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_icons_si__WEBPACK_IMPORTED_MODULE_19__.SiMicrosoftexcel, {
         color: 'rgba(46, 125, 50, 1)',
         size: "25px"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("p", {
         children: "Bericht as PDF-Datei generieren"
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
       className: "tableContainer",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_partial_list__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_partial_list__WEBPACK_IMPORTED_MODULE_3__["default"], {
         bills: user === null || user === void 0 ? void 0 : user.bills,
         user: user,
         loading: loading
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
       toggle: toggleEmployeeForm,
       visible: addEmployeeModal,
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_forms_addEmployee__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_forms_addEmployee__WEBPACK_IMPORTED_MODULE_5__["default"], {
         user: user,
         categories: categories,
         edit: true
       }),
       className: "addEmployeeContainer"
-    })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      toggle: toggleUploadBillModal,
+      visible: uploadBillModal,
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_forms_UploadBill__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        user: user,
+        userTypes: userTypes,
+        toggle: toggleUploadBillModal
+      }),
+      className: "addEmployeeContainer"
+    }), "        "]
   });
 };
 
@@ -18338,7 +18617,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.pagination a {\n  font-size: 2vh;\n  padding: 5px 15px;\n}\n\n.employeeContainer {\n  min-height: 80vh;\n  background-color: white;\n  padding: 12vh 7vw 2vh 7vw;\n  text-align: left;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer {\n    padding: 16rem 5rem 2rem 5rem;\n  }\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer {\n    margin-top: 4vh;\n  }\n}\n.employeeContainer hr {\n  display: none;\n  border: 1px solid rgb(225, 228, 233);\n  width: 80%;\n  margin: auto;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer hr {\n    display: block;\n  }\n}\n.employeeContainer h1 {\n  font-size: 25px;\n  font-weight: 700;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer h1 {\n    font-size: 22px;\n    text-align: center;\n    margin: 3rem 0;\n  }\n}\n.employeeContainer .intro {\n  display: flex;\n  align-items: center;\n  justify-items: center;\n  justify-content: flex-start;\n  margin-bottom: 2rem;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro {\n    flex-wrap: wrap;\n    justify-content: space-around;\n    padding-bottom: 3rem;\n  }\n}\n.employeeContainer .intro .userName {\n  margin: 0 1rem;\n}\n.employeeContainer .intro h2 {\n  font-size: 25px;\n  font-weight: 700;\n  margin-left: 10px;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro h2 {\n    font-size: 2vh;\n  }\n}\n.employeeContainer .intro h3 {\n  font-size: 15px;\n  color: rgb(107, 117, 135);\n  font-weight: 600;\n  margin-right: 2rem;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro h3 {\n    font-size: 1.5vh;\n    min-width: 140px;\n    margin-top: 2rem;\n  }\n}\n.employeeContainer .intro .lightFont {\n  font-weight: 100;\n}\n.employeeContainer .intro span {\n  font-size: 2vh;\n  font-weight: 700;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro span {\n    font-size: 1.5vh;\n  }\n}\n.employeeContainer .intro img {\n  width: 6rem;\n  height: 6rem;\n  border-radius: 100px;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro img {\n    width: 16rem;\n    height: 16rem;\n  }\n}\n.employeeContainer .intro button, .employeeContainer .intro h4 {\n  padding: 0.9rem;\n  cursor: pointer;\n  background-color: black;\n  color: white;\n  font-size: 2vh;\n  border-radius: 7px;\n  margin-left: auto;\n}\n.employeeContainer .intro h4 {\n  display: none;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro h4 {\n    display: block;\n    text-align: center;\n    background-color: #ffffff;\n    color: black;\n    margin-right: auto;\n  }\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro button {\n    display: none;\n  }\n}\n.employeeContainer .filtersContainer {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  margin: 2rem 0 2rem -4vw;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .filtersContainer {\n    grid-template-columns: repeat(1, 1fr);\n    width: 80vw;\n    margin-left: 5vw;\n  }\n}\n.employeeContainer .filtersContainer select, .employeeContainer .filtersContainer input, .employeeContainer .filtersContainer option {\n  padding: 0.7rem;\n  margin: 0 0 0 2rem;\n  font-size: 2vh;\n  color: rgb(107, 117, 135);\n  background-color: white;\n  border: 1px solid rgb(225, 228, 233);\n  border-radius: 8px;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .filtersContainer select, .employeeContainer .filtersContainer input, .employeeContainer .filtersContainer option {\n    padding: 2rem;\n    margin: 1rem 0;\n  }\n}\n.employeeContainer .filtersContainer .search {\n  width: 35vw;\n  font-size: 2vh;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .filtersContainer .search {\n    padding: 2rem;\n    margin: 2rem 0;\n    position: relative;\n    width: 100%;\n  }\n}\n.employeeContainer .filtersContainer .search:focus {\n  outline: none;\n}\n.employeeContainer .filtersContainer .searchIcon {\n  background-color: inherit;\n  margin-left: -35px;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .filtersContainer .searchIcon {\n    position: absolute;\n    right: 7vw;\n    margin-top: 3rem;\n  }\n}\n.employeeContainer .generatePDF {\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-items: center;\n}\n.employeeContainer .generatePDF p {\n  margin-left: 1rem;\n  color: rgb(11, 78, 249);\n  font-weight: 600;\n  font-size: 2.3vh;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .generatePDF {\n    margin-top: 60px;\n  }\n}\n\n.tableContainer {\n  overflow-x: auto;\n  margin: 1rem 1rem 2rem 1rem;\n}\n.tableContainer h1 {\n  margin: 0 0 1rem 0;\n  font-size: 3vh;\n  font-weight: 700;\n  color: #170303;\n}\n.tableContainer table {\n  border-collapse: collapse;\n  border-spacing: 0;\n  min-width: 100%;\n  max-width: 1400px;\n}\n@media screen and (max-width: 425px) {\n  .tableContainer table {\n    width: 95vw;\n  }\n}\n.tableContainer table td, .tableContainer table th {\n  padding: 1.5rem;\n  font-size: 1.7vh;\n  font-weight: 400;\n}\n.tableContainer table th {\n  color: rgb(107, 117, 135);\n}\n.tableContainer table td {\n  font-family: \"Segoe UI\";\n}\n.tableContainer table a {\n  color: rgb(0, 135, 214);\n  font-size: 1.7vh;\n  text-decoration: underline;\n}\n.tableContainer .listBottom {\n  margin: 2rem 0 2rem 0;\n}\n.tableContainer .listBottom a {\n  padding: 0.4rem 1rem 0.4rem 1rem;\n  border: 1px solid rgb(0, 135, 214);\n  font-size: 2vh;\n  position: relative;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  color: rgb(0, 135, 214);\n  border-radius: 8px;\n  font-weight: 700;\n}\n.tableContainer .listApproved li {\n  list-style: none;\n  display: flex;\n  justify-items: left;\n  justify-content: left;\n}\n.tableContainer .listApproved li::before {\n  content: \"•\";\n  color: rgb(114, 200, 47);\n  font-weight: bold;\n  font-size: 50px;\n  margin-top: -20px;\n  width: 0.5em;\n}\n.tableContainer .listPending li {\n  list-style: none;\n  display: flex;\n  justify-items: left;\n  justify-content: left;\n}\n.tableContainer .listPending li::before {\n  content: \"•\";\n  color: rgb(228, 186, 33);\n  font-weight: bold;\n  font-size: 50px;\n  margin-top: -20px;\n  width: 0.5em;\n}\n.tableContainer .listRejected li {\n  list-style: none;\n  display: flex;\n  justify-items: left;\n  justify-content: left;\n}\n.tableContainer .listRejected li::before {\n  content: \"•\";\n  color: rgb(228, 33, 104);\n  font-weight: bold;\n  font-size: 50px;\n  margin-top: -20px;\n  width: 0.5em;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.pagination a {\n  font-size: 2vh;\n  padding: 5px 15px;\n}\n\n.employeeContainer {\n  min-height: 80vh;\n  background-color: white;\n  padding: 12vh 7vw 2vh 7vw;\n  text-align: left;\n}\n.employeeContainer .addBillRequest {\n  padding: 0.9rem;\n  cursor: pointer;\n  background-color: black;\n  color: white;\n  font-size: 2vh;\n  border-radius: 7px;\n  margin-left: auto;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer {\n    padding: 16rem 5rem 2rem 5rem;\n  }\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer {\n    margin-top: 4vh;\n  }\n}\n.employeeContainer hr {\n  display: none;\n  border: 1px solid rgb(225, 228, 233);\n  width: 80%;\n  margin: auto;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer hr {\n    display: block;\n  }\n}\n.employeeContainer h1 {\n  font-size: 25px;\n  font-weight: 700;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer h1 {\n    font-size: 22px;\n    text-align: center;\n    margin: 3rem 0;\n  }\n}\n.employeeContainer .intro {\n  display: flex;\n  align-items: center;\n  justify-items: center;\n  justify-content: flex-start;\n  margin-bottom: 2rem;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro {\n    flex-wrap: wrap;\n    justify-content: space-around;\n    padding-bottom: 3rem;\n  }\n}\n.employeeContainer .intro .userName {\n  margin: 0 1rem;\n}\n.employeeContainer .intro h2 {\n  font-size: 25px;\n  font-weight: 700;\n  margin-left: 10px;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro h2 {\n    font-size: 2vh;\n  }\n}\n.employeeContainer .intro h3 {\n  font-size: 15px;\n  color: rgb(107, 117, 135);\n  font-weight: 600;\n  margin-right: 2rem;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro h3 {\n    font-size: 1.5vh;\n    min-width: 140px;\n    margin-top: 2rem;\n  }\n}\n.employeeContainer .intro .lightFont {\n  font-weight: 100;\n}\n.employeeContainer .intro span {\n  font-size: 2vh;\n  font-weight: 700;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro span {\n    font-size: 1.5vh;\n  }\n}\n.employeeContainer .intro img {\n  width: 6rem;\n  height: 6rem;\n  border-radius: 100px;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro img {\n    width: 16rem;\n    height: 16rem;\n  }\n}\n.employeeContainer .intro button, .employeeContainer .intro h4 {\n  padding: 0.9rem;\n  cursor: pointer;\n  background-color: black;\n  color: white;\n  font-size: 2vh;\n  border-radius: 7px;\n  margin-left: auto;\n}\n.employeeContainer .intro h4 {\n  display: none;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro h4 {\n    display: block;\n    text-align: center;\n    background-color: #ffffff;\n    color: black;\n    margin-right: auto;\n  }\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .intro button {\n    display: none;\n  }\n}\n.employeeContainer .filtersContainer {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  margin: 2rem 0 2rem -4vw;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .filtersContainer {\n    grid-template-columns: repeat(1, 1fr);\n    width: 80vw;\n    margin-left: 5vw;\n  }\n}\n.employeeContainer .filtersContainer select, .employeeContainer .filtersContainer input, .employeeContainer .filtersContainer option {\n  padding: 0.7rem;\n  margin: 0 0 0 2rem;\n  font-size: 2vh;\n  color: rgb(107, 117, 135);\n  background-color: white;\n  border: 1px solid rgb(225, 228, 233);\n  border-radius: 8px;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .filtersContainer select, .employeeContainer .filtersContainer input, .employeeContainer .filtersContainer option {\n    padding: 2rem;\n    margin: 1rem 0;\n  }\n}\n.employeeContainer .filtersContainer .search {\n  width: 35vw;\n  font-size: 2vh;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .filtersContainer .search {\n    padding: 2rem;\n    margin: 2rem 0;\n    position: relative;\n    width: 100%;\n  }\n}\n.employeeContainer .filtersContainer .search:focus {\n  outline: none;\n}\n.employeeContainer .filtersContainer .searchIcon {\n  background-color: inherit;\n  margin-left: -35px;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .filtersContainer .searchIcon {\n    position: absolute;\n    right: 7vw;\n    margin-top: 3rem;\n  }\n}\n.employeeContainer .generatePDF {\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-items: center;\n}\n.employeeContainer .generatePDF p {\n  margin-left: 1rem;\n  color: rgb(11, 78, 249);\n  font-weight: 600;\n  font-size: 2.3vh;\n}\n@media screen and (max-width: 768px) {\n  .employeeContainer .generatePDF {\n    margin-top: 60px;\n  }\n}\n\n.tableContainer {\n  overflow-x: auto;\n  margin: 1rem 1rem 2rem 1rem;\n}\n.tableContainer h1 {\n  margin: 0 0 1rem 0;\n  font-size: 3vh;\n  font-weight: 700;\n  color: #170303;\n}\n.tableContainer table {\n  border-collapse: collapse;\n  border-spacing: 0;\n  min-width: 100%;\n  max-width: 1400px;\n}\n@media screen and (max-width: 425px) {\n  .tableContainer table {\n    width: 95vw;\n  }\n}\n.tableContainer table td, .tableContainer table th {\n  padding: 1.5rem;\n  font-size: 1.7vh;\n  font-weight: 400;\n}\n.tableContainer table th {\n  color: rgb(107, 117, 135);\n}\n.tableContainer table td {\n  font-family: \"Segoe UI\";\n}\n.tableContainer table a {\n  color: rgb(0, 135, 214);\n  font-size: 1.7vh;\n  text-decoration: underline;\n}\n.tableContainer .listBottom {\n  margin: 2rem 0 2rem 0;\n}\n.tableContainer .listBottom a {\n  padding: 0.4rem 1rem 0.4rem 1rem;\n  border: 1px solid rgb(0, 135, 214);\n  font-size: 2vh;\n  position: relative;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  color: rgb(0, 135, 214);\n  border-radius: 8px;\n  font-weight: 700;\n}\n.tableContainer .listApproved li {\n  list-style: none;\n  display: flex;\n  justify-items: left;\n  justify-content: left;\n}\n.tableContainer .listApproved li::before {\n  content: \"•\";\n  color: rgb(114, 200, 47);\n  font-weight: bold;\n  font-size: 50px;\n  margin-top: -20px;\n  width: 0.5em;\n}\n.tableContainer .listPending li {\n  list-style: none;\n  display: flex;\n  justify-items: left;\n  justify-content: left;\n}\n.tableContainer .listPending li::before {\n  content: \"•\";\n  color: rgb(228, 186, 33);\n  font-weight: bold;\n  font-size: 50px;\n  margin-top: -20px;\n  width: 0.5em;\n}\n.tableContainer .listRejected li {\n  list-style: none;\n  display: flex;\n  justify-items: left;\n  justify-content: left;\n}\n.tableContainer .listRejected li::before {\n  content: \"•\";\n  color: rgb(228, 33, 104);\n  font-weight: bold;\n  font-size: 50px;\n  margin-top: -20px;\n  width: 0.5em;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18579,6 +18858,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.pagination a {\n  font-size: 2vh;\n  padding: 5px 15px;\n}\n\n.settingsContainer {\n  min-height: 80vh;\n  background-color: white;\n  padding: 12vh 7vw 2vh 7vw;\n}\n@media screen and (max-width: 768px) {\n  .settingsContainer {\n    padding: 16rem 5rem 2rem 5rem;\n  }\n}\n.settingsContainer h2 {\n  font-size: 30px;\n  text-align: left;\n  margin-bottom: 2rem;\n}\n.settingsContainer form {\n  display: grid;\n  grid-template-columns: auto auto;\n  grid-gap: 20px;\n}\n@media screen and (max-width: 768px) {\n  .settingsContainer form {\n    grid-template-columns: auto;\n  }\n}\n.settingsContainer form .flex-column {\n  display: flex;\n  flex-direction: column;\n}\n.settingsContainer form .flex-column label {\n  text-align: left;\n  margin-bottom: 5px;\n  color: #262626;\n}\n.settingsContainer form input {\n  padding: 5px;\n  width: 97%;\n}\n@media screen and (max-width: 768px) {\n  .settingsContainer form input {\n    width: 95%;\n  }\n}\n.settingsContainer form input:focus {\n  outline: none;\n}\n.settingsContainer .faqEdit {\n  margin: 2rem 0;\n}\n@media screen and (max-width: 768px) {\n  .settingsContainer .faqEdit {\n    margin: 1rem;\n  }\n}\n.settingsContainer .faqEdit button {\n  padding: 5px;\n  border-radius: 5px;\n  margin: 0 10px;\n  cursor: pointer;\n  background-color: #000000;\n  color: white;\n}\n.settingsContainer .faqEdit button:hover {\n  background-color: #c4c4c4;\n  color: black;\n}\n.settingsContainer .faqEdit label {\n  position: relative;\n  font-size: 20px;\n  color: #262626;\n}\n.settingsContainer .faq {\n  border: 1px solid rgb(215, 215, 215);\n  margin: 2rem 0;\n}\n.settingsContainer .faq .rdw-editor-main {\n  padding: 0 20px 10px;\n}\n@media screen and (max-width: 768px) {\n  .settingsContainer .faq {\n    margin: 1rem;\n  }\n}\n.settingsContainer .faq label {\n  position: relative;\n  right: 48%;\n  font-size: 20px;\n  color: #262626;\n}\n.settingsContainer .save {\n  margin-top: 1px;\n  padding: 0.5rem;\n  font-size: 22px;\n  border-radius: 5px;\n}\n.settingsContainer .logoContainer {\n  margin-top: 200px;\n  margin-bottom: -100px;\n  position: relative;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 40vw;\n}\n.settingsContainer .logoContainer img {\n  height: 300px;\n  width: 300px;\n  -o-object-fit: contain;\n     object-fit: contain;\n  border: 1px solid grey;\n}\n.settingsContainer .uploadLogo {\n  display: flex;\n  align-items: center;\n  justify-items: center;\n  cursor: pointer;\n  float: right;\n  padding: 0 10px;\n  border-radius: 5px;\n  border: 1px solid #d7d7d7;\n}\n.settingsContainer .uploadLogo label {\n  margin-top: 1rem;\n  margin-left: 10px;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/style/uploadBill.scss":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/style/uploadBill.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.pagination a {\n  font-size: 2vh;\n  padding: 5px 15px;\n}\n\n.upload-bill-submit-btn {\n  background-color: black !important;\n  color: white;\n  border: 1px solid black;\n  padding: 0.5rem 1rem;\n  border-radius: 0.25rem;\n  cursor: pointer;\n  transition: all 0.3s ease-in-out;\n}\n.upload-bill-submit-btn:hover {\n  background-color: #222222 !important;\n  color: #ffffff;\n}\n\n.upload-bill-close-btn {\n  background: none;\n  color: inherit;\n  border: none;\n  padding: 0;\n  font: inherit;\n  cursor: pointer;\n  outline: inherit;\n}\n\n.uploadBillForm {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.uploadBillForm input, .uploadBillForm select {\n  width: 95% !important;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -166221,6 +166524,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_settings_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./resources/js/style/uploadBill.scss":
+/*!********************************************!*\
+  !*** ./resources/js/style/uploadBill.scss ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_uploadBill_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!../../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./uploadBill.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/style/uploadBill.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_uploadBill_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_uploadBill_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 

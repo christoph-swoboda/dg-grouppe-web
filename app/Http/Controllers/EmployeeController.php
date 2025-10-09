@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Bill;
+use App\Models\BillRequest;
 use App\Models\Device;
 use App\Models\Employee;
+use App\Models\Notification;
+use App\Models\RequestResponse;
 use App\Models\UnresolvedUser;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
@@ -370,4 +374,81 @@ class EmployeeController extends ApiController
         return $image_url;
     }
 
+    public function createBillsForUser(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'types' => 'required|array',
+            'period' => 'required|in:1,2,3',
+            'year' => 'required|date_format:Y',
+        ]);
+
+        $user = User::find($request->input('user_id'));
+        $types = $request->input('types');
+        $period = $request->input('period');
+        $year = $request->input('year');
+
+        $month = 1;
+        if ($period == 2) {
+            $month = 5;
+        } else if ($period == 3) {
+            $month = 9;
+        }
+
+        $date = "$year-$month-02";
+
+        // ✅ Check if bill already exists for this period and user
+        $existingBill = Bill::where('user_id', $user->id)
+            ->whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->exists();
+
+        if ($existingBill) {
+            return $this->errorResponse('Rechnung für diesen Zeitraum existiert bereits.', 422);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            foreach ($types as $type) {
+                $bill = Bill::create([
+                    'user_id' => $user->id,
+                    'title' => 'Rechnung Zum Hochladen',
+                    'description' => 'Dies ist eine vom Administrator erstellte Rechnung.',
+                    'created_at' => $date,
+                ]);
+
+                $bill->type()->attach($type);
+
+                $billRequest = BillRequest::create([
+                    'bill_id' => $bill->id,
+                    'category_id' => $type,
+                    'user_id' => $user->id,
+                    'published' => 1,
+                    'created_at' => $date,
+                ]);
+
+                Notification::create([
+                    'user_id' => $user->id,
+                    'bill_request_id' => $billRequest->id,
+                    'created_at' => $date,
+                ]);
+
+                RequestResponse::create([
+                    'bill_request_id' => $billRequest->id,
+                    'message' => 'Warten auf Dokument.',
+                    'image' => 'no-image.png',
+                    'created_at' => $date,
+                ]);
+            }
+
+            DB::commit();
+
+            return $this->successResponse([], 'Rechnungen erfolgreich erstellt');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            return $e->getMessage();
+        }
+    }
 }

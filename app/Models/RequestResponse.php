@@ -20,6 +20,7 @@ class RequestResponse extends Model
         'bill_request_id',
         'message',
         'image',
+        'created_at',
     ];
 
     /**

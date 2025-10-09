@@ -2,6 +2,16 @@
 @import "mixin";
 
 .employeeContainer {
+    .addBillRequest{
+        padding: .9rem;
+        cursor: pointer;
+        background-color: black;
+        color: white;
+        font-size: 2vh;
+        border-radius: 7px;
+        margin-left: auto;
+    }
+
     @include container;
     text-align: left;
     @media screen and (max-width: $bp-tablet) {
@@ -207,4 +217,5 @@
         @include listStyleColored(rgba(228, 33, 104, 1));
     }
 }
+
 

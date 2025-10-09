@@ -7,6 +7,7 @@ import {SiMicrosoftexcel} from "react-icons/si"
 import List from "./partial/list"
 import Modal from "../../components/modal"
 import AddEmployee from "../../components/forms/addEmployee"
+import UploadBill from "../../components/forms/UploadBill";
 import useModal from "../../hooks/useModal"
 import {useStateValue} from "../../states/StateProvider"
 import "react-datepicker/dist/react-datepicker.css"
@@ -23,6 +24,11 @@ const Employee = () => {
     const [printing, setPrinting] = useState(false)
     const [loading, setLoading] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+    const [uploadBillModal, setUploadBillModal] = useState(false);
+
+    const toggleUploadBillModal = () => {
+        setUploadBillModal(!uploadBillModal);
+    };
     const [{addEmployeeDone, addEmployeeModal, approve}] = useStateValue();
     const [categories, setCategories] = useState([])
     const {toggleEmployeeForm} = useModal();
@@ -86,7 +92,11 @@ const Employee = () => {
             <StatsCard openReq={open} approvedReq={approved} rejectedReq={rejected} user/>
             {/*statistics*/}
             <hr/>
-            <h1 hidden={printing}>Rechnungen</h1>
+            <div style={{display:'flex', justifyContent:'flex-start', gap:'10px'}}>
+                <h1 hidden={printing}>Rechnungen</h1>
+                <button className={'addBillRequest'} hidden={printing} onClick={toggleUploadBillModal}>Rechnung hochladen</button>
+            </div>
+
             {/* Filter */}
             <div style={{display: printing ? 'none' : 'grid'}} className='filtersContainer'>
                 <div className="yearInputEmployee" onClick={handleClick}>
@@ -153,7 +163,14 @@ const Employee = () => {
                    className='addEmployeeContainer'
             />
             {/*edit employee modal*/}
-        </div>
+
+            {/*upload bill modal*/}
+            <Modal toggle={toggleUploadBillModal}
+                   visible={uploadBillModal}
+                   component={<UploadBill user={user} userTypes={userTypes} toggle={toggleUploadBillModal}/>}
+                   className='addEmployeeContainer'
+            />
+            {/*upload bill modal*/}        </div>
     )
 }
 

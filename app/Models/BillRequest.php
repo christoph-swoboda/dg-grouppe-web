@@ -24,6 +24,7 @@ class BillRequest extends Model
         'deadline',
         'status',
         'published',
+        'created_at',
     ];
 
     /**
