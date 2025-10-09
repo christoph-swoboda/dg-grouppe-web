@@ -32,6 +32,13 @@ const UploadBill = ({user, userTypes, toggle, fetchData}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const confirmation = window.confirm("Wenn dies einmal erstellt wurde, kann es nicht mehr rückgängig gemacht werden. Einverstanden zum Fortfahren?");
+
+        if (!confirmation) {
+            return;
+        }
+
         setLoading(true);
 
         Api().post('/create-bills-for-user', {

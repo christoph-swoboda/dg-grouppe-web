@@ -8027,6 +8027,12 @@ var UploadBill = function UploadBill(_ref) {
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
+    var confirmation = window.confirm("Wenn dies einmal erstellt wurde, kann es nicht mehr rückgängig gemacht werden. Einverstanden zum Fortfahren?");
+
+    if (!confirmation) {
+      return;
+    }
+
     setLoading(true);
     (0,_api_api__WEBPACK_IMPORTED_MODULE_2__["default"])().post('/create-bills-for-user', {
       user_id: user.id,
