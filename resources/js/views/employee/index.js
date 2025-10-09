@@ -49,20 +49,23 @@ const Employee = () => {
     }, []);
 
     useEffect(() => {
-        setLoading(true)
+        fetchData();
+    }, [addEmployeeDone, query, approve]);
+
+    const fetchData = () => {
+        setLoading(true);
         const delayQuery = setTimeout(async () => {
             await Api().get(`/employees/${params.id}?${query}`).then(res => {
-                setUser(res.data?.user)
-                setRejected(res.data?.rejected)
-                setOpen(res.data.open)
-                setApproved(res.data.approved)
-                setUserTypes(res.data.user?.employees?.types)
-                setLoading(false)
-            })
-        }, (query) ? 500 : 0)
-        return () => clearTimeout(delayQuery)
-
-    }, [addEmployeeDone, query, approve]);
+                setUser(res.data?.user);
+                setRejected(res.data?.rejected);
+                setOpen(res.data.open);
+                setApproved(res.data.approved);
+                setUserTypes(res.data.user?.employees?.types);
+                setLoading(false);
+            });
+        }, (query) ? 500 : 0);
+        return () => clearTimeout(delayQuery);
+    };
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -167,10 +170,11 @@ const Employee = () => {
             {/*upload bill modal*/}
             <Modal toggle={toggleUploadBillModal}
                    visible={uploadBillModal}
-                   component={<UploadBill user={user} userTypes={userTypes} toggle={toggleUploadBillModal}/>}
+                   component={<UploadBill user={user} userTypes={userTypes} toggle={toggleUploadBillModal} fetchData={fetchData}/>}
                    className='addEmployeeContainer'
             />
-            {/*upload bill modal*/}        </div>
+            {/*upload bill modal*/}
+        </div>
     )
 }
 

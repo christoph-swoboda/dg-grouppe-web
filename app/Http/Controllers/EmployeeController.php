@@ -397,20 +397,25 @@ class EmployeeController extends ApiController
 
         $date = "$year-$month-02";
 
-        // ✅ Check if bill already exists for this period and user
-        $existingBill = Bill::where('user_id', $user->id)
-            ->whereYear('created_at', $year)
-            ->whereMonth('created_at', $month)
-            ->exists();
-
-        if ($existingBill) {
-            return $this->errorResponse('Rechnung für diesen Zeitraum existiert bereits.', 422);
-        }
 
         DB::beginTransaction();
 
         try {
             foreach ($types as $type) {
+                $existing = Bill::where('user_id', $user->id)
+                    ->whereYear('created_at', $year)
+                    ->whereMonth('created_at', $month)
+                    ->whereHas('type', function ($query) use ($type) {
+                        $query->where('category_id', $type);
+                    })
+                    ->exists();
+
+                if ($existing) {
+                    DB::rollBack();
+
+                    return $this->failResponse( 'Rechnung für diesen Zeitraum und Typ existiert bereits.', 500);
+                }
+
                 $bill = Bill::create([
                     'user_id' => $user->id,
                     'title' => 'Rechnung Zum Hochladen',
@@ -444,11 +449,12 @@ class EmployeeController extends ApiController
 
             DB::commit();
 
-            return $this->successResponse([], 'Rechnungen erfolgreich erstellt');
+            return $this->successResponse([], 'Rechnungen erfolgreich erstellt.');
         } catch (\Throwable $e) {
             DB::rollBack();
 
-            return $e->getMessage();
+            return $this->failResponse( 'etwas ist schief gelaufen!', 500);
+
         }
     }
 }

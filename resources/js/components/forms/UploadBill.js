@@ -1,11 +1,11 @@
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useStateValue} from "../../states/StateProvider";
 import Api from "../../api/api";
 import {toast} from "react-toastify";
 import '../../style/uploadBill.scss'
 
-const UploadBill = ({user, userTypes, toggle}) => {
+const UploadBill = ({user, userTypes, toggle, fetchData}) => {
 
     const [loading, setLoading] = useState(false);
     const [selectedTypes, setSelectedTypes] = useState([]);
@@ -13,6 +13,12 @@ const UploadBill = ({user, userTypes, toggle}) => {
     const currentYear = new Date().getFullYear();
     const [year, setYear] = useState(currentYear.toString());
     const years = Array.from({length: 6}, (_, i) => currentYear + i);
+
+    useEffect(() => {
+        if (user) {
+            setSelectedTypes([]);
+        }
+    }, [user]);
 
     const handleCheckboxChange = (typeId) => {
         setSelectedTypes(prevSelectedTypes => {
@@ -24,22 +30,27 @@ const UploadBill = ({user, userTypes, toggle}) => {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-        try {
-            await Api().post('/create-bills-for-user', {
-                user_id: user.id,
-                types: selectedTypes,
-                period: period,
-                year: year
+
+        Api().post('/create-bills-for-user', {
+            user_id: user.id,
+            types: selectedTypes,
+            period: period,
+            year: year
+        })
+            .then((response) => {
+                toast.success(response.data.message || 'Rechnungen erfolgreich erstellt');
+                fetchData();
+                toggle();
+            })
+            .catch((error) => {
+                toast.error(error.response?.data?.message || 'Ein Fehler ist aufgetreten');
+            })
+            .finally(() => {
+                setLoading(false);
             });
-            toast.success('Rechnungen erfolgreich erstellt');
-        } catch (error) {
-            toast.error('Fehler beim Erstellen der Rechnungen');
-        } finally {
-            setLoading(false);
-        }
     };
 
     return (
