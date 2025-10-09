@@ -27,6 +27,7 @@
 
 .uploadBillForm{
     @include centerItemsAbsolute;
+    min-width: 400px;
 
     input, select{
         width: 95%!important;

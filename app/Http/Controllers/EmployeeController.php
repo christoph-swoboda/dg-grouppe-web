@@ -395,7 +395,7 @@ class EmployeeController extends ApiController
             $month = 9;
         }
 
-        $date = "$year-$month-02";
+        $date = "$year-$month-01";
 
 
         DB::beginTransaction();
