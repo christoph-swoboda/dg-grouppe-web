@@ -36,7 +36,6 @@ const EmployeesTable = ({status, id, company, period, created,created_at, year, 
         setDeadline(getDeadline(period, year))
     }, []);
 
-
     return (
         <tbody>
         <Modal

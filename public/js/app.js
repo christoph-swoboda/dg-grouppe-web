@@ -7204,7 +7204,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var api = "http://localhost:8000/api"; // const api = 'http://localhost:8000/api';
+var api = "https://code-proof.de/api"; // const api = 'http://localhost:8000/api';
 
 var BaseApi = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: api
@@ -7486,7 +7486,7 @@ var HttpClient = /*#__PURE__*/function () {
         return type !== 'get' || type !== 'delete';
       }); // Attaching api slug with base url
 
-      this.client.defaults.baseURL = "http://localhost:8000/api"; // validating request type
+      this.client.defaults.baseURL = "https://code-proof.de/api"; // validating request type
 
       if (this.requestMethod === undefined) {
         throw new Error('Request Method Type is not found. Please use requestType(param) method');
