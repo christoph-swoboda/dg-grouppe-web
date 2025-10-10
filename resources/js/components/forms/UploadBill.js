@@ -117,7 +117,7 @@ const UploadBill = ({user, userTypes, toggle, fetchData}) => {
                     <button
                         type="submit"
                         disabled={loading || selectedTypes.length === 0}
-                        className={'upload-bill-submit-btn'}
+                        className={loading || selectedTypes.length === 0? 'disabled upload-bill-submit-btn' :'upload-bill-submit-btn'}
                     >
                         {loading ? 'Wird erstellt...' : 'Anfrage erstellen'}
                     </button>

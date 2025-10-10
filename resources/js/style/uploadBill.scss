@@ -15,6 +15,12 @@
     }
 }
 
+.disabled{
+    background-color: gray;
+    color: white;
+    cursor: not-allowed;
+}
+
 .upload-bill-close-btn {
     background: none;
 	color: inherit;
