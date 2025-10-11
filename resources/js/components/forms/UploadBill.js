@@ -1,6 +1,4 @@
-
 import React, {useEffect, useState} from 'react';
-import {useStateValue} from "../../states/StateProvider";
 import Api from "../../api/api";
 import {toast} from "react-toastify";
 import '../../style/uploadBill.scss'
@@ -63,11 +61,12 @@ const UploadBill = ({user, userTypes, toggle, fetchData}) => {
     return (
         <div className="p-4">
             <form onSubmit={handleSubmit} className={'uploadBillForm'}>
-                <h2 className="text-lg font-bold mb-4" style={{textAlign:'center'}}>Rechnung hochladen</h2>
+                <h2 className="text-lg font-bold mb-4" style={{textAlign: 'center'}}>Rechnung hochladen</h2>
                 <br/>
                 <br/>
                 <div className="mb-4">
-                    <label htmlFor="period" className="block text-sm text-bold font-medium text-gray-700">Zeitraum</label>
+                    <label htmlFor="period"
+                           className="block text-sm text-bold font-medium text-gray-700">Zeitraum</label>
                     <select
                         id="period"
                         value={period}
@@ -111,13 +110,13 @@ const UploadBill = ({user, userTypes, toggle, fetchData}) => {
                         ))}
                     </div>
                 </div>
-                <div style={{display:'flex'}}>
+                <div style={{display: 'flex'}}>
                     <button onClick={toggle} className="upload-bill-close-btn">Abbrechen</button>
 
                     <button
                         type="submit"
                         disabled={loading || selectedTypes.length === 0}
-                        className={loading || selectedTypes.length === 0? 'disabled upload-bill-submit-btn' :'upload-bill-submit-btn'}
+                        className={loading || selectedTypes.length === 0 ? 'disabled upload-bill-submit-btn' : 'upload-bill-submit-btn'}
                     >
                         {loading ? 'Wird erstellt...' : 'Anfrage erstellen'}
                     </button>

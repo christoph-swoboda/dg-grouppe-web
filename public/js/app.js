@@ -7204,7 +7204,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var api = "https://code-proof.de/api"; // const api = 'http://localhost:8000/api';
+var api = "http://localhost:8000/api"; // const api = 'http://localhost:8000/api';
 
 var BaseApi = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: api
@@ -7486,7 +7486,7 @@ var HttpClient = /*#__PURE__*/function () {
         return type !== 'get' || type !== 'delete';
       }); // Attaching api slug with base url
 
-      this.client.defaults.baseURL = "https://code-proof.de/api"; // validating request type
+      this.client.defaults.baseURL = "http://localhost:8000/api"; // validating request type
 
       if (this.requestMethod === undefined) {
         throw new Error('Request Method Type is not found. Please use requestType(param) method');
@@ -7941,11 +7941,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _states_StateProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../states/StateProvider */ "./resources/js/states/StateProvider.js");
-/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
-/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
-/* harmony import */ var _style_uploadBill_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../style/uploadBill.scss */ "./resources/js/style/uploadBill.scss");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
+/* harmony import */ var _style_uploadBill_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../style/uploadBill.scss */ "./resources/js/style/uploadBill.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7965,7 +7964,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -8034,66 +8032,66 @@ var UploadBill = function UploadBill(_ref) {
     }
 
     setLoading(true);
-    (0,_api_api__WEBPACK_IMPORTED_MODULE_2__["default"])().post('/create-bills-for-user', {
+    (0,_api_api__WEBPACK_IMPORTED_MODULE_1__["default"])().post('/create-bills-for-user', {
       user_id: user.id,
       types: selectedTypes,
       period: period,
       year: year
     }).then(function (response) {
-      react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success(response.data.message || 'Rechnungen erfolgreich erstellt');
+      react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.success(response.data.message || 'Rechnungen erfolgreich erstellt');
       fetchData();
       toggle();
     })["catch"](function (error) {
       var _error$response, _error$response$data;
 
-      react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error(((_error$response = error.response) === null || _error$response === void 0 ? void 0 : (_error$response$data = _error$response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || 'Ein Fehler ist aufgetreten');
+      react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error(((_error$response = error.response) === null || _error$response === void 0 ? void 0 : (_error$response$data = _error$response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || 'Ein Fehler ist aufgetreten');
     })["finally"](function () {
       setLoading(false);
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "p-4",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
       onSubmit: handleSubmit,
       className: 'uploadBillForm',
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
         className: "text-lg font-bold mb-4",
         style: {
           textAlign: 'center'
         },
         children: "Rechnung hochladen"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "mb-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
           htmlFor: "period",
           className: "block text-sm text-bold font-medium text-gray-700",
           children: "Zeitraum"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
           id: "period",
           value: period,
           onChange: function onChange(e) {
             return setPeriod(e.target.value);
           },
           className: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
             value: "1",
             children: "1"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
             value: "2",
             children: "2"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
             value: "3",
             children: "3"
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "mb-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
           htmlFor: "year",
           className: "block text-sm text-bold font-medium text-gray-700",
           children: "Jahr"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
           id: "year",
           value: year,
           onChange: function onChange(e) {
@@ -8101,23 +8099,23 @@ var UploadBill = function UploadBill(_ref) {
           },
           className: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
           children: years.map(function (y) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
               value: y,
               children: y
             }, y);
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "mb-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
           className: "block text-sm text-bold text-gray-700 mb-2",
           children: "Rechnungsarten"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "flex flex-wrap gap-4",
           children: userTypes === null || userTypes === void 0 ? void 0 : userTypes.map(function (type) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
               className: "flex items-center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                 type: "checkbox",
                 id: "type-".concat(type.id),
                 checked: selectedTypes.includes(type.id),
@@ -8125,7 +8123,7 @@ var UploadBill = function UploadBill(_ref) {
                   return handleCheckboxChange(type.id);
                 },
                 className: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                 htmlFor: "type-".concat(type.id),
                 className: "ml-2 block text-sm text-gray-900",
                 children: type.title
@@ -8133,15 +8131,15 @@ var UploadBill = function UploadBill(_ref) {
             }, type.id);
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         style: {
           display: 'flex'
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
           onClick: toggle,
           className: "upload-bill-close-btn",
           children: "Abbrechen"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
           type: "submit",
           disabled: loading || selectedTypes.length === 0,
           className: loading || selectedTypes.length === 0 ? 'disabled upload-bill-submit-btn' : 'upload-bill-submit-btn',
@@ -18866,7 +18864,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.pagination a {\n  font-size: 2vh;\n  padding: 5px 15px;\n}\n\n.upload-bill-submit-btn {\n  background-color: black !important;\n  color: white;\n  border: 1px solid black;\n  padding: 0.5rem 1rem;\n  border-radius: 0.25rem;\n  cursor: pointer;\n  transition: all 0.3s ease-in-out;\n}\n.upload-bill-submit-btn:hover {\n  background-color: #222222 !important;\n  color: #ffffff;\n}\n\n.disabled {\n  background-color: gray;\n  color: white;\n  cursor: not-allowed;\n}\n\n.upload-bill-close-btn {\n  background: none;\n  color: inherit;\n  border: none;\n  padding: 0;\n  font: inherit;\n  cursor: pointer;\n  outline: inherit;\n}\n\n.uploadBillForm {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: 400px;\n}\n.uploadBillForm input, .uploadBillForm select {\n  width: 95% !important;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".react-datepicker-wrapper,\n.react-datepicker__input-container,\n.react-datepicker__input-container input {\n  font-size: 2vh;\n  padding: 0.7rem;\n  border-radius: 8px;\n  height: 2.6vh;\n}\n\ntd {\n  text-transform: capitalize;\n}\n\n.pagination a {\n  font-size: 2vh;\n  padding: 5px 15px;\n}\n\n.upload-bill-submit-btn {\n  background-color: black !important;\n  color: white;\n  border: 1px solid black;\n  padding: 0.5rem 1rem;\n  border-radius: 0.25rem;\n  cursor: pointer;\n  transition: all 0.3s ease-in-out;\n  white-space: nowrap;\n}\n.upload-bill-submit-btn:hover {\n  background-color: #222222 !important;\n  color: #ffffff;\n}\n\n.disabled {\n  background-color: gray;\n  color: white;\n  cursor: not-allowed;\n}\n\n.upload-bill-close-btn {\n  background: none;\n  color: inherit;\n  border: none;\n  padding: 0;\n  font: inherit;\n  cursor: pointer;\n  outline: inherit;\n  white-space: nowrap;\n}\n\n.uploadBillForm {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: 350px;\n}\n.uploadBillForm input, .uploadBillForm select {\n  width: 95% !important;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -8,6 +8,7 @@
     border-radius: 0.25rem;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    white-space: nowrap;
 
     &:hover {
         background-color: #222222 !important;
@@ -29,11 +30,12 @@
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+    white-space: nowrap;
 }
 
 .uploadBillForm{
     @include centerItemsAbsolute;
-    min-width: 400px;
+    min-width: 350px;
 
     input, select{
         width: 95%!important;

@@ -385,26 +385,29 @@ class EmployeeController extends ApiController
 
         $user = User::find($request->input('user_id'));
         $types = $request->input('types');
-        $period = $request->input('period');
+        $period = (int) $request->input('period');
         $year = $request->input('year');
 
-        $month = 1;
-        if ($period == 2) {
-            $month = 5;
-        } else if ($period == 3) {
-            $month = 9;
+        if ($period == 1) {
+            $startMonth = 1;
+        } elseif ($period == 2) {
+            $startMonth = 5;
+        } else {
+            $startMonth = 9;
         }
 
-        $date = "$year-$month-01";
-
+        $endMonth = $startMonth + 3;
+        $date = "$year-$startMonth-01";
 
         DB::beginTransaction();
 
         try {
             foreach ($types as $type) {
+                // Check if existing bill falls within this period range
                 $existing = Bill::where('user_id', $user->id)
                     ->whereYear('created_at', $year)
-                    ->whereMonth('created_at', $month)
+                    ->whereMonth('created_at', '>=', $startMonth)
+                    ->whereMonth('created_at', '<=', $endMonth)
                     ->whereHas('type', function ($query) use ($type) {
                         $query->where('category_id', $type);
                     })
@@ -412,10 +415,10 @@ class EmployeeController extends ApiController
 
                 if ($existing) {
                     DB::rollBack();
-
-                    return $this->failResponse( 'Rechnung für diesen Zeitraum und Typ existiert bereits.', 500);
+                    return $this->failResponse('Rechnung für diesen Zeitraum und Typ existiert bereits.', 500);
                 }
 
+                // Create Bill
                 $bill = Bill::create([
                     'user_id' => $user->id,
                     'title' => 'Rechnung Zum Hochladen',
@@ -448,13 +451,13 @@ class EmployeeController extends ApiController
             }
 
             DB::commit();
-
             return $this->successResponse([], 'Rechnungen erfolgreich erstellt.');
         } catch (\Throwable $e) {
             DB::rollBack();
-
-            return $this->failResponse( 'etwas ist schief gelaufen!', 500);
-
+            return $this->failResponse('Etwas ist schief gelaufen!', 500);
         }
     }
+
+
+
 }
