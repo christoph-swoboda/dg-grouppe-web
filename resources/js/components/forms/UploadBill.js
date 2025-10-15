@@ -46,7 +46,7 @@ const UploadBill = ({user, userTypes, toggle, fetchData}) => {
             year: year
         })
             .then((response) => {
-                toast.success(response.data.message || 'Rechnungen erfolgreich erstellt');
+                toast.success(response.data.message || 'Anfrage erfolgreich erstellt');
                 fetchData();
                 toggle();
             })

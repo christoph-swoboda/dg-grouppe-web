@@ -451,7 +451,7 @@ class EmployeeController extends ApiController
             }
 
             DB::commit();
-            return $this->successResponse([], 'Rechnungen erfolgreich erstellt.');
+            return $this->successResponse([], 'Anfrage erfolgreich erstellt.');
         } catch (\Throwable $e) {
             DB::rollBack();
             return $this->failResponse('Etwas ist schief gelaufen!', 500);
